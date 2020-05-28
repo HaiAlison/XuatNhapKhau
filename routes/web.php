@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest:web')->group(function(){
 	Route::get('login','LoginController@login')->name('login');
 	Route::post('login','LoginController@doLogin')->name('do-login');
-	Route::get('register','LoginController@register')->name('register');
-	Route::post('register','LoginController@storeRegister')->name('do-register');
+	/*Route::get('register','LoginController@register')->name('register');
+	Route::post('register','LoginController@storeRegister')->name('do-register');*/
 });
 
 Route::middleware('auth:web')->group(function(){
