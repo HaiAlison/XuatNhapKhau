@@ -13,14 +13,58 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('guest:web')->group(function(){
-	Route::get('login','LoginController@login')->name('login');
-	Route::post('login','LoginController@doLogin')->name('do-login');
-	/*Route::get('register','LoginController@register')->name('register');
-	Route::post('register','LoginController@storeRegister')->name('do-register');*/
+Route::middleware('guest')->group(function(){
+	Route::get('login','Auth\LoginController@showLoginForm')->name('login');
+	Route::post('login','Auth\LoginController@login')->name('do-login');
+
+	Route::get('register','UserController@register')->name('register');
+	Route::post('register','UserController@storeRegister')->name('do-register');
+
 });
 
-Route::middleware('auth:web')->group(function(){
-	Route::get('/','IndexController@index')->name('index');
-	Route::get('logout','LoginController@logout')->name('logout');
+//authenticate users
+Route::middleware('auth')->group(function(){
+	Route::get('/', function(){
+		return view('user.index');
+	});
+	Route::prefix('user')->group(function(){
+		Route::name('user.')->group(function(){
+
+			Route::get('/index','UserController@index')->name('index');
+			Route::get('logout','Auth\LoginController@logout')->name('logout');
+		});
+	});
+});
+
+
+
+
+Route::middleware('guest:admin')->group(function(){
+	Route::prefix('admin')->group(function(){
+		Route::name('admin.')->group(function(){
+
+			Route::get('/login','Auth\AdminLoginController@login')->name('login');
+			Route::post('/login','Auth\AdminLoginController@doLogin')->name('do-login');
+
+		});
+	});
+});
+//authenticate admins
+Route::middleware('auth:admin')->group(function(){
+
+	
+	Route::prefix('admin')->group(function(){
+		Route::name('admin.')->group(function(){
+
+			Route::get('/','Auth\AdminLoginController@index')->name('index');
+			Route::get('/logout','Auth\AdminLoginController@logout')->name('logout');
+
+			Route::get('/binding','BindingController@create')->name('binding');
+			Route::post('/binding','BindingController@store')->name('store-binding');
+
+
+			Route::get('/binding/edit/{id}','BindingController@edit')->name('edit-binding');
+			Route::post('/binding/edit/{id}','BindingController@update')->name('update-binding');
+		});
+	});
 });
