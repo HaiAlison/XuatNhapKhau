@@ -14,8 +14,8 @@ class PackingTable extends Migration
     public function up()
     {
         //
-        Schema::create('packing', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('packings', function (Blueprint $table) {
+            $table->string('id');
             $table->text('packing');
             $table->timestamps();
             $table->softDeletes(); 

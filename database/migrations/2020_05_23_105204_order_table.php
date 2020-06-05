@@ -14,8 +14,8 @@ class OrderTable extends Migration
     public function up()
     {
         //
-        Schema::create('order', function (Blueprint $table) {
-            $table->increments('id'); //po_no primaryKey
+        Schema::create('orders', function (Blueprint $table) {
+            $table->string('id');  //po_no primaryKey
             $table->date('po_date');
             $table->text('po_status_id');
             $table->text('origin_id');

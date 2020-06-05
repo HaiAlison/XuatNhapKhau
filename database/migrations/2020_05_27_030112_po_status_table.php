@@ -14,7 +14,7 @@ class PoStatusTable extends Migration
     public function up()
     {
         Schema::create('po_status', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id');
             $table->text('po_status');
             $table->timestamps();
             $table->softDeletes(); 

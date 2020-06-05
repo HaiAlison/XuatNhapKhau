@@ -30,8 +30,13 @@ Route::middleware('auth')->group(function(){
 	Route::prefix('user')->group(function(){
 		Route::name('user.')->group(function(){
 
-			Route::get('/index','UserController@index')->name('index');
+			Route::get('/index','HomeController@index')->name('index');
 			Route::get('logout','Auth\LoginController@logout')->name('logout');
+
+			Route::get('order-detail','User\OrderDetailController@create')->name('order-detail');
+
+			Route::get('shipment/','User\ShipmentController@create')->name('shipment');
+			
 		});
 	});
 });

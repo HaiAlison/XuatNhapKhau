@@ -13,15 +13,20 @@
 	<base href="{{asset('./')}}">
 	<!-- Custom fonts for this template-->
 	<link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}"/>
-    <!-- Custom styles -->
-    <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- JQuery Core to use datetimepicker-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" ></script>
 
+    <!-- Transition js -->
+    <script  src="{{asset('assets/js/transition.min.js')}}"/></script> 
+    <!-- Collapse -->
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.collapsible/1.2/jquery.collapsible.js"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.collapsible/1.2/jquery.collapsible.min.js"></script>
 	<!-- Custom styles for this template-->
 	<link href="{{asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
 	@yield('css')
@@ -402,18 +407,25 @@
 	<script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
 	<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-	<!-- Core plugin JavaScript-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+
+<script src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
+
+
+
+<link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css
+" rel="stylesheet"/>
+
 	<script src="{{asset('assets/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
 	<!-- Custom scripts for all pages-->
 	<script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
 
-	<!-- Page level plugins -->
-	<script src="{{asset('assets/vendor/chart.js/Chart.min.js')}}"></script>
 
-	<!-- Page level custom scripts -->
-	<script src="{{asset('assets/js/demo/chart-area-demo.js')}}"></script>
-	<script src="{{asset('assets/js/demo/chart-pie-demo.js')}}"></script>
+
+
 	<!-- hide alert -->
 	<script>
 	$('#div').delay(3000).fadeOut('slow');

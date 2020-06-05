@@ -14,8 +14,8 @@ class ShipmentTable extends Migration
     public function up()
     {
         //
-        Schema::create('shipment', function (Blueprint $table) {
-            $table->increments('id'); //sub_po_no primaryKey
+        Schema::create('shipments', function (Blueprint $table) {
+            $table->string('id'); //sub_po_no primaryKey
             $table->text('po_no_id');
             //$table->foreign('po_no_id')->references('id')->on('orders'); //foreignKey
             $table->text('sale_contract_no');

@@ -13,8 +13,8 @@ class CustomerTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('customers', function (Blueprint $table) {
+            $table->string('id');
             $table->text('customer_name');
             $table->timestamps();
             $table->softDeletes(); 

@@ -14,8 +14,8 @@ class OriginTable extends Migration
     public function up()
     {
         //
-        Schema::create('origin', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('origins', function (Blueprint $table) {
+            $table->string('id');
             $table->text('origin_name');
             $table->timestamps();
             $table->softDeletes(); 

@@ -13,8 +13,8 @@ class WeightUnitTable extends Migration
      */
     public function up()
     {
-        Schema::create('weight_unit', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('weight_units', function (Blueprint $table) {
+            $table->string('id');
             $table->integer('weight_unit');
             $table->timestamps();
             $table->softDeletes(); 

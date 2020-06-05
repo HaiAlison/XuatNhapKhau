@@ -14,8 +14,8 @@ class SupplierTable extends Migration
     public function up()
     {
         //
-        Schema::create('supplier', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('suppliers', function (Blueprint $table) {
+            $table->string('id');
             $table->text('supplier');
             $table->timestamps();
             $table->softDeletes(); 
