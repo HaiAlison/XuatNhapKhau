@@ -13,8 +13,8 @@ class ShipmentDetail extends Migration
      */
     public function up()
     {       
-        Schema::create('shipment_detail', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('shipment_details', function (Blueprint $table) {
+            $table->string('id');
             $table->text('product_code_id');
             $table->text('product_name_id');
             $table->text('packing_id');

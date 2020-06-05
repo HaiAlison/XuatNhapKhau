@@ -14,8 +14,8 @@ class BindingTable extends Migration
     public function up()
     {
         //
-        Schema::create('binding', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('bindings', function (Blueprint $table) {
+            $table->string('id');
             $table->text('binding');
             $table->timestamps();
             $table->softDeletes(); 

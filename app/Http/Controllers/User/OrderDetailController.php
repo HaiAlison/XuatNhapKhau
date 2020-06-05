@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class IndexController extends Controller
+class OrderDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,6 @@ class IndexController extends Controller
     public function index()
     {
         //
-        return view('index');
     }
 
     /**
@@ -24,7 +24,7 @@ class IndexController extends Controller
      */
     public function create()
     {
-        //
+       return view('user.order-detail');
     }
 
     /**

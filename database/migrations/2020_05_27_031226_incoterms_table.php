@@ -14,7 +14,7 @@ class IncotermsTable extends Migration
     public function up()
     {
         Schema::create('incoterms', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id');
             $table->text('incoterms');
             $table->timestamps();
             $table->softDeletes(); 

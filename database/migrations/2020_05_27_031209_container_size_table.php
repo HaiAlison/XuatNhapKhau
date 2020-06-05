@@ -13,8 +13,8 @@ class ContainerSizeTable extends Migration
      */
     public function up()
     {
-        Schema::create('container_size', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('container_sizes', function (Blueprint $table) {
+            $table->string('id');
             $table->text('container_size');
             $table->timestamps();
             $table->softDeletes(); 

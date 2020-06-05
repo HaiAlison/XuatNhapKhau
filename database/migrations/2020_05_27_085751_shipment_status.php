@@ -14,7 +14,7 @@ class ShipmentStatus extends Migration
     public function up()
     {
         Schema::create('shipment_status', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id');
             $table->text('shipment_status');
             $table->timestamps();
             $table->softDeletes(); 

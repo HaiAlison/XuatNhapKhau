@@ -13,8 +13,8 @@ class TypeOfShipmentDetail extends Migration
      */
     public function up()
     {
-        Schema::create('type_of_shipment_detail', function (Blueprint $table) {
-                $table->increments('id');
+        Schema::create('type_of_shipment_details', function (Blueprint $table) {
+                $table->string('id');
                 $table->text('number_container');
                 $table->text('container_size_id');
                 $table->text('payload');
