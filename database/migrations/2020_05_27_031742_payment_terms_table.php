@@ -15,7 +15,7 @@ class PaymentTermsTable extends Migration
     {
         Schema::create('payment_terms', function (Blueprint $table) {
             $table->string('id');
-            $table->text('payment_terms');
+            $table->text('payment_term');
             $table->timestamps();
             $table->softDeletes(); 
         });
@@ -28,6 +28,6 @@ class PaymentTermsTable extends Migration
      */
     public function down()
     {
-        //
+        Shema::dropIfExists('payment_terms');
     }
 }

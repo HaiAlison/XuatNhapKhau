@@ -29,6 +29,6 @@ class CertificateOfOrigin extends Migration
      */
     public function down()
     {
-        //
+        Shema::dropIfExists('certificate_of_origins');
     }
 }

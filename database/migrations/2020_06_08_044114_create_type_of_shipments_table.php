@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class WeightUnitTable extends Migration
+class CreateTypeOfShipmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class WeightUnitTable extends Migration
      */
     public function up()
     {
-        Schema::create('weight_units', function (Blueprint $table) {
+        Schema::create('type_of_shipments', function (Blueprint $table) {
             $table->string('id');
-            $table->integer('weight_unit');
+            $table->text('type_of_shipment');
             $table->timestamps();
             $table->softDeletes(); 
         });
-
     }
 
     /**
@@ -29,6 +28,6 @@ class WeightUnitTable extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('weight_units');
+        Schema::dropIfExists('type_of_shipments');
     }
 }
