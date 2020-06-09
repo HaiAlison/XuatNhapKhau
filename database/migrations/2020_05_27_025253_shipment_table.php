@@ -15,9 +15,10 @@ class ShipmentTable extends Migration
     {
         //
         Schema::create('shipments', function (Blueprint $table) {
-            $table->string('id'); //sub_po_no primaryKey
+            $table->string('id')->unique(); //sub_po_no primaryKey
+            $table->primary('id');  
             $table->text('po_no_id');
-            //$table->foreign('po_no_id')->references('id')->on('orders'); //foreignKey
+            // $table->foreign('po_no_id')->references('id')->on('orders'); //foreignKey
             $table->text('sale_contract_no');
             $table->text('invoice_no');
             $table->text('bl_no');

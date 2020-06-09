@@ -33,8 +33,19 @@ Route::middleware('auth')->group(function(){
 			Route::get('/index','HomeController@index')->name('index');
 			Route::get('logout','Auth\LoginController@logout')->name('logout');
 
+<<<<<<< Updated upstream
 			Route::get('order-detail','User\OrderDetailController@create')->name('order-detail');
 
+=======
+
+			Route::get('/order','User\OrderController@create')->name('order');
+			Route::post('/order','User\OrderController@store')->name('store-order');
+
+
+			Route::get('order-detail','User\OrderDetailController@create')->name('order-detail');
+			Route::post('order-detail','User\OrderDetailController@store')->name('store-order-detail');
+
+>>>>>>> Stashed changes
 			Route::get('shipment/','User\ShipmentController@create')->name('shipment');
 			
 		});
@@ -43,7 +54,7 @@ Route::middleware('auth')->group(function(){
 
 
 
-
+//authenticate admins
 Route::middleware('guest:admin')->group(function(){
 	Route::prefix('admin')->group(function(){
 		Route::name('admin.')->group(function(){
@@ -54,7 +65,7 @@ Route::middleware('guest:admin')->group(function(){
 		});
 	});
 });
-//authenticate admins
+
 Route::middleware('auth:admin')->group(function(){
 
 	

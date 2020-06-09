@@ -1,4 +1,4 @@
-<?php
+->unique()<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,7 +14,8 @@ class PoStatusTable extends Migration
     public function up()
     {
         Schema::create('po_status', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id')->unique();
+            $table->primary('id');  
             $table->text('po_status');
             $table->timestamps();
             $table->softDeletes(); 

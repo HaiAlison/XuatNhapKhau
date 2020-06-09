@@ -356,6 +356,7 @@
 						</div>
 						@yield('content')
 					</main>
+					@yield('content-detail')
 					</div>
 					<!-- /.container-fluid -->
 					

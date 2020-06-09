@@ -15,7 +15,7 @@ class PackingTable extends Migration
     {
         //
         Schema::create('packings', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id')->unique();
             $table->text('packing');
             $table->timestamps();
             $table->softDeletes(); 

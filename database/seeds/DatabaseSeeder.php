@@ -12,7 +12,24 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserSeeder::class);
-         $this->call(createAccountUser::class);
+          $this->call(createAccountUser::class);
         $this->call(createAdminAccount::class);
+<<<<<<< Updated upstream
+=======
+        $this->call(seedShipmentStatus::class);
+        $this->call(bindingSeeder::class);
+        $this->call(certificateOfOriginSeeder::class);
+        $this->call(customerSeeder::class);
+        $this->call(incotermsSeeder::class);
+        $this->call(manufacturerSeeder::class);
+        $this->call(originSeeder::class);
+        $this->call(packingSeeder::class);
+        $this->call(paymentTermsSeeder::class);
+        $this->call(PODSeeder::class);
+        $this->call(POStatusSeeder::class);
+        $this->call(productSeeder::class);
+        $this->call(supplierSeeder::class);
+        $this->call(weightUnitSeeder::class);
+>>>>>>> Stashed changes
     }
 }
