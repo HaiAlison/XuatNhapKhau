@@ -28,6 +28,6 @@ class ShipmentStatus extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('shipment_status');
     }
 }

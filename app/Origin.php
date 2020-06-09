@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Origin extends Model
 {
-<<<<<<< Updated upstream
-  
-=======
+
+
   	protected $primaryKey = "O_id";
->>>>>>> Stashed changes
+    use SoftDeletes;
+
 }

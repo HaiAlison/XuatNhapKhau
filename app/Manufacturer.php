@@ -3,12 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Manufacturer extends Model
 {
-<<<<<<< Updated upstream
-    public $incrementing = false, $keyType = 'string';
-=======
     protected $primaryKey = "M_id";
+
+    use SoftDeletes;
 }
->>>>>>> Stashed changes
+

@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-<<<<<<< Updated upstream
-    public $incrementing = false, $keyType = 'string';
-=======
-  
->>>>>>> Stashed changes
+
+    use SoftDeletes;
+
+
 }

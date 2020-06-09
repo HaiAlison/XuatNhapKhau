@@ -3,13 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class POD extends Model
 {
-<<<<<<< Updated upstream
-    public $incrementing = false, $keyType = 'string';
-=======
-  
+
+    use SoftDeletes;
     protected $table = 'pods';
->>>>>>> Stashed changes
+
 }

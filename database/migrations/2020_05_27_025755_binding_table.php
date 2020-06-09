@@ -29,6 +29,6 @@ class BindingTable extends Migration
      */
     public function down()
     {
-        //
+        Shema::dropIfExists('bindings');
     }
 }

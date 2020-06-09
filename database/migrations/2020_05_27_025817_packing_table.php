@@ -29,6 +29,6 @@ class PackingTable extends Migration
      */
     public function down()
     {
-        //
+        Shema::dropIfExists('packings');
     }
 }

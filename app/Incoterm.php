@@ -3,12 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Incoterm extends Model
 {
-<<<<<<< Updated upstream
-   public $incrementing = false, $keyType = 'string';
-=======
-   
->>>>>>> Stashed changes
+   use SoftDeletes;
+
 }

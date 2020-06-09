@@ -56,6 +56,6 @@ class ShipmentTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('shipments');
     }
 }
