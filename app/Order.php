@@ -10,62 +10,68 @@ class Order extends Model
 	use SoftDeletes;
  	protected $table='orders';
     //
-    	public function manufacturers()
+    protected $primaryKey = 'id';
+
+
+    protected $fillable = [
+              'id','po_date','po_status_id','origin_id','marking','manufacturer_id','supplier_id','pol','pod','incoterm_id','eta_request','end_customer','inspection_required','type_of_shipment','link_to_specs','hs_code','co_id','payment_term_id','within_x_day','currency'
+    ];
+    	public function manufacturer()
   	{
-  		$this->hasMany('App\Manufacturer');
+  		return $this->belongsTo('App\Manufacturer');
   	}
 
-  	public function paymentTerms()
+  	public function paymentTerm()
   	{
-  		$this->hasMany('App\PaymentTerms');
+  		return $this->belongsTo('App\PaymentTerms');
   	}
 
-  	public function origins()
+  	public function origin()
   	{
-  		$this->hasMany('App\Origin');
+  		return $this->belongsTo('App\Origin');
   	}
 
-  	public function suppliers()
+  	public function supplier()
   	{
-  		$this->hasMany('App\Supplier');
+  		return $this->belongsTo('App\Supplier');
   	}
 
-  	public function typeOfShipments()
+  	public function typeOfShipment()
   	{
-  	   	return $this->hasManyThrough('App\TypeOfShipment','App\TypeOfShipmentDetail');
+  	  return $this->hasManyThrough('App\TypeOfShipment','App\TypeOfShipmentDetail');
 	}
 
-  	public function typeOfShipmentDetails()
+  	public function typeOfShipmentDetail()
   	{
-  		$this->hasMany('App\TypeOfShipmentDetail');
+  		return $this->belongsTo('App\TypeOfShipmentDetail');
   	}
-  	public function containerSizes()
+  	public function containerSize()
   	{
-  		$this->hasMany('App\ContainerSize');
+  		return $this->belongsTo('App\ContainerSize');
   	}
-  	public function incoterms()
+  	public function incoterm()
   	{
-  		$this->hasMany('App\Incoterm');
+  		return $this->belongsTo('App\Incoterm');
   	}
   	public function poStatus()
   	{
-  		$this->hasMany('App\POStatus');
+  		return $this->belongsTo('App\POStatus','id');
   	}
-  	public function orderDetails()
+  	public function orderDetail()
   	{
-  		$this->belongsTo('App\OrderDetail');
+  		return $this->belongsTo('App\OrderDetail');
   	}
-  	public function shipments()
+  	public function shipment()
   	{
-  		$this->belongsTo('App\Shipment');
+  		return $this->belongsTo('App\Shipment');
   	}
-  	public function certificateOfOrigins()
+  	public function certificateOfOrigin()
   	{
-  		$this->hasMany('App\CertificateOfOrigin');
+  		return $this->belongsTo('App\CertificateOfOrigin');
   	}
-  	public function pods()
+  	public function pod()
   	{
-  		$this->hasMany('App\POD');
+  		return $this->belongsTo('App\POD');
   	}
 
 }

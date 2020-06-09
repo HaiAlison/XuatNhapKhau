@@ -15,9 +15,11 @@ class OrderTable extends Migration
     {
         //
         Schema::create('orders', function (Blueprint $table) {
-            $table->string('id');  //po_no primaryKey
+            $table->string('id')->unique();  //po_no primaryKey
+            $table->primary('id');  
             $table->date('po_date');
-            $table->text('po_status_id');
+            $table->string('po_status_id');
+            $table->foreign('po_status_id')->references('id')->on('po_status');
             $table->text('origin_id');
             $table->text('marking');
             $table->text('manufacture_id');

@@ -14,32 +14,36 @@ class paymentTermsSeeder extends Seeder
         $paymentTerm=[];
         $paymentTerm[]=[
             'id'=>'PaymentTerms_CAD',
-            'payment_term'=>'Cash Against Document (CAD)'
+
+            'payment_terms'=>'Cash Against Document (CAD)'
+
 
         ];
         $paymentTerm[]=[
             'id'=>'PaymentTerms_Collection',
-            'payment_term'=>'Collection'
+
+            'payment_terms'=>'Collection'
+
 
         ];
         $paymentTerm[]=[
             'id'=>'PaymentTerms_LC',
-            'payment_term'=>'Letter of Credit (LC)'
+            'payment_terms'=>'Letter of Credit (LC)'
+
 
         ];
         $paymentTerm[]=[
             'id'=>'PaymentTerms_Prepaid',
-            'payment_term'=>'Prepaid '
-
+            'payment_terms'=>'Prepaid '
         ];
         $paymentTerm[]=[
             'id'=>'PaymentTerms_TT',
-            'payment_term'=>'Telegraphic Transfer Remittance (TT)'
+            'payment_terms'=>'Telegraphic Transfer Remittance (TT)'
 
         ];
         foreach($paymentTerm as $pmt)
         {
-            App\PaymentTerms::create($pmt);
+            App\PaymentTerm::create($pmt);
         }
     }
 }

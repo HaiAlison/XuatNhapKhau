@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class POStatus extends Model
 {
+
     use SoftDeletes;
     protected $table='po_status';
-    public $incrementing = false, $keyType = 'string';
+    protected $primaryKey = 'PO_id';
+
+   
+
 }

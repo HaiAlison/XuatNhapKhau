@@ -15,7 +15,7 @@ class BindingTable extends Migration
     {
         //
         Schema::create('bindings', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id')->unique();
             $table->text('binding');
             $table->timestamps();
             $table->softDeletes(); 

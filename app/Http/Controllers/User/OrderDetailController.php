@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\OrderDetail;
 class OrderDetailController extends Controller
 {
     /**
@@ -24,7 +24,8 @@ class OrderDetailController extends Controller
      */
     public function create()
     {
-       return view('user.order-detail');
+        $orderDetails = OrderDetail::all();
+       return view('user.order-detail',compact('orderDetails'));
     }
 
     /**
@@ -35,7 +36,9 @@ class OrderDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        OrderDetail::create($request->except(['_token']));
+        return back()->with('success','create order detail success');
     }
 
     /**

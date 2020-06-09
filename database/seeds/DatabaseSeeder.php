@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserSeeder::class);
-         $this->call(createAccountUser::class);
+          $this->call(createAccountUser::class);
         $this->call(createAdminAccount::class);
         $this->call(seedShipmentStatus::class);
         $this->call(bindingSeeder::class);
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(POStatusSeeder::class);
         $this->call(productSeeder::class);
         $this->call(supplierSeeder::class);
-        $this->call(typeOfShipmentSeeder::class);
         $this->call(weightUnitSeeder::class);
+
     }
 }

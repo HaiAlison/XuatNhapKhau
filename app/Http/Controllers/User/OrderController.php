@@ -4,7 +4,17 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\POStatus;
+use App\Origin;
+use App\Manufacturer;
 use App\Order;
+use App\Supplier;
+use App\POD;
+use App\Incoterm;
+use App\ContainerSize;
+use App\CertificateOfOrigin;
+use App\PaymentTerm;
+use App\TypeOfShipmentDetail;
 class OrderController extends Controller
 {
     /**
@@ -14,7 +24,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+       
     }
     /**
      * Show the form for creating a new resource.
@@ -23,7 +33,17 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('user.index');
+        $poStatuses = POStatus::all();
+        $origins = Origin::all();
+        $manufacturers = Manufacturer::all();
+        $suppliers = Supplier::all();
+        $pods = POD::all();
+        $incoterms = Incoterm::all();
+        $containerSizes = ContainerSize::all();
+        $cos = CertificateOfOrigin::all();
+        $paymentTerms = PaymentTerm::all();
+
+        return view('user.order',compact('poStatuses','origins','manufacturers','suppliers','pods','incoterms','containerSizes','cos','paymentTerms'));
     }
 
     /**
@@ -34,10 +54,24 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-         $order = new Order;
-         $order = $request->all();
-         $order->save();
-         return redirect()->route('user.order-detail')->with('success','');
+        $this->validate($request,[
+            'id' => 'required|unique:orders',
+            'end_customer' => 'required',
+
+        ]);
+
+        if($request->type_of_shipment === 'vessle'){
+
+            Order::create($request->except('_token'));
+        }
+        else{
+            Order::create($request->except('_token'));
+
+            TypeOfShipmentDetail::create($request->except('_token'));
+        }
+           
+
+         return redirect()->route('user.order-detail')->with('success','Save successful');
     }
 
     /**

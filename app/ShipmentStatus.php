@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShipmentStatus extends Model
 {
+
     use SoftDeletes;
    protected $table = 'shipment_status';
-    public $incrementing = false, $keyType = 'string';
+
+
 }
