@@ -16,7 +16,6 @@ class OrderDetail extends Migration
         Schema::create('order_details', function (Blueprint $table) {
             $table->string('id')->unique();
             $table->text('product_code_id');
-            $table->text('product_name_id');
             $table->text('packing_id');
             $table->text('weight_unit_id');
             $table->text('binding_id');
@@ -26,6 +25,7 @@ class OrderDetail extends Migration
             $table->timestamps();
             $table->softDeletes(); 
         });
+       
     }
 
     /**
@@ -35,6 +35,6 @@ class OrderDetail extends Migration
      */
     public function down()
     {
-        //
+        Shema::dropIfExists('order_details');
     }
 }

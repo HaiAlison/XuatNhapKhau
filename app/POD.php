@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class POD extends Model
 {
   
-    protected $table = 'pods';
     protected $primaryKey = 'pod_id';
+    use SoftDeletes;
+    protected $table = 'pods';
+
 }

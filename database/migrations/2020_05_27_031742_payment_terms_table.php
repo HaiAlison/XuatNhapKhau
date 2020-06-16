@@ -28,6 +28,6 @@ class PaymentTermsTable extends Migration
      */
     public function down()
     {
-        //
+        Shema::dropIfExists('payment_terms');
     }
 }

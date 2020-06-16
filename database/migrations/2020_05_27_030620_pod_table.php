@@ -29,6 +29,6 @@ class PodTable extends Migration
      */
     public function down()
     {
-        //
+        Shema::dropIfExists('pods');
     }
 }

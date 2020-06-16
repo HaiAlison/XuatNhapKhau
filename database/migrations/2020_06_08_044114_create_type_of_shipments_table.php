@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ShipmentStatus extends Migration
+class CreateTypeOfShipmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class ShipmentStatus extends Migration
      */
     public function up()
     {
-        Schema::create('shipment_status', function (Blueprint $table) {
-            $table->string('id')->unique();
-            $table->text('shipment_status');
+        Schema::create('type_of_shipments', function (Blueprint $table) {
+            $table->string('id');
+            $table->text('type_of_shipment');
             $table->timestamps();
             $table->softDeletes(); 
         });
@@ -28,6 +28,6 @@ class ShipmentStatus extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shipment_status');
+        Schema::dropIfExists('type_of_shipments');
     }
 }

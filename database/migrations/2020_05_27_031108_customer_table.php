@@ -28,6 +28,6 @@ class CustomerTable extends Migration
      */
     public function down()
     {
-        //
+        Shema::dropIfExists('customers');
     }
 }

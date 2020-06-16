@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class POStatus extends Model
 {
-    protected $table = 'po_status';
+
+    use SoftDeletes;
+    protected $table='po_status';
     protected $primaryKey = 'PO_id';
 
    
-    
+
 }

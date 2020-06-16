@@ -29,6 +29,6 @@ class ManufacturerTable extends Migration
      */
     public function down()
     {
-        //
+        Shema::dropIfExists('manufacturers');
     }
 }
