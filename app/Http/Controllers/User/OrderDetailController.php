@@ -4,7 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\OrderDetail;
+use App\OrderDetail, App\Test;
+
 class OrderDetailController extends Controller
 {
     /**
@@ -37,7 +38,16 @@ class OrderDetailController extends Controller
     public function store(Request $request)
     {
         
-        OrderDetail::create($request->except(['_token']));
+       foreach ($request->name as $key => $value) {
+                
+                $data = array(
+                    'name'=>$request->name[$key],
+                    'email'=>$request->email[$key],
+                    'ok'=>$request->ok[$key]);
+                Test::insert($data);
+            } 
+    
+
         return back()->with('success','create order detail success');
     }
 

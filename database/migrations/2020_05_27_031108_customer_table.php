@@ -14,7 +14,7 @@ class CustomerTable extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id')->unique();
             $table->text('customer_name');
             $table->timestamps();
             $table->softDeletes(); 

@@ -14,13 +14,13 @@ class TypeOfShipmentDetail extends Migration
     public function up()
     {
         Schema::create('type_of_shipment_details', function (Blueprint $table) {
-                $table->string('id');
+                $table->string('id')->unique();
                 $table->text('number_container');
                 $table->text('container_size_id');
-                $table->text('payload');
-                $table->text('freight_target');
-                $table->text('dthc_target');
-                $table->text('cic_target');
+                $table->decimal('payload',10,2);
+                $table->decimal('freight_target',10,2);
+                $table->decimal('dthc_target',10,2);
+                $table->decimal('cic_target',10,2);
                 $table->timestamps();
                 $table->softDeletes();
             });    }

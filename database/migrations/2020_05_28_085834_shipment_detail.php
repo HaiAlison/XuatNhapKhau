@@ -14,15 +14,14 @@ class ShipmentDetail extends Migration
     public function up()
     {       
         Schema::create('shipment_details', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id')->unique();
             $table->text('product_code_id');
-            $table->text('product_name_id');
             $table->text('packing_id');
             $table->text('weight_unit_id');
             $table->text('binding_id');
             $table->decimal('net_weight_id',10,2);
             $table->decimal('price',10,2);
-            $table->decimal('total_amount');
+            $table->decimal('total_amount',10,2);
             $table->timestamps();
             $table->softDeletes(); 
         });

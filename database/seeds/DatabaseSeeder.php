@@ -14,8 +14,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
           $this->call(createAccountUser::class);
         $this->call(createAdminAccount::class);
-<<<<<<< Updated upstream
-=======
         $this->call(seedShipmentStatus::class);
         $this->call(bindingSeeder::class);
         $this->call(certificateOfOriginSeeder::class);
@@ -30,6 +28,5 @@ class DatabaseSeeder extends Seeder
         $this->call(productSeeder::class);
         $this->call(supplierSeeder::class);
         $this->call(weightUnitSeeder::class);
->>>>>>> Stashed changes
     }
 }

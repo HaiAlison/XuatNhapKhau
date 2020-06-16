@@ -10,7 +10,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-app/Test.php
-database/migrations/2020_05_30_104217_change_id_table.php
-dropForeign('posts_user_id_foreign')
-dropForeign('posts_user_id_foreign')
+xnk-project.rar

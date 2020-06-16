@@ -14,7 +14,7 @@ class ContainerSizeTable extends Migration
     public function up()
     {
         Schema::create('container_sizes', function (Blueprint $table) {
-            $table->string('id');
+            $table->string('id')->unique();
             $table->text('container_size');
             $table->timestamps();
             $table->softDeletes(); 

@@ -9,7 +9,12 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Welcome</title>
+	<title>
+        @isset($title)
+            {{ $title }} | 
+        @endisset
+        {{ config('app.name') }}
+    </title>
 	<base href="{{asset('./')}}">
 	<!-- Custom fonts for this template-->
 	<link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -67,17 +72,10 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-					<i class="fas fa-fw fa-cog"></i>
-					<span>Components</span>
+				<a class="nav-link collapsed" href="{{ route('user.order') }}" >
+					<i class="fas fa-clipboard-list"></i>
+					<span>Order</span>
 				</a>
-				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Custom Components:</h6>
-						<a class="collapse-item" href="buttons.html">Buttons</a>
-						<a class="collapse-item" href="cards.html">Cards</a>
-					</div>
-				</div>
 			</li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
@@ -127,9 +125,9 @@
 
 			<!-- Nav Item - Charts -->
 			<li class="nav-item">
-				<a class="nav-link" href="charts.html">
+				<a class="nav-link" href="{{ route('user.order-detail') }}">
 					<i class="fas fa-fw fa-chart-area"></i>
-					<span>Charts</span></a>
+					<span>test</span></a>
 			</li>
 
 				<!-- Nav Item - Tables -->
@@ -351,9 +349,6 @@
 
       				<main role="main" class="px-4">
 						<!-- Page Heading -->
-						<div class="d-sm-flex align-items-center justify-content-between mb-4">
-							<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-						</div>
 						@yield('content')
 					</main>
 					@yield('content-detail')
