@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ShipmentStatus extends Migration
+class ChangeIdTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class ShipmentStatus extends Migration
      */
     public function up()
     {
-        Schema::create('shipment_status', function (Blueprint $table) {
-            $table->string('id')->unique();
-            $table->text('shipment_status');
-            $table->timestamps();
-            $table->softDeletes(); 
-        });
+       Schema::table('bindings', function (Blueprint $table) {
+        $table->string('id')->change();
+});
+
     }
 
     /**
@@ -28,6 +26,6 @@ class ShipmentStatus extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shipment_status');
+        //
     }
 }

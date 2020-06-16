@@ -33,11 +33,6 @@ Route::middleware('auth')->group(function(){
 			Route::get('/index','HomeController@index')->name('index');
 			Route::get('logout','Auth\LoginController@logout')->name('logout');
 
-
-			Route::get('order-detail','User\OrderDetailController@create')->name('order-detail');
-
-
-
 			Route::get('/order','User\OrderController@create')->name('order');
 			Route::post('/order','User\OrderController@store')->name('store-order');
 

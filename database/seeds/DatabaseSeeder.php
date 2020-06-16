@@ -28,6 +28,5 @@ class DatabaseSeeder extends Seeder
         $this->call(productSeeder::class);
         $this->call(supplierSeeder::class);
         $this->call(weightUnitSeeder::class);
-
     }
 }

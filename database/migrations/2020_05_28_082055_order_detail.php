@@ -14,9 +14,8 @@ class OrderDetail extends Migration
     public function up()
     {
         Schema::create('order_details', function (Blueprint $table) {
-            $table->string('po_no_id');
+            $table->string('id')->unique();
             $table->text('product_code_id');
-            $table->text('product_name');
             $table->text('packing_id');
             $table->text('weight_unit_id');
             $table->text('binding_id');

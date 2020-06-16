@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Incoterm extends Model
 {
+
+   protected $primaryKey = 'incoterm_id';
+
    use SoftDeletes;
 
 }

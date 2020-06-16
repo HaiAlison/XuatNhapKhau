@@ -1,4 +1,4 @@
-@extends('master.masterpage')
+@extends('master.masterpage-admin')
 @section('content')
 
 @if(isset($binding))  

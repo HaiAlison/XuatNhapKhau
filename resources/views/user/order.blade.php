@@ -1,11 +1,14 @@
-@extends('master.masterpage')
+@extends('master.masterpage', ['title' => 'Order'])
 
 @section('content')
 
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Order</h1>
+</div>
 
-
-<form class="user" action="{{ route('user.store-order') }} " method="post">
+<form class="user"  action="{{ route('user.store-order') }} " method="post" enctype="multipart/form-data"> 
   @csrf
+  <!-- Order -->
   <div class="form-group row">
     <div class="col-sm-6 mb-3 mb-sm-0">
       <div class="input-group">
@@ -105,7 +108,7 @@
           <label class="input-group-text"  for="payload">Payload (MT/Conts.)</label>
         </div>
         <div class="custom-file">
-          <input type="text" class="form-control custom-input" id="payload" name="payload" disabled="true" >
+          <input type="number" class="form-control custom-input" step=".01" id="payload" name="payload" disabled="true" >
         </div>
       </div>
 
@@ -138,7 +141,7 @@
           <label class="input-group-text"  for="freight_target">Freight target</label>
         </div>
         <div class="custom-file">
-         <input type="text" class="form-control custom-input" id="freight_target"  name="freight_target" placeholder="Freight target" disabled="true">
+         <input type="number" class="form-control custom-input" step=".01" id="freight_target"  name="freight_target" placeholder="Freight target" disabled="true">
         </div>
       </div>
       
@@ -167,7 +170,7 @@
           <label class="input-group-text"  for="dthc_target">DTHC target</label>
         </div>
         <div class="custom-file">
-         <input type="text" class="form-control custom-input" id="dthc_target" name="dthc_target" placeholder="DTHC target" disabled="true">
+         <input type="number" class="form-control custom-input" step=".01" id="dthc_target" name="dthc_target" placeholder="DTHC target" disabled="true">
         </div>
       </div>
     </div>
@@ -194,7 +197,7 @@
           <label class="input-group-text"  for="cic_target">CIC target</label>
         </div>
         <div class="custom-file">
-        <input type="text" class="form-control custom-input" id="cic_target" name="cic_target" placeholder="CIC target" disabled="true">
+        <input type="number" class="form-control custom-input" step=".01" id="cic_target" name="cic_target" placeholder="CIC target" disabled="true">
         </div>
       </div>
     </div>
@@ -221,7 +224,7 @@
           <span class="input-group-text" id="inputGroupFileAddon01">Link to specs file</span>
         </div>
         <div class="custom-file">
-          <input type="file" class="custom-file-input" name="link_to_specs" id="inputGroupFile01"
+          <input type="file" class="custom-file-input" name="link_to_specs" id="inputGroupFile01" accept="image/*,.pdf,.txt,.xlsx,.docs,.doc,.xls" 
           aria-describedby="inputGroupFileAddon01">
           <label class="custom-file-label" for="inputGroupFile01">Choose a file</label>
         </div>
@@ -248,10 +251,10 @@
       
       <div class="input-group">
         <div class="input-group-prepend">
-          <label class="input-group-text"  for="hs_code">HS target</label>
+          <label class="input-group-text"  for="hs_code">HS code</label>
         </div>
         <div class="custom-file">
-        <input type="text" class="form-control custom-input" id="hs_code" name="hs_code" placeholder="HS code">
+        <input type="text" class="form-control custom-input"  id="hs_code" name="hs_code" placeholder="HS code">
         </div>
       </div>
     </div>
@@ -302,7 +305,7 @@
           <label class="input-group-text"  for="paymentterm">Payment Term</label>
         </div>
         <div class="custom-file">
-          <select class="custom-select" id="paymentterm" name="payment_term_id">
+          <select class="custom-select" id="paymentterm" name="payment_term_id" onchange="optionTT()">
             @foreach($paymentTerms as  $paymentTerm)
 
               <option value="{{$paymentTerm->id}}">{{$paymentTerm->payment_terms}}</option>
@@ -312,6 +315,7 @@
       </div>
     </div>
   </div>
+ 
   <div class="form-group row">
     <div class="col-sm-6 mb-3 d-flex mb-sm-0" >
       <input type="hidden" class="form-control 
@@ -334,7 +338,6 @@
     <div class="col-sm-6 mb-3 d-flex mb-sm-0" >
     </div>
     <div class="col-sm-6">
-      
       <div class="input-group">
         <div class="input-group-prepend">
           <label class="input-group-text"  for="currency">Currency|Fx</label>
@@ -345,6 +348,116 @@
       </div>
     </div>
   </div>
+  <hr>
+ <!-- End of Order -->
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Order Detail</h1>
+</div>
+  <div id="form">
+    <div class="form-group row" >
+
+      <div class='col-sm-6'>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text"  for="product_id">Product name</label>
+          </div>
+          <div class="custom-file">
+            <select class="custom-select" id="product_id" name="product_code_id[]"> 
+              @foreach($products as  $product)
+                <option value="{{$product->id}}">{{$product->product}}</option>
+              @endforeach
+            </select> 
+          </div>
+        </div>
+      </div>
+
+      <div class='col-sm-6'>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text"  for="packing_id">Packing</label>
+          </div>
+          <div class="custom-file">
+            <select class="custom-select" id="packing_id" name="packing_id[]"> 
+              @foreach($packings as  $packing)
+                <option value="{{$packing->id}}">{{$packing->packing}}</option>
+              @endforeach
+            </select> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row" >
+      <div class='col-sm-6'>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text"  for="weigh_unit_id">Weight Unit</label>
+          </div>
+          <div class="custom-file">
+            <select class="custom-select" id="weigh_unit_id" name="weight_unit_id[]"> 
+             @foreach($weightUnits as  $weightUnit)
+                <option value="{{$weightUnit->id}}">{{$weightUnit->weight_unit}}</option>
+              @endforeach
+            </select> 
+          </div>
+        </div>
+      </div>
+
+      <div class='col-sm-6'>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text"  for="binding_id">Binding</label>
+          </div>
+          <div class="custom-file">
+            <select class="custom-select" id="binding_id" name="binding_id[]"> 
+             @foreach($bindings as  $binding)
+                <option value="{{$binding->id}}">{{$binding->binding}}</option>
+              @endforeach
+            </select> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row" >
+      <div class="col-sm-4" >
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text"  for="net_weight_id">Net weight</label>
+          </div>
+          <div class="custom-file">
+            <input type="text" id="net_weight_id" name="net_weight_id[]" step=".01" class="form-control custom-input" placeholder="" >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 " >
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text"  for="price_id">Price</label>
+          </div>
+          <div class="custom-file">
+            <input type="text" id="price_id" placeholder="" step=".01" name="price[]" class="form-control custom-input">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text"  for="total_amount_id">Total amount</label>
+          </div>
+          <div class="custom-file">
+            <input type="text" id="total_amount_id" placeholder="" step=".01" name="total_amount[]" class="form-control custom-input" onkeydown="addRow()" readonly="">        
+
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+    
+<hr>
 
   <button type="submit" class="btn btn-primary btn-user btn-block">
     Register Account
@@ -356,22 +469,20 @@
 <script type="text/javascript">
   $('.date').datetimepicker({
 
-    format: 'YYYY-MM-DD',
-    ignoreReadonly: true
+    format: 'YYYY-MM-DD'
+    
   }); 
 
-</script>
-<script>
+
     $('#inputGroupFile01').on('change',function(){
     //get the file name
-        var fileName = $(this).val().replace('C:\\fakepath\\', " ");
+      
+        var fileName = $(this).val().replace('C:\\fakepath\\',"");
     //replace the "Choose a file" label
 
     $(this).next('.custom-file-label').html(fileName);
   });
-  </script>
-
-  <script type="text/javascript"> 
+        //select vessle or container to hidden value input.
         function select(){
         var option = document.getElementById('type_of_shipment');
             if(option.value == "container")
@@ -391,5 +502,167 @@
                 document.getElementById('dthc_target').disabled = true;
                 document.getElementById('cic_target').disabled = true;
             }
-        }</script>
+        }
+        function optionTT(){
+          var selectedVal = $("#paymentterm option:selected").val();
+            if(selectedVal ==='PaymentTerms_TT'){
+              document.getElementById('within_x_day').readOnly  = true;
+              $('#within_x_day').val("0");
+            }
+            else {
+              document.getElementById('within_x_day').readOnly = false;
+               $('#within_x_day').val("");
+            }
+        }
+        var incrementId = 0;
+  function addRow(){
+        //append the new row here.
+        let eventwhich = event.which;
+        
+        if(eventwhich == 9){
+          incrementId++;
+          console.log(incrementId);
+            var table = $("#form");
+
+            table.append('<hr/><br/>\
+                          <div class="form-group row ">\
+                            <div class="col-sm-6">\
+                              <div class="input-group">\
+                                <div class="input-group-prepend">\
+                                  <label class="input-group-text"  >Product name</label>\
+                                </div>\
+                                <div class="custom-file">\
+                                  <select class="custom-select changeId product" id="product0" name="product_code_id[]" onchange="NullProduct()">\
+                                  <option selected></option>\
+                                    @foreach($products as  $product)\
+                                      <option value="{{$product->id}}">{{$product->product}}</option>\
+                                    @endforeach\
+                                  </select>\
+                                </div>\
+                              </div>\
+                            </div>\
+                            <div class="col-sm-6">\
+                              <div class="input-group">\
+                                <div class="input-group-prepend">\
+                                  <label class="input-group-text"  for="packing0">Packing</label>\
+                                </div>\
+                                <div class="custom-file">\
+                                  <select class="custom-select changeId" id="packing0" name="packing_id[]" disabled>\
+                                    @foreach($packings as  $packing)\
+                                      <option value="{{$packing->id}}">{{$packing->packing}}</option>\
+                                    @endforeach\
+                                  </select>\
+                                </div>\
+                              </div>\
+                            </div>\
+                            </div>\
+                            <div class="form-group row ">\
+                            <div class="col-sm-6">\
+                              <div class="input-group">\
+                                <div class="input-group-prepend">\
+                                  <label class="input-group-text"  for="weight_unit0">Weight Unit</label>\
+                                </div>\
+                                <div class="custom-file">\
+                                  <select class="custom-select changeId" id="weight_unit0" name="weight_unit_id[]" disabled>\
+                                   @foreach($weightUnits as  $weightUnit)\
+                                      <option value="{{$weightUnit->id}}">{{$weightUnit->weight_unit}}</option>\
+                                    @endforeach\
+                                  </select>\
+                                </div>\
+                              </div>\
+                            </div>\
+                            <div class="col-sm-6">\
+                              <div class="input-group">\
+                                <div class="input-group-prepend">\
+                                  <label class="input-group-text"  for="binding0">Binding</label>\
+                                </div>\
+                                <div class="custom-file">\
+                                  <select class="custom-select changeId" id="binding0" name="binding_id[]" disabled>\
+                                   @foreach($bindings as  $binding)\
+                                      <option value="{{$binding->id}}">{{$binding->binding}}</option>\
+                                    @endforeach\
+                                  </select>\
+                                </div>\
+                              </div>\
+                            </div>\
+                          </div>\
+                          <div class="form-group row " >\
+                            <div class="col-sm-4" >\
+                              <div class="input-group">\
+                                <div class="input-group-prepend">\
+                                  <label class="input-group-text"  for="net_weight0">Net weight</label>\
+                                </div>\
+                                <div class="custom-file">\
+                                  <input type="text" id="net_weight0" name="net_weight_id[]" class="form-control custom-input changeId" placeholder="" disabled>\
+                                </div>\
+                              </div>\
+                            </div>\
+                            <div class="col-sm-4 " >\
+                              <div class="input-group">\
+                                <div class="input-group-prepend">\
+                                  <label class="input-group-text"  for="price0">Price</label>\
+                                </div>\
+                                <div class="custom-file">\
+                                  <input type="text" id="price0" placeholder="" name="price[]" class="form-control custom-input changeId" disabled>\
+                                </div>\
+                              </div>\
+                            </div>\
+                            <div class="col-sm-4">\
+                              <div class="input-group">\
+                                <div class="input-group-prepend">\
+                                  <label class="input-group-text"  for="total_amount0">Total amount</label>\
+                                </div>\
+                                <div class="custom-file">\
+                                  <input type="text" id="total_amount0" onkeydown="addRow()" placeholder="" name="total_amount[]" class="form-control custom-input changeId" disabled>\
+                                </div>\
+                              </div>\
+                            </div>\
+                          </div>'
+                          )
+            
+            
+        }//change id.
+            $('#form').find('.changeId').each(function(){
+              var id = $(this).attr('id') || null ; //lấy id ra
+              var i = id.substr(id.length-1); //lấy chỉ số ra
+              var prefix = id.substr(0,id.length-1); //lấy tiền tố của id (id-chỉ số)
+              console.log(prefix);
+              $(this).attr('id', prefix+(+i+1)); //tăng id (tiền tố + chỉ số + 1)
+              console.log(id);
+            })
+            
+    }
+    function NullProduct(){
+            
+            for (var i = 1; i < incrementId+1; i++) {
+                        
+               y= $("#product"+i).children('option:selected').val(); 
+                console.log("y",y);
+             
+              //x= $("#product1").children('option:selected').val(); 
+             
+              //console.log("x",x);
+              if(y==""){
+                document.getElementById("packing"+i).disabled = true;
+                document.getElementById("weight_unit"+i).disabled = true;
+                document.getElementById("binding"+i).disabled = true;
+                document.getElementById("net_weight"+i).disabled = true;
+                document.getElementById("price"+i).disabled = true;
+                document.getElementById("total_amount"+i).disabled = true;
+              }
+              else {
+                document.getElementById("packing"+i).disabled = false;
+                document.getElementById("weight_unit"+i).disabled = false;
+                document.getElementById("binding"+i).disabled = false;
+                document.getElementById("net_weight"+i).disabled = false;
+                document.getElementById("price"+i).disabled = false;
+                document.getElementById("total_amount"+i).disabled = false;
+              }
+            }
+          }
+        
+
+
+    
+      </script>
 @endsection

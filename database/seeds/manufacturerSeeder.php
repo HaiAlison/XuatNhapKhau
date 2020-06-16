@@ -27,5 +27,10 @@ class manufacturerSeeder extends Seeder
             'manufacturer_name'=>'Manufacture 3',
             'manufacturer_address'=>'501, West Third Street, Winona Mn, 55987, USA'
         ];
+
+        foreach($manufacturer as $in)
+        {
+            App\Manufacturer::create($in);
+        }
     }
 }
