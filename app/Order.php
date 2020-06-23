@@ -3,14 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-	use SoftDeletes;
- 	protected $table='orders';
     //
     protected $primaryKey = 'id';
+    protected $keyType = 'string';
 
 
     protected $fillable = [
@@ -35,11 +33,6 @@ class Order extends Model
   	{
   		return $this->belongsTo('App\Supplier');
   	}
-
-  	public function typeOfShipment()
-  	{
-  	  return $this->hasManyThrough('App\TypeOfShipment','App\TypeOfShipmentDetail');
-	}
 
   	public function typeOfShipmentDetail()
   	{
@@ -69,9 +62,15 @@ class Order extends Model
   	{
   		return $this->belongsTo('App\CertificateOfOrigin');
   	}
-  	public function pod()
-  	{
-  		return $this->belongsTo('App\POD');
-  	}
+  	
+    public function pods()
+    {
+      return $this->belongsTo('App\POD','pod');
+    }
+    public function pols()
+    {
+      return $this->belongsTo('App\POD','pol');
+    }
+
 
 }

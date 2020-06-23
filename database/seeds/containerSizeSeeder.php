@@ -15,11 +15,11 @@ class containerSizeSeeder extends Seeder
     
        $container_size[]=[
            'id'=>'ContainerSize_20',
-           'container_size'=>'20'
+           'container_size'=>'20"'
        ];
        $container_size[]=[
         'id'=>'ContainerSize_40',
-        'container_size'=>'40'
+        'container_size'=>'40"'
     ];
     foreach($container_size as $cn)
     {      

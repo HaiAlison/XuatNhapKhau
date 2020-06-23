@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class POStatus extends Model
 {
@@ -13,5 +12,5 @@ class POStatus extends Model
     protected $primaryKey = 'PO_id';
 
    
-
+    
 }

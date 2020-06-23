@@ -30,6 +30,6 @@ class PoStatusTable extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('po_status');
+        //
     }
 }

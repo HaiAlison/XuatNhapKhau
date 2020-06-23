@@ -1,12 +1,13 @@
 <?php
 
 namespace App;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class ContainerSize extends Model
 {
-    use SoftDeletes;
-    protected $table ='container_sizes';
-    public $incrementing = false, $keyType = 'string';
+	
+use SoftDeletes;
+	protected $primaryKey = 'id';
+	protected $keyType = 'string';
 }

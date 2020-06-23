@@ -32,6 +32,6 @@ class TypeOfShipmentDetail extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('type_of_shipment_details');
+        //
     }
 }

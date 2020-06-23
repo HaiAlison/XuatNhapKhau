@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function(){
 			Route::get('/index','HomeController@index')->name('index');
 			Route::get('logout','Auth\LoginController@logout')->name('logout');
 
+
 			Route::get('/order','User\OrderController@create')->name('order');
 			Route::post('/order','User\OrderController@store')->name('store-order');
 
@@ -40,7 +41,12 @@ Route::middleware('auth')->group(function(){
 			Route::get('order-detail','User\OrderDetailController@create')->name('order-detail');
 			Route::post('order-detail','User\OrderDetailController@store')->name('store-order-detail');
 
+
 			Route::get('shipment/','User\ShipmentController@create')->name('shipment');
+
+
+			Route::get('view-detail','User\ViewDetailController@index')->name('view-detail');
+			Route::post('view-detail','User\ViewDetailController@viewDetail')->name('show-view-detail');
 
 			
 		});

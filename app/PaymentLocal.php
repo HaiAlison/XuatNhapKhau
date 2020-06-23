@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentLocal extends Model
 {
-    public $incrementing = false, $keyType = 'string';
+    protected $primaryKey = 'id';
+	protected $keyType = 'string';
 }

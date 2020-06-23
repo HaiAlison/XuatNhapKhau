@@ -28,6 +28,6 @@ class ContainerSizeTable extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('container_sizes');
+        //
     }
 }

@@ -31,6 +31,6 @@ class ProductTable extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('products');
+        //
     }
 }

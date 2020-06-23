@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 class Customer extends Model
 {
-    use SoftDeletes;
-    protected $table ='customers';
-    public $incrementing = false, $keyType = 'string';
+	
+use SoftDeletes;
+    protected $primaryKey = 'id';
+	protected $keyType = 'string';
 }

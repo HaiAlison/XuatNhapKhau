@@ -11,14 +11,15 @@
 
 	<title>SB Admin 2 - Register</title>
 	<base href="{{asset('./')}}">
-	<!-- Custom fonts for this template-->
+  	<!-- Custom fonts for this template-->
 	<link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}"/>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- Custom styles -->
+    <!-- 
     <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet">
-
+ -->
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -408,12 +409,6 @@
 	<!-- Custom scripts for all pages-->
 	<script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
 
-	<!-- Page level plugins -->
-	<script src="{{asset('assets/vendor/chart.js/Chart.min.js')}}"></script>
-
-	<!-- Page level custom scripts -->
-	<script src="{{asset('assets/js/demo/chart-area-demo.js')}}"></script>
-	<script src="{{asset('assets/js/demo/chart-pie-demo.js')}}"></script>
 	<!-- hide alert -->
 	<script>
 	$('#div').delay(3000).fadeOut('slow');

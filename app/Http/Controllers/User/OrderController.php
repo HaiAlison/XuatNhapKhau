@@ -70,7 +70,7 @@ class OrderController extends Controller
             return Product::all();
         });
         
-        $weightUnits = Cache::remember('WeightUnit', 60, function () {
+        $weightUnits = Cache::remember('weightUnits', 60, function () {
             return WeightUnit::all();
         });
         
@@ -93,13 +93,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'id' => 'required|unique:orders',
-            'end_customer' => 'required',
+        // $this->validate($request,[
+        //     'id' => 'required|unique:orders',
+        //     'end_customer' => 'required',
 
-        ]);
+        // ]);
             
-                //dd($request->all());
         if($request->type_of_shipment === 'vessle'){
 
             Order::create($request->except('_token'));
@@ -127,24 +126,28 @@ class OrderController extends Controller
        
         //save order-detail
         $id = $request->id;
+        $req = collect ($request->product_code_id);
+        $filtered = $req->filter(function ($value, $key) {
+            return $value != null;
+                });
+        $request->merge(['product_code_id'=>$filtered->all()]);
+        $nonOrder = $request->product_code_id;
+        $reOrder = array_merge($nonOrder);
+        $request->merge(['product_code_id'=>$reOrder]);
+
         foreach ($request->product_code_id as $key => $value) {
-                if($request->product_code_id[$key] != null){//nếu id null thì bỏ k lưu
-                    //nếu id null thì k cho nhập gì.
-                 $data = array(
-                                'id' =>$id,
-                                'product_code_id'=>$request->product_code_id[$key],
-                                'weight_unit_id'=>$request->weight_unit_id[$key],
-                                'packing_id'=>$request->packing_id[$key],
-                                'binding_id'=>$request->binding_id[$key],
-                                'net_weight_id'=>$request->net_weight_id[$key],
-                                'price'=>$request->price[$key],
-                                'total_amount'=>$request->total_amount[$key]);
-                                OrderDetail::insert($data);
-                }
-            }
-
+            $data = array(
+                      'id' =>$id,
+                      'product_code_id'=>$request->product_code_id[$key],
+                      'weight_unit_id'=>$request->weight_unit_id[$key],
+                      'packing_id'=>$request->packing_id[$key],
+                      'binding_id'=>$request->binding_id[$key],
+                      'net_weight_id'=>$request->net_weight_id[$key],
+                      'price'=>$request->price[$key],
+                      'total_amount'=>$request->total_amount[$key]);
+                      OrderDetail::insert($data);  
+        }
             $request->session()->put('data-order',$request->except('link_to_specs'));
-
             //return $request->session()->pull('data-order');
 
          return redirect()->route('user.order-detail')->with('success','Save successful');
