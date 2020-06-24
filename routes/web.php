@@ -76,12 +76,34 @@ Route::middleware('auth:admin')->group(function(){
 			Route::get('/','Auth\AdminLoginController@index')->name('index');
 			Route::get('/logout','Auth\AdminLoginController@logout')->name('logout');
 
-			Route::get('/binding','BindingController@create')->name('binding');
-			Route::post('/binding','BindingController@store')->name('store-binding');
+			Route::get('/binding','Admin\BindingController@index')->name('binding');
+			Route::post('binding','Admin\BindingController@store')->name('store-binding');
 
 
-			Route::get('/binding/edit/{id}','BindingController@edit')->name('edit-binding');
-			Route::post('/binding/edit/{id}','BindingController@update')->name('update-binding');
+			Route::get('/binding/edit/{id}','Admin\BindingController@edit')->name('edit-binding');
+			Route::post('/binding/edit/{id}','Admin\BindingController@update')->name('update-binding');
+
+
+			Route::get('/tables','Admin\TablesController@index')->name('tables');
+
+			Route::get('/shipment-status','Admin\ShipmentStatusController@index')->name('shipment-status');
+
+			Route::get('/payment-terms','Admin\PaymentTermController@index')->name('payment-terms');
+
+			Route::get('/incoterms','Admin\IncotermController@index')->name('incoterms');
+
+			Route::get('/packing','Admin\PackingController@index')->name('packing');
+
+			Route::get('/container-size','Admin\ContainerSizeController@index')->name('container-size');	
+			Route::get('/certificate-of-origin','Admin\CertificateOfOriginController@index')->name('certificate-of-origin');	
+			Route::get('/po-status','Admin\PoStatusController@index')->name('po-status');	
+			Route::get('/weight-unit','Admin\WeightUnitController@index')->name('weight-unit');	
+			Route::get('/pod','Admin\PodController@index')->name('pod');	
+			Route::get('/supplier','Admin\SupplierController@index')->name('supplier');
+			Route::get('/origin','Admin\OriginController@index')->name('origin');
+			Route::get('/manufacturer','Admin\ManufacturerController@index')->name('manufacturer');
+			Route::get('/customer','Admin\CustomerController@index')->name('customer');
+			Route::get('/product','Admin\ProductController@index')->name('product');
 		});
 	});
 });

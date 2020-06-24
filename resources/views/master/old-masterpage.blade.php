@@ -346,6 +346,12 @@
 
 					<!-- Begin Page Content -->
 
+					
+					<!-- /.container-fluid -->
+					
+				</div>
+				<!-- End of Main Content -->
+
 					<div class="container-fluid">
 
       				<main role="main" class="px-4">
@@ -354,12 +360,6 @@
 					</main>
 					@yield('content-detail')
 					</div>
-					<!-- /.container-fluid -->
-					
-				</div>
-				<!-- End of Main Content -->
-
-					
 				<!-- Footer -->
 				<footer class="sticky-footer bg-white">
 					<div class="container my-auto">
