@@ -18,7 +18,6 @@ class CertificateOfOriginController extends Controller
         $title = 'Certificate Of Origin';
         $name= 'certificate_of_origin';
         $another = '';
-
         return view('admin.show',compact('title','nameToForeach','name','another'));
     }
     /**
@@ -28,7 +27,8 @@ class CertificateOfOriginController extends Controller
      */
     public function create()
     {
-        //
+        $name = ['certificate_of_origin' => 'Certificate Of Origin'];
+          return view('admin.edit',compact('name'));
     }
 
     /**
@@ -39,7 +39,9 @@ class CertificateOfOriginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        CertificateOfOrigin::create($request->except('_token'));
+        return redirect()->route('admin.index')->with('success','Create success!');
     }
 
     /**
@@ -61,7 +63,9 @@ class CertificateOfOriginController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = CertificateOfOrigin::findOrFail($id);
+        $name = ['certificate_of_origin' => 'Certificate Of Origin'];
+        return view('admin.edit',compact('data','name'));
     }
 
     /**
@@ -73,7 +77,10 @@ class CertificateOfOriginController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $idTable  = CertificateOfOrigin::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.certificate-of-origin')->with('success','Edit success!');
     }
 
     /**
@@ -84,6 +91,7 @@ class CertificateOfOriginController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = CertificateOfOrigin::findOrFail($id);
+        $idTable->delete();
     }
 }

@@ -28,7 +28,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $name = ['product' => 'Product'];
+          return view('admin.edit',compact('name'));
     }
 
     /**
@@ -39,7 +40,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        Product::create($request->except('_token'));
+        return redirect()->route('admin.product')->with('success','Create success!');
     }
 
     /**
@@ -61,7 +64,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Product::findOrFail($id);
+        $name = ['product' => 'Product'];
+        return view('admin.edit',compact('data','name'));
     }
 
     /**
@@ -71,9 +76,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
+        
+        $idTable  = Product::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.product')->with('success','Edit success!');
     }
 
     /**
@@ -84,6 +94,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = Product::findOrFail($id);
+        $idTable->delete();
     }
 }

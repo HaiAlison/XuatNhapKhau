@@ -9,4 +9,5 @@ class ShipmentStatus extends Model
    	protected $table = 'shipment_status';
    	protected $primaryKey = 'id';
 	protected $keyType = 'string';
+	protected $fillable = ['id','shipment_status'];
 }

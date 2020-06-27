@@ -8,4 +8,6 @@ class Origin extends Model
 {
   	protected $primaryKey = 'id';
     protected $keyType = 'string';
+	protected $fillable = ['id','origin_name'];
+
 }

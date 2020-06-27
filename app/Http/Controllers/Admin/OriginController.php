@@ -15,7 +15,7 @@ class OriginController extends Controller
     public function index()
     {
         $nameToForeach = Origin::all();
-        $title = 'Origin';
+        $title = 'Origin Name';
         $name= 'origin_name';
         $another = '';
         return view('admin.show',compact('title','nameToForeach','name','another'));
@@ -29,7 +29,8 @@ class OriginController extends Controller
      */
     public function create()
     {
-        //
+        $name = ['origin_name' => 'Origin Name'];
+          return view('admin.edit',compact('name'));
     }
 
     /**
@@ -40,7 +41,9 @@ class OriginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        Origin::create($request->except('_token'));
+        return redirect()->route('admin.origin')->with('success','Create success!');
     }
 
     /**
@@ -62,7 +65,9 @@ class OriginController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Origin::findOrFail($id);
+        $name = ['origin_name' => 'Origin Name'];
+        return view('admin.edit',compact('data','name'));
     }
 
     /**
@@ -72,9 +77,14 @@ class OriginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
+        
+        $idTable  = Origin::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.origin')->with('success','Edit success!');
     }
 
     /**
@@ -85,6 +95,7 @@ class OriginController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = Origin::findOrFail($id);
+        $idTable->delete();
     }
 }

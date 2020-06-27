@@ -28,7 +28,8 @@ class WeightUnitController extends Controller
      */
     public function create()
     {
-        //
+        $name = ['weight_unit' => 'Weight Unit'];
+          return view('admin.edit',compact('name'));
     }
 
     /**
@@ -39,7 +40,9 @@ class WeightUnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        WeightUnit::create($request->except('_token'));
+        return redirect()->route('admin.weight-unit')->with('success','Create success!');
     }
 
     /**
@@ -61,7 +64,9 @@ class WeightUnitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = WeightUnit::findOrFail($id);
+        $name = ['weight_unit' => 'Weight Unit'];
+        return view('admin.edit',compact('data','name'));
     }
 
     /**
@@ -71,9 +76,14 @@ class WeightUnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
+        
+        $idTable  = WeightUnit::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.weight-unit')->with('success','Edit success!');
     }
 
     /**
@@ -84,6 +94,7 @@ class WeightUnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = WeightUnit::findOrFail($id);
+        $idTable->delete();
     }
 }

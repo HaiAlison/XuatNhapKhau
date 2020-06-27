@@ -28,9 +28,8 @@ class BindingController extends Controller
      */
     public function create()
     {
-        //
-         $credentials = auth('web')->user();
-          return view('admin.binding',compact('credentials'));
+        $name = ['binding' => 'Binding'];
+          return view('admin.edit',compact('name'));
     }
 
     /**
@@ -41,12 +40,9 @@ class BindingController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $binding = new Binding;
-        $binding->id = $request->id;
-        $binding->binding = $request->binding;
-        $binding->save();
-        return redirect()->route('admin.index')->with('success','create binding successful');
+       
+        Binding::create($request->except('_token'));
+        return redirect()->route('admin.index')->with('success','Create success!');
     }
 
     /**
@@ -68,9 +64,9 @@ class BindingController extends Controller
      */
     public function edit($id)
     {
-        $credentials = auth('web')->user();
-        $binding = Binding::findOrFail($id);
-        return view('admin.binding',compact('credentials','binding'));
+        $data = Binding::findOrFail($id);
+        $name = ['binding' => 'Binding'];
+        return view('admin.edit',compact('data','name'));
     }
 
     /**
@@ -80,14 +76,14 @@ class BindingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
-        $binding = Binding::find($id);
-        $binding->id = $request->id;
-        $binding->binding = $request->binding;
-        $binding->save();
-        return redirect()->route('admin.index')->with('success','Edit binding successful');
+        
+        $idTable  = Binding::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.binding')->with('success','Edit success!');
     }
 
     /**
@@ -98,6 +94,7 @@ class BindingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = Binding::findOrFail($id);
+        $idTable->delete();
     }
 }

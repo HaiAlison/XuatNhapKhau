@@ -8,4 +8,6 @@ class ContainerSize extends Model
 {
 	protected $primaryKey = 'id';
 	protected $keyType = 'string';
+	protected $fillable = ['id','container_size'];
+
 }

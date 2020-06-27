@@ -28,7 +28,8 @@ class ShipmentStatusController extends Controller
      */
     public function create()
     {
-        //
+        $name = ['shipment_status' => 'Shipment Status'];
+          return view('admin.edit',compact('name'));
     }
 
     /**
@@ -39,7 +40,9 @@ class ShipmentStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        ShipmentStatus::create($request->except('_token'));
+        return redirect()->route('admin.shipment-status')->with('success','Create success!');
     }
 
     /**
@@ -61,7 +64,9 @@ class ShipmentStatusController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = ShipmentStatus::findOrFail($id);
+        $name = ['shipment_status' => 'Shipment Status'];
+        return view('admin.edit',compact('data','name'));
     }
 
     /**
@@ -71,9 +76,14 @@ class ShipmentStatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
+        
+        $idTable  = ShipmentStatus::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.shipment-status')->with('success','Edit success!');
     }
 
     /**
@@ -84,6 +94,7 @@ class ShipmentStatusController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = ShipmentStatus::findOrFail($id);
+        $idTable->delete();
     }
 }

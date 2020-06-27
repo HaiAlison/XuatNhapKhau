@@ -15,7 +15,7 @@ class CustomerController extends Controller
     public function index()
     {
         $nameToForeach = Customer::all();
-        $title = 'Customer';
+        $title = 'Customer Name';
         $name= 'customer_name';
         $another = '';
         return view('admin.show',compact('title','nameToForeach','name','another'));
@@ -28,7 +28,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        $name = ['customer_name' => 'Customer Name'];
+          return view('admin.edit',compact('name'));
     }
 
     /**
@@ -39,7 +40,9 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        Customer::create($request->except('_token'));
+        return redirect()->route('admin.customer')->with('success','Create success!');
     }
 
     /**
@@ -61,7 +64,9 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Customer::findOrFail($id);
+        $name = ['customer_name' => 'Customer Name'];
+        return view('admin.edit',compact('data','name'));
     }
 
     /**
@@ -71,9 +76,14 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
+        
+        $idTable  = Customer::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.customer')->with('success','Edit success!');
     }
 
     /**
@@ -84,6 +94,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = Customer::findOrFail($id);
+        $idTable->delete();
     }
 }

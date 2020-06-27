@@ -28,7 +28,8 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        $name = ['supplier' => 'Supplier'];
+          return view('admin.edit',compact('name'));
     }
 
     /**
@@ -39,7 +40,9 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        Supplier::create($request->except('_token'));
+        return redirect()->route('admin.supplier')->with('success','Create success!');
     }
 
     /**
@@ -61,7 +64,9 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Supplier::findOrFail($id);
+        $name = ['supplier' => 'Supplier'];
+        return view('admin.edit',compact('data','name'));
     }
 
     /**
@@ -71,9 +76,14 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
+        
+        $idTable  = Supplier::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.supplier')->with('success','Edit success!');
     }
 
     /**
@@ -84,6 +94,7 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = Supplier::findOrFail($id);
+        $idTable->delete();
     }
 }

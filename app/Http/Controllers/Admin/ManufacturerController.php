@@ -28,7 +28,9 @@ class ManufacturerController extends Controller
      */
     public function create()
     {
-        //
+        $name = ['manufacturer_name' => 'Manufacturer'];
+        $another = ['manufacturer_address' => 'Manufacturer address',];
+        return view('admin.edit',compact('name','another'));
     }
 
     /**
@@ -39,7 +41,9 @@ class ManufacturerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        Manufacturer::create($request->except('_token'));
+        return redirect()->route('admin.manufacturer')->with('success','Create success!');
     }
 
     /**
@@ -61,7 +65,10 @@ class ManufacturerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Manufacturer::findOrFail($id);
+        $name = ['manufacturer_name' => 'Manufacturer'];
+        $another = ['manufacturer_address' => 'Manufacturer address',]; //add your col into array if you have it.
+        return view('admin.edit',compact('data','name','another'));
     }
 
     /**
@@ -71,9 +78,14 @@ class ManufacturerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
+        
+        $idTable  = Manufacturer::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.manufacturer')->with('success','Edit success!');
     }
 
     /**
@@ -84,6 +96,7 @@ class ManufacturerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = Manufacturer::findOrFail($id);
+        $idTable->delete();
     }
 }

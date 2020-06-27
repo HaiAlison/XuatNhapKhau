@@ -28,7 +28,8 @@ class PoStatusController extends Controller
      */
     public function create()
     {
-        //
+        $name = ['po_status' => 'PO Status'];
+          return view('admin.edit',compact('name'));
     }
 
     /**
@@ -39,7 +40,9 @@ class PoStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        POStatus::create($request->except('_token'));
+        return redirect()->route('admin.po-status')->with('success','Create success!');
     }
 
     /**
@@ -61,7 +64,9 @@ class PoStatusController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = POStatus::findOrFail($id);
+        $name = ['po_status' => 'PO Status'];
+        return view('admin.edit',compact('data','name'));
     }
 
     /**
@@ -71,9 +76,14 @@ class PoStatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
         //
+        
+        $idTable  = POStatus::findOrFail($id);
+        $input = $request->except('_token');
+        $idTable->fill($input)->save();
+        return redirect()->route('admin.po-status')->with('success','Edit success!');
     }
 
     /**
@@ -84,6 +94,7 @@ class PoStatusController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idTable = POStatus::findOrFail($id);
+        $idTable->delete();
     }
 }

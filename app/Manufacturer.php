@@ -8,4 +8,6 @@ class Manufacturer extends Model
 {
     protected $primaryKey = 'id';
     protected $keyType = 'string';
+	protected $fillable = ['id','manufacturer_name','manufacturer_address'];
+
 }

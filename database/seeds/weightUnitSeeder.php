@@ -22,11 +22,7 @@ class weightUnitSeeder extends Seeder
             'weight_unit'=>40
         
         ];
-        $weightUnit[]=[
-            'id'=>'WeightUnit_40',
-            'weight_unit'=>40
         
-        ];
         $weightUnit[]=[
             'id'=>'WeightUnit_50',
             'weight_unit'=>50
