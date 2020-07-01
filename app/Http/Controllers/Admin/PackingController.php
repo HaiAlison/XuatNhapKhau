@@ -12,8 +12,7 @@ class PackingController extends Controller
         $nameToForeach = Packing::all();
         $title = 'Packing';
         $name= 'packing';
-        $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
     public function create()
     {

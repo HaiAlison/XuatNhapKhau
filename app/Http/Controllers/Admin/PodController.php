@@ -18,7 +18,7 @@ class PodController extends Controller
         $title = 'POD';
         $name= 'pod_name';
         $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
 
     /**

@@ -1,5 +1,6 @@
 @extends('master.masterpage-admin')
 @section('content')
+<!--  lấy key trong mảng name -->
 <input type="hidden" {{$key = array_keys($name)[0]}}>
 @if(isset($data)) 
     <form class="needs-validation" novalidate action="{{route('admin.update-'.$key,['id'=>$data->id])}}" method="post">
@@ -20,7 +21,8 @@
             <input type="text" class="form-control" id="inputBinding" name="{{ $key }}" placeholder="" @if(isset($data))   value="{{$data->$key}}" @endif>
         </div>
     </div>
-    @if(isset($another))
+    <!-- another là để thêm cột (nếu cột danh mục trong db > 2), foreach để lấy key value-->
+    @if(isset($another)) 
     <div class="row">
         <div class="col-12 col-lg-4 mb-3">
             <?php foreach ($another as $key => $value): ?>

@@ -17,8 +17,7 @@ class OriginController extends Controller
         $nameToForeach = Origin::all();
         $title = 'Origin Name';
         $name= 'origin_name';
-        $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
 
 

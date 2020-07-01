@@ -17,8 +17,7 @@ class WeightUnitController extends Controller
         $nameToForeach = WeightUnit::all();
         $title = 'Weight Unit';
         $name= 'weight_unit';
-        $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
 
     /**

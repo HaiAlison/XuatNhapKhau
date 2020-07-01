@@ -17,8 +17,7 @@ class CustomerController extends Controller
         $nameToForeach = Customer::all();
         $title = 'Customer Name';
         $name= 'customer_name';
-        $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
 
     /**

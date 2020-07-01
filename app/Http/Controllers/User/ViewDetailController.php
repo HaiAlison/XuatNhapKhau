@@ -24,12 +24,14 @@ class ViewDetailController extends Controller
             $typeOfShipmentDetail = TypeOfShipmentDetail::where('id',$order->id)->first();
          	$shipment = Shipment::where([['id',$request->id_shipment],['po_no_id',$order->id]])->first();
             if($shipment!= null)
+            {
                 $shipmentDetails = ShipmentDetail::where('id',$order->id)->get();
                 return view('user.view-detail',compact('order','shipment','typeOfShipmentDetail','shipmentDetails'));
-            $request->flash();
-            return back()->with('error','Shipment can not be null');
+            }
+            $request->flash(); // giữ lại request
+            return back()->with('error','Sub PO No. not found');
          }
-    		return back()->with('error','Order can not be null');
+    		return back()->with('error','PO No. not found');
 
     }
 }

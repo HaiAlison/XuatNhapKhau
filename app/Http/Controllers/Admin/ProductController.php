@@ -17,8 +17,8 @@ class ProductController extends Controller
         $nameToForeach = Product::all();
         $title = 'Product';
         $name= 'product';
-        $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        $another = [''=>''];
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
 
     /**

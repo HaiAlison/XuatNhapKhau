@@ -20,11 +20,13 @@
             			{{ $title }}
     				@endisset
     			</th>
-                @isset($another)
-                <th>
-                    {{ $another }}
-                </th> 
-                @endisset
+                @if(isset($another))
+                    <?php foreach ($another as $key => $value): ?>
+                        <th>
+                            {{ $value }}
+                        </th> 
+                    <?php endforeach ?>
+                @endif
                 <th></th>
                 <th></th>
                 
@@ -33,12 +35,20 @@
         <tbody>
          @foreach($nameToForeach as $binding)
             <tr >
-                <td class="text-break w-25" >{{$binding->id}}</td>
-                <td   class="text-break w-25" >{{$binding->$name}}</td>
-                
-                <td   class="text-break " >{{$binding->$another}}</td>
+                <td class="text-break" >{{$binding->id}}</td>
+                <td class="text-break " >{{$binding->$name}}</td>
+                @if(isset($another))
+                    <?php  foreach ($another as $key => $value): ?>
+                    <td class="text-break " >{{$binding->$key}}</td>
+                    <?php endforeach ?>
+                @endif
+                @if(isset($role))
+                <td><a href="{{ route('admin.edit-admin',['role'=>$role,'id'=>$binding->id]) }}" class="btn btn-sm btn-outline-secondary w-100">edit</a></td>
+                <td><a href="#"  class="btn btn-sm btn-outline-secondary w-100" >delete</a></td>
+                @else
                 <td><a href="{{ route('admin.edit-'.$name,['id'=>$binding->id]) }}" class="btn btn-sm btn-outline-secondary w-100">edit</a></td>
                 <td><a href="#"  class="btn btn-sm btn-outline-secondary w-100" >delete</a></td>
+                @endif
             </tr> 
          @endforeach
         </tbody>

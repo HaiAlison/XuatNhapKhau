@@ -17,8 +17,8 @@ class ShipmentStatusController extends Controller
         $nameToForeach = ShipmentStatus::all();
         $title = 'Shipment Status';
         $name= 'shipment_status';
-        $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        $another = [''=>''];
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
 
     /**

@@ -17,8 +17,7 @@ class BindingController extends Controller
         $nameToForeach = Binding::all();
         $title = 'Binding';
         $name= 'binding';
-        $another = '';
-       return view('admin.show',compact('title','nameToForeach','name','another'));
+       return view('admin.show',compact('title','nameToForeach','name'));
     }
 
     /**

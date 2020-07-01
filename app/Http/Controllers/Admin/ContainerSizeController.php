@@ -12,8 +12,8 @@ class ContainerSizeController extends Controller
         $nameToForeach = ContainerSize::all();
         $title = 'Container Size';
         $name= 'container_size';
-        $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
     public function create()
     {

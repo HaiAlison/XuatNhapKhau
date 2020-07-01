@@ -13,7 +13,7 @@ class PaymentTermController extends Controller
         $title = 'Payment Terms';
         $name= 'payment_terms';
         $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
     public function create()
     {

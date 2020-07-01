@@ -17,7 +17,9 @@ class ManufacturerController extends Controller
         $nameToForeach = Manufacturer::all();
         $title = 'Manufacturer';
         $name= 'manufacturer_name';
-        $another = 'manufacturer_address';
+        $another = [
+                'manufacturer_address' => 'Manufacturer Address',
+                   ];
 
         return view('admin.show',compact('title','nameToForeach','name','another'));
     }

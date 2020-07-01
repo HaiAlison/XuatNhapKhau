@@ -17,8 +17,7 @@ class CertificateOfOriginController extends Controller
         $nameToForeach = CertificateOfOrigin::all();
         $title = 'Certificate Of Origin';
         $name= 'certificate_of_origin';
-        $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
     /**
      * Show the form for creating a new resource.

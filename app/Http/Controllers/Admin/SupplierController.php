@@ -18,7 +18,7 @@ class SupplierController extends Controller
         $title = 'Supplier';
         $name= 'supplier';
         $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
 
     /**

@@ -12,8 +12,7 @@ class IncotermController extends Controller
         $nameToForeach = Incoterm::all();
         $title = 'Incoterm';
         $name= 'incoterms';
-        $another = '';
-        return view('admin.show',compact('title','nameToForeach','name','another'));
+        return view('admin.show',compact('title','nameToForeach','name'));
     }
     public function create()
     {
