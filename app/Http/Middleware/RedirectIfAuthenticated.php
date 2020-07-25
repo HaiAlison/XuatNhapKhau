@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
             case 'admin':
                 if(Auth::guard($guard)->check())
                 {
-                    return redirect()->route('admin.dashboard'); //nếu guard không phải admin thì sẽ return next request.
+                    return redirect()->route('admin.index'); //nếu guard không phải admin thì sẽ return next request.
                 }
                 break;
             

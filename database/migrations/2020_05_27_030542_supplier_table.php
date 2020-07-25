@@ -30,6 +30,6 @@ class SupplierTable extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('suppliers');
+        //
     }
 }

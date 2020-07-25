@@ -14,7 +14,7 @@ class TypeOfShipmentDetail extends Migration
     public function up()
     {
         Schema::create('type_of_shipment_details', function (Blueprint $table) {
-                $table->string('id')->unique();
+                $table->string('id');
                 $table->text('number_container');
                 $table->text('container_size_id');
                 $table->decimal('payload',10,2);
@@ -32,6 +32,6 @@ class TypeOfShipmentDetail extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('type_of_shipment_details');
+        //
     }
 }

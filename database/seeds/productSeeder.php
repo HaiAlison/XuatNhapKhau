@@ -18,7 +18,7 @@ class productSeeder extends Seeder
         ];
         $product[]=[
             'id'=>'Product_2',
-            'product'=>'Product 1'
+            'product'=>'Product 2'
         ];
         $product[]=[
             'id'=>'Product_3',

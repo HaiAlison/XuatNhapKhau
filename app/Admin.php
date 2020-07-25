@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 class Admin extends Authenticatable
 {
@@ -15,7 +14,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','firstname','middlename','lastname',
+       'firstname','name', 'email', 'password','middlename','lastname',
     ];
 
     /**
@@ -26,6 +25,9 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-   
+    
+    public function setPasswordAttribute($password)
+    {   
+        $this->attributes['password'] = bcrypt($password);
+    }   
 }

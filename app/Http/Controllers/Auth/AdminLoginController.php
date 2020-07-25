@@ -31,7 +31,6 @@ class AdminLoginController extends Controller
     public function index()
     {
         $credentials = auth('admin')->user();
-        $bindings = Binding::all();
-        return view('admin.dashboard',compact('credentials','bindings'));
+        return view('admin.dashboard',compact('credentials'));
     }
 }

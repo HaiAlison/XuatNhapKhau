@@ -29,6 +29,6 @@ class OriginTable extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('origins');
+        //
     }
 }

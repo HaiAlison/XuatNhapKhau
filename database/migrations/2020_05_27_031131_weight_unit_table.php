@@ -29,6 +29,6 @@ class WeightUnitTable extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('weight_units');
+        //
     }
 }

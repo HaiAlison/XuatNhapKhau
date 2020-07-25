@@ -28,6 +28,6 @@ class IncotermsTable extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('incoterms');
+        //
     }
 }

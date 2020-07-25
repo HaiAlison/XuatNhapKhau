@@ -14,7 +14,7 @@ class ShipmentDetail extends Migration
     public function up()
     {       
         Schema::create('shipment_details', function (Blueprint $table) {
-            $table->string('id')->unique();
+            $table->string('id');
             $table->text('product_code_id');
             $table->text('packing_id');
             $table->text('weight_unit_id');
@@ -34,6 +34,6 @@ class ShipmentDetail extends Migration
      */
     public function down()
     {
-        Shema::dropIfExists('shipment_details');
+        //
     }
 }
