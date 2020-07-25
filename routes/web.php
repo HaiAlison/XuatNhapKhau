@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function(){
 			Route::get('choose-date','User\PaymentLocalController@chooseDay')->name('choose-day');
 
 			
+
 			
 		});
 	});

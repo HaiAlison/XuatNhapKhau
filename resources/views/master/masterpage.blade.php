@@ -6,7 +6,6 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		
-		
 		<!-- Bootstrap Min CSS -->
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 		<!-- Animate CSS -->
@@ -35,7 +34,9 @@
 		<title>StartP - IT Startups and Digital Services HTML Template</title>
 
 		<link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
+
 		@yield('css')
+
 	</head>
 	
 	<body>
@@ -83,6 +84,7 @@
 
 								<li class="nav-item"><a href="#" class="nav-link">Payment Overseas </a>
 								</li>
+
 
 								<li class="nav-item"><a href=" {{ route('user.payment-local') }}" class="nav-link">Payment Local </a>
 								</li>
@@ -155,6 +157,7 @@
 			{{session('success')}}
 		</div>
 		@endif
+
         
 
 		<!-- Start Footer Area -->
@@ -284,5 +287,6 @@
 		<script>
 			$('.alert').delay(3000).fadeOut('slow');
 		</script>
+
 	</body>
 </html>

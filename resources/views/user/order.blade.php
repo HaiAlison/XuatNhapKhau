@@ -309,6 +309,7 @@
 <!-- End Checkout Area -->
 @endsection
 
+
 @section('script')
 <script>
     
@@ -320,6 +321,7 @@
       //replace the "Choose a file" label
       $(this).next('.custom-file-label').html(fileName);
   });
+
         //select vessle or container to hidden value input.
         function select(){
             var option = document.getElementById('type_of_shipment');
@@ -362,6 +364,7 @@
         if(eventwhich == 9){
           incrementId++;
           console.log(incrementId);
+
           var table = $("#add-row");
 
           table.append('  <tr>\
@@ -423,14 +426,17 @@
           
         }//change id.
         $('#add-row').find('.changeId').each(function(){
+
               var id = $(this).attr('id') || null ; //lấy id ra
               if(id){
               var i = id.substr(id.length-1); //lấy chỉ số ra
               var prefix = id.substr(0,id.length-1); //lấy tiền tố của id (id-chỉ số)
               $(this).attr('id', prefix+(+i+1)); //tăng id (tiền tố + chỉ số + 1)
               console.log(id);
+
           }
       })
+
         
     }
 
@@ -456,7 +462,6 @@
         document.getElementById("total_amount"+i).disabled = false;
     }
 }
-
 
 
 </script>

@@ -13,7 +13,9 @@ class ViewDetailController extends Controller
 	
 	public function index()
 	{
+
 		return view('user.view-detail',['title' => 'View detail'],);
+
 	}
 
     public function viewDetail(Request $request)
@@ -28,6 +30,7 @@ class ViewDetailController extends Controller
                 $title = 'View Detail';
                 $shipmentDetails = ShipmentDetail::where('id',$order->id)->get();
                 return view('user.view-detail',compact('order','shipment','typeOfShipmentDetail','shipmentDetails','title'));
+
             }
             $request->flash(); // giữ lại request
             return back()->with('error','Sub PO No. not found');

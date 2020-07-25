@@ -17,7 +17,7 @@ class PoStatusController extends Controller
         $nameToForeach = POStatus::all();
         $title = 'PO Status';
         $name= 'po_status';
-       
+
         return view('admin.show',compact('title','nameToForeach','name'));
     }
 
