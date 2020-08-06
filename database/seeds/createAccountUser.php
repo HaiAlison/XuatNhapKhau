@@ -17,7 +17,7 @@ class createAccountUser extends Seeder
         	'lastname' => 'Mai',
         	'middlename' => 'Thanh',
         	'email' => 'maithanhhai9x@gmail.com',
-        	'password' => Hash::make('anhnene1')
+        	'password' => bcrypt('anhnene1'),
 
         ]);
     }

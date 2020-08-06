@@ -4,10 +4,9 @@ namespace App;
 
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable 
 {
 
     protected $guard = 'user';
@@ -39,13 +38,5 @@ class User extends Authenticatable implements JWTSubject
     {   
         $this->attributes['password'] = Hash::make($password);
     }
-    //jwt
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
+    
 }

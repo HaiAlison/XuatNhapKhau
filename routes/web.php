@@ -46,7 +46,10 @@ Route::middleware('auth')->group(function(){
 			Route::get('excel','User\PaymentLocalController@export')->name('excel');
 			Route::get('choose-date','User\PaymentLocalController@chooseDay')->name('choose-day');
 
-			
+			Route::get('report','User\InvoiceController@index')->name('order-report');
+			Route::post('show-po','User\InvoiceController@selectPO')->name('show-po');
+			Route::post('show-detail-po','User\InvoiceController@selectSubPO')->name('show-detail-po');
+			Route::post('report','User\InvoiceController@printPDF')->name('print');
 			
 		});
 	});

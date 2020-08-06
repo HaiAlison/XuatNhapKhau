@@ -14,11 +14,14 @@ class PaymentLocal extends Migration
     public function up()
     {
         Schema::create('payment_locals', function (Blueprint $table) {
-            $table->string('id');
+            $table->id();
+            $table->primary('id');  
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('po_no_id');
             $table->string('sub_po_no_id');
             $table->date('po_date');
-            $table->text('type_of_service')->nullable();
+            $table->text('type_of_service');
             $table->text('tax_level')->nullable();
             $table->text('item_name');
             $table->text('item_origin');
@@ -26,7 +29,8 @@ class PaymentLocal extends Migration
             $table->decimal('unit_price',10,2);
             $table->text('incoterms_id');
             $table->decimal('freight',10,2);
-            $table->text('pol')->nullable();
+            $table->string('pol');
+            $table->foreign('pol')->references('id')->on('pods')->onDelete('cascade');
             $table->text('ship');
             $table->integer('cont');
             $table->decimal('docs')->nullable();
@@ -38,7 +42,7 @@ class PaymentLocal extends Migration
             $table->date('eta');
             $table->decimal('amount');
             $table->date('due_date');
-            $table->date('week');
+            $table->integer('week');
             $table->text('pr_no')->nullable();
             $table->date('pr_date')->nullable();
             $table->timestamps();

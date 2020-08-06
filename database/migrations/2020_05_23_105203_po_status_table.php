@@ -1,10 +1,10 @@
-<?php
+->unique()<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SupplierTable extends Migration
+class PoStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class SupplierTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('suppliers', function (Blueprint $table) {
+        Schema::create('po_status', function (Blueprint $table) {
             $table->string('id')->unique();
             $table->primary('id');  
-            $table->text('supplier');
+            $table->text('po_status');
             $table->timestamps();
             $table->softDeletes(); 
-            
+            //
         });
     }
 

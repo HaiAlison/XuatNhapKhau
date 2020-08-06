@@ -37,7 +37,7 @@
 							      	<div class="overSelect"></div>
 							    </div>
 							    <div id="checkboxes" class="po_no">
-							    	<label class="text-left"><input type="checkbox" id="checkAll"/> Choose all PO No.</label>
+							    	
 							    </div>
 						  	</div>
 						</div>
@@ -53,7 +53,6 @@
 							      	<div class="overSelect"></div>
 							    </div>
 							    <div id="checkboxesSub" class="sub_po">
-							    	<label class="text-left"><input type="checkbox" id="checkSubAll"/> Choose all Sub PO No.</label>
 							    </div>
 						  	</div>
 						</div>

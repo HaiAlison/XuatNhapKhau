@@ -15,6 +15,7 @@ class IncotermsTable extends Migration
     {
         Schema::create('incoterms', function (Blueprint $table) {
             $table->string('id')->unique();
+            $table->primary('id');  
             $table->text('incoterms');
             $table->timestamps();
             $table->softDeletes(); 

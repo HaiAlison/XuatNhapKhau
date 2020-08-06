@@ -15,6 +15,7 @@ class ManufacturerTable extends Migration
     {
         Schema::create('manufacturers', function (Blueprint $table) {
             $table->string('id')->unique();
+            $table->primary('id');  
             $table->text('manufacturer_name');
             $table->text('manufacturer_address');
             $table->timestamps();

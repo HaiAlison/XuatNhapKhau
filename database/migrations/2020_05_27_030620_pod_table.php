@@ -16,6 +16,7 @@ class PodTable extends Migration
         //
         Schema::create('pods', function (Blueprint $table) {
             $table->string('id')->unique();
+            $table->primary('id');  
             $table->text('pod_name');
             $table->timestamps();
             $table->softDeletes();

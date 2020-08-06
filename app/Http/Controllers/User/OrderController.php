@@ -92,13 +92,11 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request,[
-        //     'id' => 'required|unique:orders',
-        //     'end_customer' => 'required',
-
-        // ]);
-            
-        if($request->type_of_shipment === 'vessle'){
+        $this->validate($request,[
+            'id' => 'required|unique:orders',
+            'end_customer' => 'required',
+        ]);
+        if($request->type_of_shipment == 'vessle'){
 
             Order::create($request->except('_token'));
 
@@ -129,19 +127,19 @@ class OrderController extends Controller
         $filtered = $req->filter(function ($value, $key) {
             return $value != null;
                 });
-        $request->merge(['product_code_id'=>$filtered->all()]);
+        $request->merge(['product_code_id' => $filtered->all()]);
         $nonOrder = $request->product_code_id;
         $reOrder = array_merge($nonOrder);
         $request->merge(['product_code_id'=>$reOrder]);
 
         foreach ($request->product_code_id as $key => $value) {
             $data = array(
-                      'id' =>$id,
+                      'po_no_id' =>$id,
                       'product_code_id'=>$request->product_code_id[$key],
                       'weight_unit_id'=>$request->weight_unit_id[$key],
                       'packing_id'=>$request->packing_id[$key],
                       'binding_id'=>$request->binding_id[$key],
-                      'net_weight_id'=>$request->net_weight_id[$key],
+                      'net_weight'=>$request->net_weight[$key],
                       'price'=>$request->price[$key],
                       'total_amount'=>$request->total_amount[$key]);
                       OrderDetail::insert($data);  

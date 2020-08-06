@@ -13,6 +13,7 @@
                 <label   class="col-sm-4 col-form-label">PO No.</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control form-control-sm" name="po_no_id" id="poNo" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->po_no_id}}" @else value="{{$purchaseOrder->id}}" @endif readonly="true">
+                  <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
                 </div>
                 <label   class="col-sm-4 col-form-label">Sub PO No.</label>
                 <div class="col-sm-8">
@@ -83,7 +84,8 @@
 
                 <label   class="col-sm-4 col-form-label">POL</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" name="pol" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->pol}}" @endif id="pol" >
+                  <input type="text" class="form-control form-control-sm"  @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->pols->pod_name}}" @else value="{{$purchaseOrder->pols->pod_name}}" @endif readonly>
+                  <input type="hidden" name="pol" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->pol}}" @else value="{{$purchaseOrder->pol}}" @endif >
                 </div>
 
                 <label   class="col-sm-4 col-form-label">Ship</label>
@@ -141,7 +143,7 @@
 
                 <label class="col-sm-4 col-form-label">Amount</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" name="amount" id="amount" readonly>
+                  <input type="text" class="form-control form-control-sm" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->amount}}" @endif name="amount" id="amount" readonly>
                 </div>
 
                 <label class="col-sm-4 col-form-label">Due date</label>
