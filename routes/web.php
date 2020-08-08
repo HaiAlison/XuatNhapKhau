@@ -47,9 +47,13 @@ Route::middleware('auth')->group(function(){
 			Route::get('choose-date','User\PaymentLocalController@chooseDay')->name('choose-day');
 
 			Route::get('report','User\InvoiceController@index')->name('order-report');
+			Route::get('payment-local-report','User\InvoiceController@local')->name('local-report');
 			Route::post('show-po','User\InvoiceController@selectPO')->name('show-po');
 			Route::post('show-detail-po','User\InvoiceController@selectSubPO')->name('show-detail-po');
+			Route::post('show-detail-local','User\InvoiceController@showPaymentLocal')->name('show-detail-local');
+
 			Route::post('report','User\InvoiceController@printPDF')->name('print');
+			Route::post('local-report','User\InvoiceController@printLocalPDF')->name('print-local');
 			
 		});
 	});

@@ -21,7 +21,7 @@ class Order extends Model
 
   	public function paymentTerm()
   	{
-  		return $this->belongsTo('App\PaymentTerms');
+  		return $this->belongsTo('App\PaymentTerm');
   	}
 
   	public function origin()
@@ -48,7 +48,7 @@ class Order extends Model
   	}
   	public function poStatus()
   	{
-  		return $this->belongsTo('App\POStatus','id');
+  		return $this->belongsTo('App\POStatus');
   	}
   	public function orderDetail()
   	{
@@ -60,7 +60,7 @@ class Order extends Model
   	}
   	public function certificateOfOrigin()
   	{
-  		return $this->belongsTo('App\CertificateOfOrigin');
+  		return $this->belongsTo('App\CertificateOfOrigin','co_id');
   	}
   	
     public function pods()

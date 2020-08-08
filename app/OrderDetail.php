@@ -7,21 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class OrderDetail extends Model
 {
     //
-    protected $fillable = ['id','product_code_id','weight_unit_id','packing_id','binding_id','net_weight','price','total_amount'];
+    protected $fillable = ['product_code_id','weight_unit_id','packing_id','binding_id','net_weight','price','total_amount'];
     public function product()
     {
-    	return $this->belongsTo('App\Product');
+        return $this->belongsTo('App\Product','product_code_id');
     }
     public function packing()
     {
-    	return $this->belongsTo('App\Packing');
-    }
-    public function weightUnit()
-    {
-    	return $this->belongsTo('App\WeightUnit');
+        return $this->belongsTo('App\Packing','packing_id');
     }
     public function binding()
     {
-    	return $this->belongsTo('App\Binding');
+        return $this->belongsTo('App\Binding','binding_id');
+    }
+    public function weightUnit()
+    {
+        return $this->belongsTo('App\WeightUnit','weight_unit_id'); 
     }
 }

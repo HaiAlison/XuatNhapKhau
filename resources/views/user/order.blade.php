@@ -309,7 +309,6 @@
 <!-- End Checkout Area -->
 @endsection
 
-
 @section('script')
 <script>
 
@@ -363,7 +362,6 @@
         if(eventwhich == 9){
           incrementId++;
           console.log(incrementId);
-
           var table = $("#add-row");
 
           table.append('  <tr class="cal-amount">\
@@ -425,7 +423,6 @@
           
         }//change id.
         $('#add-row').find('.changeId').each(function(){
-
               var id = $(this).attr('id') || null ; //lấy id ra
               if(id){
               var i = id.substr(id.length-1); //lấy chỉ số ra

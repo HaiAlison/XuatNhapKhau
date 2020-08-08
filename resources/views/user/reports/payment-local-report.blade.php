@@ -12,7 +12,7 @@
 @endsection
 @section('content')
 
-<form action="{{ route('user.print') }}" style="text-align: left; background-color: #fafafa"  method="post">
+<form action="{{ route('user.print-local') }}" style="text-align: left; background-color: #fafafa"  method="post">
 	@csrf
 	<div class="container container-smaller">
 		<div class="row">
@@ -46,7 +46,7 @@
 
 								<label class="col-sm-5">Responsibility Area</label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control form-control-sm" name="repository"/>
+									<input type="text" class="form-control form-control-sm" name="responsibility"/>
 								</div>
 
 								<label class="col-sm-5">Original Date of Issue</label>
@@ -75,9 +75,11 @@
 								</div>
 							</div>
 							<div class="row">
-								<label class="col-sm-5">Nhà cung cấp <i class="hint">(Supplier):</i></label>
+								<label class="col-sm-5">Loại dịch vụ<i class="hint">(Type of service):</i></label>
 								<div class="col-sm-6">
-									<input type="text" class="form-control form-control-sm" id="supplier" name="supplier" placeholder="">
+									<select class="form-control form-control-sm drop" id="type_service" name="type_service">
+										<option selected disabled>Select Type of service</option>
+									</select>
 								</div>
 							</div>
 							<div class="row">
@@ -99,7 +101,7 @@
 							<div class="row">
 								<label class="col-sm-4 ">Ngày <i class="hint">(Date):</i></label>
 								<div class="col-sm-6">
-									<input type="date" class="form-control form-control-sm" name="date" placeholder="">
+									<input type="date" class="form-control form-control-sm" id="po_date" name="date" placeholder="">
 								</div>
 							</div>
 							<div class="row">
@@ -127,7 +129,6 @@
 						<thead style="background: #F5F5F5;">
 							<tr class="header">
 								<th>Tên vật tư<br><i class="hint">(Product name)</i></th>
-								<th>Đơn vị tính<br><i class="hint">(Unit)</i></th>
 								<th>Ngày giao hàng<br><i class="hint">(Delivery date)</i></th>
 								<th>Số lượng<br><i class="hint">(Quantity)</i></th>
 								<th>Đơn giá<br><i class="hint">(Unit price)</i></th>
@@ -142,55 +143,36 @@
 					</table>
 				</div><!-- /table-responsive -->
 
-				<table class="table invoice-total">
-					<tbody>
-						<tr>
-							<td rowspan="5">Ghi chú:<br><textarea class="form-control" name="note"></textarea> </td>
-							<td class="text-right" style="border-bottom: 0"><strong>Tổng tiền hàng trước thuế </strong><i class="hint">(Total amount before VAT):</i></td>
-							<td class="text-right small-width">$600</td>
-							<input type="hidden" name="amout_before_vat">
-						</tr>
-						<tr>
-							<td class="text-right" style="border: 0"><strong>Số tiền giảm giá/ chiết khấu </strong><i class="hint">(Total discounted amount):</i></td>
-							<td class="text-right small-width">$600</td>
-							<input type="hidden" name="discount">
-						</tr>
-						<tr>
-							<td class="text-right" style="border: 0"><strong>Tổng tiền thuế VAT </strong><i class="hint">(Total amount VAT):</i></td>
-							<td class="text-right small-width">$600</td>
-							<input type="hidden" name="sum_vat">
-						</tr>
-						<tr>
-							<td class="text-right" style="border: 0"><strong>Tổng tiền thanh toán </strong><i class="hint">(Total amount):</i></td>
-							<td class="text-right small-width">$600</td>
-							<input type="hidden" name="total_amount">
-						</tr>
-						<tr>
-							<td class="text-right" style="border-top: 0"><strong>Tiền tệ </strong><i class="hint">(Currency):</i></td>
-							<td class="text-right small-width">$600</td>
-							<input type="hidden" name="currency">
-						</tr>
-					</tbody>
-				</table>
-
 				<hr>
 				<table class="table invoice-term">
 					<tbody>
 						<tr>
-							<td class="text-left">Điều khoản thanh toán<br><i class="hint">(Payment term):</i></td>
-							<td><textarea name="payment_term" class="form-control form-control-sm"></textarea></td>
+							<td class="text-left">Quy tắc thương mại quốc tế <i class="hint">(Incoterms):</i></td>
+							<td><input type="text" name="incoterm" id="incoterm" class="form-control form-control-sm"/></td>
 						</tr>
 						<tr>
-							<td class="text-left">Địa chỉ giao hàng<br><i class="hint">(Deliver to):</i></td>
-							<td><textarea name="deliver_to" class="form-control form-control-sm"></textarea></td>
+							<td class="text-left">Cảng đi <i class="hint">(POL):</i></td>
+							<td><input type="text" name="pol" id="pol" class="form-control form-control-sm"/></td>
 						</tr>
 						<tr>
-							<td class="text-left">Thời gian giao hàng dự kiến<i class="hint">(Scheduled Delivery):  </i></td>
-							<td><input type="date" name="schedule" class="form-control form-control-sm"></td>
+							<td class="text-left">Số yêu cầu đặt hàng <i class="hint">(PR No.):</i></td>
+							<td><input type="text" name="pr_no" id="pr_no" class="form-control form-control-sm"/></td>
 						</tr>
 						<tr>
-							<td class="text-left">Xuất hóa đơn cho<br><i class="hint">(Invoice to):</i></td>
-							<td><textarea name="invoice_to" class="form-control form-control-sm"></textarea></td>
+							<td class="text-left">Thời gian giao hàng dự kiến <i class="hint">(Scheduled Delivery):  </i></td>
+							<td><input type="date" name="eta" id="eta" class="form-control form-control-sm"></td>
+						</tr>
+						<tr>
+							<td class="text-left">Ngày vận đơn <i class="hint">(B/L date):</i></td>
+							<td><input type="date" name="bl_date" id="bl_date" class="form-control form-control-sm"/></td>
+						</tr>
+						<tr>
+							<td class="text-left">Ngày đáo hạn <i class="hint">(Due date):</i></td>
+							<td><input type="date" name="due_date" id="due_date" class="form-control form-control-sm"/></td>
+						</tr>
+						<tr>
+							<td class="text-left">Ngày yêu cầu đặt hàng <i class="hint">(PR date):</i></td>
+							<td><input type="date" name="pr_date" id="pr_date" class="form-control form-control-sm"/></td>
 						</tr>
 					</tbody>
 				</table>
@@ -217,6 +199,7 @@
 					</div>
 					<div class="col-sm-6"><textarea class="form-control form-control-sm" name="concern"></textarea> </div>
 				</div>
+				<br>
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="row">
@@ -232,39 +215,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm-12 text-center header" style="border: 2px solid;margin: 20px 0 20px 0"><strong>ONLINE APPROVAL PROCESS (OAP)</strong></div>
-					<table class="table invoice-approval">
-						<thead>
-							<tr>
-								<th colspan="5" class="text-center header">PURCHASE ORDER APPROVAL</th>
-							</tr>
-							<tr>
-								<th class="text-center">Requestor</th>
-								<th class="text-center">Pre-approver</th>
-								<th class="text-center">HOD</th>
-								<th class="text-center">HODiv</th>
-								<th class="text-center">BOD</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="border-yellow"><input type="text" name=""></td>
-								<td class="border-yellow"><input type="text" name=""></td>
-								<td class="border-yellow"><input type="text" name=""></td>
-								<td class="border-yellow"><input type="text" name=""></td>
-								<td class="border-yellow"><input type="text" name=""></td>
-							</tr>
-							<tr>
-								<td><strong>Reason for injection</strong></td>
-								<td><input type="text" name=""></td>
-								<td><input type="text" name=""></td>
-								<td><input type="text" name=""></td>
-								<td><input type="text" name=""></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>	
+				<br>
 			</div>
 		</div>
 	</div>
@@ -280,9 +231,10 @@
 			_token: $('input[name="_token"]').val()},
 			success: function(result){
 				$("#sub_po").html(result.output);
-				$("#supplier").prop('value',result.order.supplier_id );
+			},
+			error: function(){
+				alert("fail");
 			}
-
 		});
 		e.preventDefault();
 	})
@@ -291,10 +243,36 @@
 		$.ajax({
 			url: "{{ route('user.show-detail-po')}}",
 			method: 'POST',
-			data: {sub_po: $("#sub_po").val(),
+			data: {po_no_id: $("#po_no").val(),
+			sub_po: $("#sub_po").val(),
+			_token: $('input[name="_token"]').val()},
+			success: function(result){
+				$("#type_service").html(result.output);
+			},
+			error: function(){
+				$("#type_service").html("<option>Loading...</option>");
+			}
+
+		});
+		e.preventDefault();
+	})
+	$("#type_service").on('change',function(e){
+		$.ajax({
+			url: "{{ route('user.show-detail-local')}}",
+			method: 'POST',
+			data: {type_of_service: $("#type_service").val(),
+			sub_po: $("#sub_po").val(),
 			_token: $('input[name="_token"]').val()},
 			success: function(result){
 				$("#details").html(result.html);
+				$("#po_date").prop('value', result.local.po_date);
+				$("#incoterm").prop('value', result.local.incoterm);
+				$("#pol").prop('value', result.local.pol);
+				$("#pr_no").prop('value', result.local.pr_no);
+				$("#eta").prop('value', result.local.eta);
+				$("#bl_date").prop('value', result.local.bl_date);
+				$("#due_date").prop('value', result.local.due_date);
+				$("#pr_date").prop('value', result.local.pr_date);
 			},
 			error: function(){
 				$("#details").html("Loading...");

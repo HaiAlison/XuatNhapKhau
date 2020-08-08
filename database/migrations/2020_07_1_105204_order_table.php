@@ -42,7 +42,8 @@ class OrderTable extends Migration
             $table->text('type_of_shipment');
             $table->text('link_to_specs')->nullable();
             $table->text('hs_code');
-            $table->text('co_id');
+            $table->string('co_id');
+            $table->foreign('co_id')->references('id')->on('certificate_of_origins')->onDelete('cascade');
             $table->string('payment_term_id');
             $table->foreign('payment_term_id')->references('id')->on('payment_terms')->onDelete('cascade');
             $table->text('within_x_day');

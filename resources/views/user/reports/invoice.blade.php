@@ -94,26 +94,19 @@
 						</div>
 						<div class="col-sm-6">
 							<div class="row">
-								<label class="col-sm-4 ">Số <i class="hint">(No.-sub No.):</i></label>
+								<label class="col-sm-5 ">Nhà sản xuất <i class="hint">(Manufacturer):</i></label>
 								<div class="col-sm-6">
-									<select class="form-control form-control-sm drop" id="sub_po" name="sub_po">
-										<option disabled selected>Select Sub PO.</option>
-									</select>
-									@if(count($errors)>0)
-									<div class="text-danger">
-										{{$errors->first('sub_po')}}
-									</div>
-									@endif
+									<input type="text" class="form-control form-control-sm" id="manufacturer" @if(isset($order)) value="$order->manufacturer_id" @endif name="manufacturer"  placeholder="">
 								</div>
 							</div>
 							<div class="row">
-								<label class="col-sm-4 ">Ngày <i class="hint">(Date):</i></label>
+								<label class="col-sm-5 ">Ngày <i class="hint">(Date):</i></label>
 								<div class="col-sm-6">
-									<input type="date" class="form-control form-control-sm" name="date" placeholder="">
+									<input type="date" class="form-control form-control-sm" id="date" name="date" placeholder="">
 								</div>
 							</div>
 							<div class="row">
-								<label class="col-sm-4 ">Điện thoại <i class="hint">(Tel):</i></label>
+								<label class="col-sm-5 ">Điện thoại <i class="hint">(Tel):</i></label>
 								<div class="col-sm-6">
 									<input type="text" class="form-control form-control-sm" name="tel" placeholder="">
 								</div>
@@ -137,22 +130,23 @@
 						<thead style="background: #F5F5F5;">
 							<tr class="header">
 								<th>Tên vật tư<br><i class="hint">(Product name)</i></th>
-								<th>Đơn vị tính<br><i class="hint">(Unit)</i></th>
-								<th>Ngày giao hàng<br><i class="hint">(Delivery date)</i></th>
-								<th>Số lượng<br><i class="hint">(Quantity)</i></th>
-								<th>Đơn giá<br><i class="hint">(Unit price)</i></th>
+								<th>Đóng gói<br><i class="hint">(Packing)</i></th>
+								<th>Đơn vị khối lượng<br><i class="hint">(Weight unit)</i></th>
+								<th>Buộc hàng<br><i class="hint">(Binding)</i></th>
+								<th>Trọng lượng<br><i class="hint">(Net weight)</i></th>
+								<th>Đơn giá<br><i class="hint">(Price)</i></th>
 								<th class="text-right">Thành tiền<br><i class="hint">(Amount)</i></th>
 							</tr>
 						</thead>
 						<tbody id="details">
 							
-							
+							<!-- Ajax load detail -->
 
 						</tbody>
 					</table>
-				</div><!-- /table-responsive -->
+				</div>
 
-				<table class="table invoice-total">
+				<!-- <table class="table invoice-total">
 					<tbody>
 						<tr>
 							<td rowspan="5">Ghi chú:<br><textarea class="form-control" name="note"></textarea> </td>
@@ -182,102 +176,146 @@
 						</tr>
 					</tbody>
 				</table>
-
-				<hr>
-				<table class="table invoice-term">
+			-->
+			<hr><br>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="row">
+						<label class="col-sm-5">Cảng đến <i class="hint">(POD):</i></label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control form-control-sm" id="pod" name="pod" >
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-sm-5">Cảng đi <i class="hint">(POL):</i></label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control form-control-sm" id="pol" name="pol" placeholder="">
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-sm-5">Chứng nhận xuất xứ <i class="hint">(Certificate of origin):</i></label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control form-control-sm" id="co" name="co"  placeholder="">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="row">
+						<label class="col-sm-5 ">Quy tắc thương mại quốc tế <i class="hint">(Incoterms):</i></label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control form-control-sm" id="incoterm" id="incoterm"  placeholder="">
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-sm-5 ">Xuất xứ <i class="hint">(Origin):</i></label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control form-control-sm" id="origin" name="origin" placeholder="">
+						</div>
+					</div>
+					<div class="row">
+						<label class="col-sm-5 ">Loại vận chuyển <i class="hint">(Type of shipment):</i></label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control form-control-sm" name="type_of_shipment" id="type_of_shipment" placeholder="">
+						</div>
+					</div>
+				</div>
+				<div style="margin-bottom: 0px">&nbsp;</div>
+			</div>
+			<hr><br>
+			<table class="table invoice-term">
+				<tbody>
+					<tr>
+						<td class="text-left">Điều khoản thanh toán<br><i class="hint">(Payment term):</i></td>
+						<td><textarea name="payment_term" id="payment_term" class="form-control form-control-sm"></textarea></td>
+					</tr>
+					<tr>
+						<td class="text-left">Địa chỉ giao hàng<br><i class="hint">(Deliver to):</i></td>
+						<td><textarea name="deliver_to" class="form-control form-control-sm"></textarea></td>
+					</tr>
+					<tr>
+						<td class="text-left">Thời gian giao hàng dự kiến<i class="hint">(Scheduled Delivery):  </i></td>
+						<td><input type="date" name="schedule" id="eta" class="form-control form-control-sm"></td>
+					</tr>
+					<tr>
+						<td class="text-left">Xuất hóa đơn cho<br><i class="hint">(Invoice to):</i></td>
+						<td><textarea name="invoice_to" class="form-control form-control-sm"></textarea></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-sm-4 text-center">
+							<strong>Người lập phiếu</strong><br><i class="hint">(Prepared by)</i><br><br>
+							<input type="text" class="form-control form-control-sm" name="prepared_by"/>
+						</div>
+						<div class="col-sm-4 text-center">
+							<strong>Người duyệt</strong><br><i class="hint">(Approved by)</i><br><br>
+							<input type="text" class="form-control form-control-sm" name="approved_by"/>
+						</div>
+						<div class="col-sm-4 text-center">
+							<strong>Xác nhận của nhà cung cấp</strong><br><i class="hint">(Confirmed by supplier)</i><br><br>
+							<input type="text" class="form-control form-control-sm" name="confirmed_by_supplier"/>
+						</div>
+					</div>
+				</div>
+			</div><br>
+			<div class="row">
+				<div class="col-sm-6">Nếu có phát sinh bất kỳ thắc mắc về Đơn hàng, vui lòng liên hệ…<br><i class="hint">(Should you have any enquiries concerning this purchase order, please contact):</i>
+				</div>
+				<div class="col-sm-6"><textarea class="form-control form-control-sm" name="concern"></textarea> </div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-lg-4 text-right">
+							<i>ISO REF: 8.4_MVN_06_18_F02</i>
+						</div>
+						<div class="col-lg-4 text-center">
+							<i>- Prep by: COO– App by: GD –</i>
+						</div>
+						<div class="col-lg-4 text-right">
+							<i>Rev: 3 – Issued date: 01.04.2020</i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="row">
+				<div class="col-sm-12 text-center header" style="border: 2px solid;margin: 20px 0 20px 0"><strong>ONLINE APPROVAL PROCESS (OAP)</strong></div>
+				<table class="table invoice-approval">
+					<thead>
+						<tr>
+							<th colspan="5" class="text-center header">PURCHASE ORDER APPROVAL</th>
+						</tr>
+						<tr>
+							<th class="text-center">Requestor</th>
+							<th class="text-center">Pre-approver</th>
+							<th class="text-center">HOD</th>
+							<th class="text-center">HODiv</th>
+							<th class="text-center">BOD</th>
+						</tr>
+					</thead>
 					<tbody>
 						<tr>
-							<td class="text-left">Điều khoản thanh toán<br><i class="hint">(Payment term):</i></td>
-							<td><textarea name="payment_term" class="form-control form-control-sm"></textarea></td>
+							<td class="border-yellow"><input type="text" name=""></td>
+							<td class="border-yellow"><input type="text" name=""></td>
+							<td class="border-yellow"><input type="text" name=""></td>
+							<td class="border-yellow"><input type="text" name=""></td>
+							<td class="border-yellow"><input type="text" name=""></td>
 						</tr>
 						<tr>
-							<td class="text-left">Địa chỉ giao hàng<br><i class="hint">(Deliver to):</i></td>
-							<td><textarea name="deliver_to" class="form-control form-control-sm"></textarea></td>
-						</tr>
-						<tr>
-							<td class="text-left">Thời gian giao hàng dự kiến<i class="hint">(Scheduled Delivery):  </i></td>
-							<td><input type="date" name="schedule" class="form-control form-control-sm"></td>
-						</tr>
-						<tr>
-							<td class="text-left">Xuất hóa đơn cho<br><i class="hint">(Invoice to):</i></td>
-							<td><textarea name="invoice_to" class="form-control form-control-sm"></textarea></td>
+							<td><strong>Reason for injection</strong></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
 						</tr>
 					</tbody>
 				</table>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="row">
-							<div class="col-sm-4 text-center">
-								<strong>Người lập phiếu</strong><br><i class="hint">(Prepared by)</i><br><br>
-								<input type="text" class="form-control form-control-sm" name="prepared_by"/>
-							</div>
-							<div class="col-sm-4 text-center">
-								<strong>Người duyệt</strong><br><i class="hint">(Approved by)</i><br><br>
-								<input type="text" class="form-control form-control-sm" name="approved_by"/>
-							</div>
-							<div class="col-sm-4 text-center">
-								<strong>Xác nhận của nhà cung cấp</strong><br><i class="hint">(Confirmed by supplier)</i><br><br>
-								<input type="text" class="form-control form-control-sm" name="confirmed_by_supplier"/>
-							</div>
-						</div>
-					</div>
-				</div><br>
-				<div class="row">
-					<div class="col-sm-6">Nếu có phát sinh bất kỳ thắc mắc về Đơn hàng, vui lòng liên hệ…<br><i class="hint">(Should you have any enquiries concerning this purchase order, please contact):</i>
-					</div>
-					<div class="col-sm-6"><textarea class="form-control form-control-sm" name="concern"></textarea> </div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="row">
-							<div class="col-lg-4 text-right">
-								<i>ISO REF: 8.4_MVN_06_18_F02</i>
-							</div>
-							<div class="col-lg-4 text-center">
-								<i>- Prep by: COO– App by: GD –</i>
-							</div>
-							<div class="col-lg-4 text-right">
-								<i>Rev: 3 – Issued date: 01.04.2020</i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12 text-center header" style="border: 2px solid;margin: 20px 0 20px 0"><strong>ONLINE APPROVAL PROCESS (OAP)</strong></div>
-					<table class="table invoice-approval">
-						<thead>
-							<tr>
-								<th colspan="5" class="text-center header">PURCHASE ORDER APPROVAL</th>
-							</tr>
-							<tr>
-								<th class="text-center">Requestor</th>
-								<th class="text-center">Pre-approver</th>
-								<th class="text-center">HOD</th>
-								<th class="text-center">HODiv</th>
-								<th class="text-center">BOD</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="border-yellow"><input type="text" name=""></td>
-								<td class="border-yellow"><input type="text" name=""></td>
-								<td class="border-yellow"><input type="text" name=""></td>
-								<td class="border-yellow"><input type="text" name=""></td>
-								<td class="border-yellow"><input type="text" name=""></td>
-							</tr>
-							<tr>
-								<td><strong>Reason for injection</strong></td>
-								<td><input type="text" name=""></td>
-								<td><input type="text" name=""></td>
-								<td><input type="text" name=""></td>
-								<td><input type="text" name=""></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>	
-			</div>
+			</div>	 -->
 		</div>
 	</div>
+</div>
 </form>
 @endsection
 @section('script')
@@ -290,29 +328,42 @@
 			_token: $('input[name="_token"]').val()},
 			success: function(result){
 				$("#sub_po").html(result.output);
-				$("#supplier").prop('value',result.order.supplier_id );
-			}
-
-		});
-		e.preventDefault();
-	})
-
-	$("#sub_po").on('change',function(e){
-		$.ajax({
-			url: "{{ route('user.show-detail-po')}}",
-			method: 'POST',
-			data: {sub_po: $("#sub_po").val(),
-			_token: $('input[name="_token"]').val()},
-			success: function(result){
+				$("#supplier").prop('value',result.order.supplier);
+				$("#manufacturer").prop('value',result.order.manufacturer);
+				$("#date").prop('value',result.order.po_date);
+				$("#payment_term").prop('value',result.order.payment_term);
+				$("#pod").prop('value',result.order.pod);
+				$("#pol").prop('value',result.order.pol);
+				$("#co").prop('value',result.order.co);
+				$("#incoterm").prop('value',result.order.incoterm);
+				$("#eta").prop('value',result.order.eta);
+				$("#origin").prop('value',result.order.origin);
+				$("#type_of_shipment").prop('value',result.order.type_of_shipment);
 				$("#details").html(result.html);
 			},
 			error: function(){
 				$("#details").html("Loading...");
 			}
-
 		});
 		e.preventDefault();
 	})
+
+	// $("#sub_po").on('change',function(e){
+	// 	$.ajax({
+	// 		url: "{{ route('user.show-detail-po')}}",
+	// 		method: 'POST',
+	// 		data: {sub_po: $("#sub_po").val(),
+	// 		_token: $('input[name="_token"]').val()},
+	// 		success: function(result){
+	// 			$("#details").html(result.html);
+	// 		},
+	// 		error: function(){
+	// 			$("#details").html("Loading...");
+	// 		}
+
+	// 	});
+	// 	e.preventDefault();
+	// })
 	
 </script>
 @endsection

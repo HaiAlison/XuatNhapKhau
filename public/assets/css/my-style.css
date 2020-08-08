@@ -62,7 +62,6 @@ label{
 	margin-bottom: 0;
 }
 .invoice-product tr th{
-	word-break: normal;
 	text-align: center;
 }
 .invoice-product tr td{

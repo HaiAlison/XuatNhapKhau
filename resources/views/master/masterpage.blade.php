@@ -33,7 +33,6 @@
 	<link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
 	<title>StartP - IT Startups and Digital Services HTML Template</title>
-	
 
 	<link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
 	@yield('css')
@@ -97,7 +96,7 @@
 									</li>
 									<li class="nav-item"><a href=" {{ route('user.payment-local') }}" class="nav-link">Payment Overseas Report</a>
 									</li>
-									<li class="nav-item"><a href=" {{ route('user.payment-local') }}" class="nav-link">Payment Local Report</a>
+									<li class="nav-item"><a href=" {{ route('user.local-report') }}" class="nav-link">Payment Local Report</a>
 									</li>
 								</ul>
 							</li>
@@ -164,7 +163,7 @@
 		<div class="shape8 rotateme"><img src="{{ asset('assets/img/shape2.svg') }}" alt="shape"></div>
 	</div>
 	<div>
-		@yield('report')
+	@yield('report')
 	</div>
 	<!-- End Page Title -->
 	@if(session('success'))
@@ -263,7 +262,6 @@
 		</div>
 	</div>
 
-	
 	<div class="go-top"><i data-feather="arrow-up"></i></div>
 
 	<!-- Jquery Min JS -->

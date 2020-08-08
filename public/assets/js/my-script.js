@@ -12,7 +12,7 @@ var unitPrice = parseFloat($("#unitPrice").val());
         $(".local").prop( "disabled",true);
         $("#taxLevel").on('keyup',function(){
           tax = parseFloat($(this).val());
-          var result = unitPrice*qty*(tax/100)+unitPrice*qty*(tax/100)*0.1;
+          var result = unitPrice*qty*tax+unitPrice*qty*tax*0.1;
           amount = $("#amount").val(result); 
         })
       }
