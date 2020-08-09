@@ -35,6 +35,25 @@ Route::middleware('auth')->group(function(){
 			Route::get('view-detail','User\ViewDetailController@index')->name('view-detail');
 			Route::post('view-detail','User\ViewDetailController@viewDetail')->name('show-view-detail');
 
+			Route::get('payment-local','User\PaymentLocalController@index')->name('payment-local');
+			Route::post('payment-local','User\PaymentLocalController@show')->name('show-payment-local');
+			Route::post('payment-local-s','User\PaymentLocalController@store')->name('store-payment-local');
+
+			Route::get('edit-payment-local/{po_no}/{sub_po}/{type_service}','User\PaymentLocalController@edit')->name('edit-payment-local');
+			Route::post('edit-payment-local/{po_no}/{sub_po}/{type_service}','User\PaymentLocalController@update')->name('update-payment-local');
+
+			
+			Route::get('excel','User\PaymentLocalController@export')->name('excel');
+			Route::get('choose-date','User\PaymentLocalController@chooseDay')->name('choose-day');
+
+			Route::get('report','User\InvoiceController@index')->name('order-report');
+			Route::get('payment-local-report','User\InvoiceController@local')->name('local-report');
+			Route::post('show-po','User\InvoiceController@selectPO')->name('show-po');
+			Route::post('show-detail-po','User\InvoiceController@selectSubPO')->name('show-detail-po');
+			Route::post('show-detail-local','User\InvoiceController@showPaymentLocal')->name('show-detail-local');
+
+			Route::post('report','User\InvoiceController@printPDF')->name('print');
+			Route::post('local-report','User\InvoiceController@printLocalPDF')->name('print-local');
 			
 		});
 	});

@@ -16,6 +16,7 @@ class CertificateOfOrigin extends Migration
         //
         Schema::create('certificate_of_origins', function (Blueprint $table) {
             $table->string('id')->unique();
+            $table->primary('id');  
             $table->text('certificate_of_origin');
             $table->timestamps();
             $table->softDeletes(); 

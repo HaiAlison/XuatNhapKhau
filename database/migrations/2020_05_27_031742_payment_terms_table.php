@@ -15,6 +15,7 @@ class PaymentTermsTable extends Migration
     {
         Schema::create('payment_terms', function (Blueprint $table) {
             $table->string('id')->unique();
+            $table->primary('id');  
             $table->text('payment_terms');
             $table->timestamps();
             $table->softDeletes(); 

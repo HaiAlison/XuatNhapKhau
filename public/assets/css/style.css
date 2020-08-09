@@ -4744,7 +4744,7 @@ Checkout CSS
 }
 
 .billing-details .form-group .form-control {
-  background: #ffffff;
+  /*background: #ffffff;*/
 }
 .billing-details .form-group .form-control:disabled{
   background-color: #e9ecef;
@@ -9256,3 +9256,58 @@ Go Top CSS
   background: #44ce6f;
 }
 /*# sourceMappingURL=style.css.map */
+/*<!-- Style của Export ( phần checkbox) -->*/
+.multiselect {
+    width: 200px;
+  }
+
+  .selectBox {
+    position: relative;
+  }
+
+  .selectBox select {
+    width: 100%;
+    font-weight: bold;
+  }
+
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  #checkboxes {
+    display: none;
+    border: 1px #dadada solid;
+  }
+
+
+  #checkboxes label {
+    font-family: inherit;
+    font-size: inherit;
+    display: block;
+    padding-left: 7px;
+  }
+  
+
+  #checkboxes label:hover {
+    background-color: #1e90ff;
+  } 
+
+  #checkboxesSub {
+    display: none;
+    border: 1px #dadada solid;
+  }
+
+  #checkboxesSub label {
+    padding-left: 7px;
+    display: block;
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  #checkboxesSub label:hover {
+    background-color: #1e90ff;
+  }

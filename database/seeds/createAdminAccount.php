@@ -17,7 +17,7 @@ class createAdminAccount extends Seeder
         	'lastname' => 'Mai',
         	'middlename' => 'Thanh',
         	'email' => 'admin@gmail.com',
-        	'password' => Hash::make('anhnene1')
+        	'password' => bcrypt('anhnene1')
 
         ]);
     }

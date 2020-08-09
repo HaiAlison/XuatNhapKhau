@@ -1,288 +1,124 @@
 @extends('master.masterpage')
-
 @section('content')
-
-<form action="{{ route('user.show-view-detail') }} " method="post"> 
-    @csrf
-    <div class="form-group">
-        <div class="col-lg-12 col-md-12">
+<section class="checkout-area ptb-80">
+  <div class="container">
+    @if(isset($local))
+    <form action="{{ route('user.show-payment-local') }} " method="post">
+      @else
+      <form action="{{ route('user.show-view-detail') }} " method="post"> 
+        @endif
+        @csrf
+        <div class="form-group">
+          <div class="col-lg-12 col-md-12">
             <div class="billing-details">
-                <h3 class="title" style="text-align: left;">View Detail</h3>
-
-                <div class="row">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="form-group row">
-							<label   class="col-sm-4 col-form-label">PO No.</label>
-	                        <div class="col-sm-8">
-	                          	<input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{ old('id') }}" placeholder="">
-	                        </div>
-	                        <label for="SubpoNo" class="col-sm-4 col-form-label">Sub PO No.</label>
-	                        <div class="col-sm-8">
-	                          	<input type="text" class="form-control form-control-sm" name="id_shipment" id="SubpoNo" placeholder="">
-	                        </div>
-	                        <button class="btn btn-light">Show</button>
-                        </div>
+              <h3 class="title" style="text-align: left;">
+                @isset($title)
+                {{ $title }}
+              @endisset</h3>
+              <div class="row">
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">PO No.</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{ old('id') }}" placeholder="">
                     </div>
+                    <label for="SubpoNo" class="col-sm-4 col-form-label">Sub PO No.</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control form-control-sm" name="id_shipment" id="SubpoNo" placeholder="">
+                    </div>
+                    <button class="btn btn-light">Show</button><br>
+                    
+                  </div>
+
                 </div>
+              </div>
+              @if(session('error'))
+              <div class="alert alert-danger">{{session('error')}}</div>
+              @endif
             </div>
+          </div>
         </div>
+      </form>
+      <!-- Payment local content -->
+      @if(isset($purchaseOrder, $inputDetail))
+      @include('user.form-view.payment-local')
+      @endif
+      <!-- Edit Payment Local -->
+      @if(isset($editPaymentLocal))
+      @include('user.form-view.payment-local')
+      @endif
+      <!-- End of Payment local -->
+
+      <!-- Export file excel -->
+      @if(isset($local))
+      @include('user.form-view.export-excel')
+      @endif
+      <!-- View detail -->
+      @if(isset($order,$shipment))
+      @include('user.form-view.view-detail')
+      @endif
+      <!-- End of view detail -->
     </div>
-	@if(isset($order,$shipment)) 
-	<div class="form-group">
-        <div class="col-lg-12 col-md-12">
-            <div class="billing-details">
-                <div class="row">
-                	<div class="col-lg-6 col-md-12">
-                    	 <div class="form-group row">
-                        	<label   class="col-sm-4 col-form-label">PO No.</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->id}}" disabled="disabled">
-                            </div>
+  </section>
 
-                            <label   class="col-sm-4 col-form-label">Sub PO No.</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->id}}" disabled="disabled">
-                            </div>
-
-                            <label   class="col-sm-4 col-form-label">PO date</label>
-                            <div class="col-sm-8">
-                              <input type="date" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->po_date}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Sale Contract No.</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->sale_contract_no}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Invoice No.</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" value="{{$shipment->invoice_no}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Supplier</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm"  value="{{$order->supplier->supplier}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Origin</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" value="{{$order->origin->origin_name}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Manufacturer</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" value="{{$order->manufacturer->manufacturer_name}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">PO Incoterms</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->incoterm->incoterms}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">POL</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->pols->pod_name}}" disabled="disabled">
-                            </div>
-
-                            <label   class="col-sm-4 col-form-label">POD</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->pods->pod_name}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">BL No.</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->bl_no}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">BL date</label>
-                            <div class="col-sm-8">
-                              <input type="date" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->bl_date}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">ETA</label>
-                            <div class="col-sm-8">
-                              <input type="date" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->eta}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Vessel name</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->vessel_name}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Carrier</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->carrier}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Shipment status</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->shipmentStatus->shipment_status}}" disabled="disabled">
-                            </div>
-
-                            <label   class="col-sm-4 col-form-label">Marking</label>
-                            <div class="col-sm-8">
-                              <textarea class="form-control form-control-sm" disabled="disabled">{{$order->marking}}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                    	<div class="form-group row">
-                            <label   class="col-sm-4 col-form-label">Type of Shipment</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->type_of_shipment}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Number Container</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->number_container}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Container size</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->containerSize->container_size}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Payload (MT/Cont)</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->payload}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">DEM/DET</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->dem_det}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Freight per container</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->freight_per_container}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">DTHC (USD) | (VND)</label>
-                            <div class="col-sm-4">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->dthc}}" disabled="disabled">
-                            </div>
-                            <div class="col-sm-4">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->dthc}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">CIC (USD) | (VND)</label>
-                            <div class="col-sm-4">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->cic}}" disabled="disabled">
-                            </div>
-                            <div class="col-sm-4">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->cic}}" disabled="disabled">
-                            </div>
-                            
-                            <div class="col-sm-12">
-								<ul class="accordion" style="text-align: left;list-style-type: none;padding-left: 0">
-									<li class="accordion-item">
-										<a class="accordion-title"  href="javascript:void(0)"><i class="fa fa-bars"></i> Target</a>
-										<div class="accordion-content show" style="display: none;">
-                            				<label  class="col-sm-4 col-form-label">Freight target</label>
-                            				<div class="col-sm-8">
-												<input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$typeOfShipmentDetail->freight_target}}" disabled="disabled">
-											</div>
-                            				<label  class="col-sm-4 col-form-label">DTHC target</label>
-                            				<div class="col-sm-8">
-												<input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$typeOfShipmentDetail->dthc_target}}" disabled="disabled">
-											</div>
-                            				<label  class="col-sm-4 col-form-label">CIC target</label>
-                            				<div class="col-sm-8">
-												<input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$typeOfShipmentDetail->cic_target}}" disabled="disabled">
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-                            
-                            <label   class="col-sm-4 col-form-label">Gross Weight (MT)</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->gross_weight}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Number of bags</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->number_of_bags}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Freight per MT</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->freight_per_mt}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">Purchase CFR price</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="Purchase price + Freight per MT" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">End Customer</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->end_customer}}" disabled="disabled">
-                            </div>
-                            
-                            <label   class="col-sm-4 col-form-label">CO provided</label>
-                            <div class="col-sm-8">
-                              <input type="checkbox" class="form-control form-control-sm" name="id" id="poNo" @if($shipment->co_provider == 1) checked @endif disabled="disabled">
-                            </div>
-
-                            <label class="col-sm-4 col-form-label">HS code</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->hs_code}}" disabled="disabled">
-                            </div>
-
-                            <label class="col-sm-4 col-form-label">End Customer</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->end_customer}}" disabled="disabled">
-                            </div>
-
-                            <label class="col-sm-4 col-form-label">Currency|FX</label>
-                            <div class="col-sm-8">
-                              <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$order->currency}}" disabled="disabled">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cart-table table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Product name</th>
-                                    <th scope="col">Packing</th>
-                                    <th scope="col">Weight unit</th>
-                                    <th scope="col">Binding</th>
-                                    <th scope="col">Net Weight (MT)</th>
-                                    <th scope="col">Price/MT</th>
-                                    <th scope="col">Total amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            	@foreach($shipmentDetails as $shipmentDetail)
-                            	<tr>
-                            		
-                            		<td>{{$shipmentDetail->product->product}}</td>
-                            		<td>{{$shipmentDetail->packing->packing}}</td>
-                            		<td>{{$shipmentDetail->weightUnit->weight_unit}}</td>
-                            		<td>{{$shipmentDetail->binding->binding}}</td>
-                            		<td>{{$shipmentDetail->net_weight_id}}</td>
-                            		<td>{{$shipmentDetail->price}}</td>
-                            		<td>{{$shipmentDetail->total_amount}}</td>
-                            		
-                            	</tr>
-                            	@endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    @else
-                    <!-- Show error when order or shipment null -->
-                    	@if(session('error')) 
-                    	<div class="alert alert-danger">{{session('error')}} </div>
-                    	@endif
-                </div>
-            </div>
+  @endsection
+  @section('script')
+  <!-- Modal update or not  -->
+  <div class="modal fade" id="notify" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
         </div>
-    </div>
-	@endif
+        <div class="modal-body">
+          This PO No./Sub PO No. was created type of service, do you want to update this changes?
+        </div>
+        <div class="modal-footer">
 
-            
-</form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="{{ asset('assets/js/my-script.js') }}"></script>
+  <script type="text/javascript">
+    // ajax lưu Payment local
+    $(document).ready(function(){
+      var frm = $(".frm");
+      $("#create").on('click',function(e){
+
+        $.ajax({
+          type: "POST",
+          url: frm.attr('action'),
+          data: frm.serialize(),
+          success: function (data) { 
+            if(data.msg == "ok"){
+              var po_no = data.data.po_no_id;
+              var sub_po = data.data.sub_po_no_id;
+              var type_service = data.data.type_of_service;
+              var href  = 'href="{{ route("user.edit-payment-local",[":po_no",":sub_po",":type_service"]) }}"';
+              href = href.replace(':po_no',po_no);
+              href = href.replace(':sub_po',sub_po);
+              href = href.replace(':type_service',type_service);
+              alert(href);
+              $('.modal-footer').html('<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>\
+                <a class="btn btn-primary"'+ href +'>Update</a>');
+              $('#notify').modal('show');
+            }
+            else{
+              $("#success").html('<div class="alert alert-success">Payment Local successfully created</div>');
+              setTimeout(function(){
+                location.href = "{{ route('user.show-payment-local') }}";
+
+              },2000);
+            }
+          },
+        })
+        e.preventDefault();
+      })
+    })
+// -----------------------
+</script>
 @endsection

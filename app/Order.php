@@ -12,7 +12,7 @@ class Order extends Model
 
 
     protected $fillable = [
-              'id','po_date','po_status_id','origin_id','marking','manufacturer_id','supplier_id','pol','pod','incoterm_id','eta_request','end_customer','inspection_required','type_of_shipment','link_to_specs','hs_code','co_id','payment_term_id','within_x_day','currency'
+              'id','po_date','user_id','po_status_id','origin_id','marking','manufacturer_id','supplier_id','pol','pod','incoterm_id','eta_request','end_customer','inspection_required','type_of_shipment','link_to_specs','hs_code','co_id','payment_term_id','within_x_day','currency'
     ];
     	public function manufacturer()
   	{
@@ -21,7 +21,7 @@ class Order extends Model
 
   	public function paymentTerm()
   	{
-  		return $this->belongsTo('App\PaymentTerms');
+  		return $this->belongsTo('App\PaymentTerm');
   	}
 
   	public function origin()
@@ -48,7 +48,7 @@ class Order extends Model
   	}
   	public function poStatus()
   	{
-  		return $this->belongsTo('App\POStatus','id');
+  		return $this->belongsTo('App\POStatus');
   	}
   	public function orderDetail()
   	{
@@ -60,7 +60,7 @@ class Order extends Model
   	}
   	public function certificateOfOrigin()
   	{
-  		return $this->belongsTo('App\CertificateOfOrigin');
+  		return $this->belongsTo('App\CertificateOfOrigin','co_id');
   	}
   	
     public function pods()
