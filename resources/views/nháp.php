@@ -1,10 +1,5 @@
-@extends('master.masterpage-admin')
-@section('content')
-<!-- Rooms -->
-<<<<<<< Updated upstream
 <div id="room" class="mb-3 pt-3 pb-2">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-        <h2 class="h4">Bindings</h2> <div><User></User></div>
+    
         <div id="room" class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
                 <a href="{{ route('admin.binding')}}" class="btn btn-sm btn-outline-secondary">
@@ -38,9 +33,3 @@
         </tbody>
     </table>
 </div>
-=======
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-        <h2 class="h4">Dashboard</h2> <div><User></User></div>
-
->>>>>>> Stashed changes
-@endsection

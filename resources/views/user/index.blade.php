@@ -1,6 +1,7 @@
 @extends('master.masterpage')
 
 @section('content')
+<<<<<<< Updated upstream
 
 
 
@@ -160,4 +161,7 @@
                 $(this).next('.custom-file-label').html(fileName);
             })
         </script>
+=======
+Hello {{auth()->user()->firstname}}
+>>>>>>> Stashed changes
 @endsection

@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 @extends('master.masterpage')
+=======
+@extends('master.masterpage-admin')
+>>>>>>> Stashed changes
 @section('content')
 
 @if(isset($binding))  

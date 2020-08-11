@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +9,11 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Welcome</title>
+	<title>
+        @isset($title)
+            {{ $title }} | 
+        @endisset
+        {{ config('app.name') }}</title>
 	<base href="{{asset('./')}}">
 	<!-- Custom fonts for this template-->
 	<link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -52,8 +55,8 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item active">
-				<a class="nav-link" href="index.html">
+			<li class="nav-item {!! (Request::is('user/index') ? 'active' : '') !!}" >
+				<a class="nav-link" href="{{ route('user.index')}}">
 				<i class="fas fa-fw fa-tachometer-alt"></i>
 				<span>Dashboard</span></a>
 			</li>
@@ -65,20 +68,15 @@
 			<div class="sidebar-heading">
 				Interface
 			</div>
-
+			<!-- <?php $str="<h3>OK</h3>" ?>
+			{{$str}}
+			{!!$str!!} -->
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-					<i class="fas fa-fw fa-cog"></i>
-					<span>Components</span>
+			<li class="nav-item {!! (Request::is('user/order') ? 'active' : '') !!}">
+				<a class="nav-link collapsed" href="{{ route('user.order') }}" >
+					<i class="fas fa-clipboard-list"></i>
+					<span>Order</span>
 				</a>
-				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Custom Components:</h6>
-						<a class="collapse-item" href="buttons.html">Buttons</a>
-						<a class="collapse-item" href="cards.html">Cards</a>
-					</div>
-				</div>
 			</li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
@@ -128,9 +126,9 @@
 
 			<!-- Nav Item - Charts -->
 			<li class="nav-item">
-				<a class="nav-link" href="charts.html">
+				<a class="nav-link" href="{{ route('user.order-detail') }}">
 					<i class="fas fa-fw fa-chart-area"></i>
-					<span>Charts</span></a>
+					<span>test</span></a>
 			</li>
 
 				<!-- Nav Item - Tables -->
@@ -317,100 +315,6 @@
 							<li class="nav-item dropdown no-arrow">
 								<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth('web')->user()->firstname}}</span>
-=======
-
-<!doctype html>
-<html lang="zxx">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		
-		<!-- Bootstrap Min CSS -->
-		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-		<!-- Animate CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
-		<!-- Meanmenu Min CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/css/meanmenu.css') }}">
-        <!-- Boxicons Min CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/css/boxicons.min.css') }}">
-		<!-- Magnific Popup Min CSS -->
-		<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.min.css') }}">
-		<!-- Owl Carousel Min CSS -->
-		<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
-		<!-- Flaticon CSS -->
-		<link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
-		<!-- Odometer CSS -->
-		<link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}">
-		<!-- Slick CSS -->
-		<link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
-		<!-- Style CSS -->
-		<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-		<!-- Responsive CSS -->
-		<link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-		<!-- Fontawesome -->
-		<link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-
-		<title>StartP - IT Startups and Digital Services HTML Template</title>
-
-		<link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
-	</head>
-	@yield('css')
-	<body>
-
-		<!-- Start Preloader Area -->
-        <div class="preloader">
-			<div class="spinner"></div>
-		</div>
-        <!-- End Preloader Area -->
-
-		<!-- Start Navbar Area -->
-		<header id="header" class="headroom">
-			<div class="startp-responsive-nav">
-                <div class="container">
-                    <div class="startp-responsive-menu">
-                        <div class="logo">
-                            <a href="index.html">
-                                <img src="{{ asset('assets/img/logo.png') }}" alt="logo">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-			<div class="startp-nav">
-				<div class="container">
-					<nav class="navbar navbar-expand-md navbar-light">
-						<a class="navbar-brand" href="index.html"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
-
-						<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-							<ul class="navbar-nav nav ml-auto">
-								<li class="nav-item"><a href="{{ route('user.index') }}" class="nav-link  
-									{!! (Request::is('user/index') ? 'active' : '') !!}" >Home </a>
-								</li>
-
-								<li class="nav-item"><a href="{{ route('user.order') }}" class="nav-link
-									{!! (Request::is('user/order') ? 'active' : '') !!}">Order </a>
-								</li>
-								
-								<li class="nav-item"><a href="#" class="nav-link">Shipment </a>
-								</li>
-								
-								<li class="nav-item"><a href="{{ route('user.view-detail') }}" class="nav-link ">View Detail </a>
-								</li>
-
-								<li class="nav-item"><a href="#" class="nav-link">Payment Overseas </a>
-								</li>
-
-								<li class="nav-item"><a href="#" class="nav-link">Payment Local </a>
-								</li>
-								
-							 	<div class="topbar-divider d-none d-sm-block"></div>
-
-							 	<li class="nav-item dropdown no-arrow" style="padding-top: 0">
-								<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<span class="mr-2 d-none d-lg-inline text-gray-800 small">{{auth('web')->user()->firstname}} {{ auth('web')->user()->lastname }}</span>
->>>>>>> Stashed changes
 									<img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 								</a>
 								<!-- Dropdown - User Information -->
@@ -434,7 +338,6 @@
 									</a>
 								</div>
 							</li>
-<<<<<<< Updated upstream
 
 						</ul>
 
@@ -443,22 +346,20 @@
 
 					<!-- Begin Page Content -->
 
-					<div class="container-fluid">
-
-      				<main role="main" class="px-4">
-						<!-- Page Heading -->
-						<div class="d-sm-flex align-items-center justify-content-between mb-4">
-							<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-						</div>
-						@yield('content')
-					</main>
-					</div>
+					
 					<!-- /.container-fluid -->
 					
 				</div>
 				<!-- End of Main Content -->
 
-					
+					<div class="container-fluid">
+
+      				<main role="main" class="px-4">
+						<!-- Page Heading -->
+						@yield('content')
+					</main>
+					@yield('content-detail')
+					</div>
 				<!-- Footer -->
 				<footer class="sticky-footer bg-white">
 					<div class="container my-auto">
@@ -483,117 +384,6 @@
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-=======
-							</ul>
-						</div>
-
-						<div class="others-option">
-							
-							<!-- <a href="{{ route('user.logout') }}" class="btn btn-light">Log out</a> -->
-						</div>
-					</nav>
-				</div> 
-			</div>
-		</header>
-		<!-- End Navbar Area -->
-
-        <!-- Start Page Title -->
-        <div class="page-title-area">
-            <div class="d-table">
-                <div class="d-table-cell">
-                    <div class="container col-12" >
-                    	@yield('content')
-                    </div>
-                </div>
-			</div>
-			
-			<div class="shape1"><img src="{{ asset('assets/img/shape1.png') }}" alt="shape"></div>
-			<div class="shape2 rotateme"><img src="{{ asset('assets/img/shape2.svg') }}" alt="shape"></div>
-			<div class="shape3"><img src="{{ asset('assets/img/shape3.svg') }}" alt="shape"></div>
-			<div class="shape4"><img src="{{ asset('assets/img/shape4.svg') }}" alt="shape"></div>
-			<div class="shape5"><img src="{{ asset('assets/img/shape5.png') }}" alt="shape"></div>
-			<div class="shape6 rotateme"><img src="{{ asset('assets/img/shape4.svg') }}" alt="shape"></div>
-			<div class="shape7"><img src="{{ asset('assets/img/shape4.svg') }}" alt="shape"></div>
-			<div class="shape8 rotateme"><img src="{{ asset('assets/img/shape2.svg') }}" alt="shape"></div>
-        </div>
-        <!-- End Page Title -->
-
-        
-
-		<!-- Start Footer Area -->
-		<footer class="footer-area bg-f7fafd">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="single-footer-widget">
-							<div class="logo">
-								<a href="#"><img src="{{ asset('assets/img/logo.png') }}" alt="logo"></a>
-							</div>
-							<p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-						</div>
-					</div>
-
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="single-footer-widget pl-5">
-							<h3>Company</h3>
-							<ul class="list">
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Features</a></li>
-								<li><a href="#">Our Pricing</a></li>
-								<li><a href="#">Latest News</a></li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="single-footer-widget">
-							<h3>Support</h3>
-							<ul class="list">
-								<li><a href="#">FAQ's</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-								<li><a href="#">Terms & Condition</a></li>
-								<li><a href="#">Community</a></li>
-								<li><a href="#">Contact Us</a></li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="single-footer-widget">
-							<h3>Address</h3>
-							
-							<ul class="footer-contact-info">
-								<li><i data-feather="map-pin"></i> 27 Division St, New York, NY 10002, USA</li>
-								<li><i data-feather="mail"></i> Email: <a href="#">startp@gmail.com</a></li>
-								<li><i data-feather="phone-call"></i> Phone: <a href="#">+ (321) 984 754</a></li>
-							</ul>
-							<ul class="social-links">
-								<li><a href="#" class="facebook"><i data-feather="facebook"></i></a></li>
-								<li><a href="#" class="twitter"><i data-feather="twitter"></i></a></li>
-								<li><a href="#" class="instagram"><i data-feather="instagram"></i></a></li>
-								<li><a href="#" class="linkedin"><i data-feather="linkedin"></i></a></li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="col-lg-12 col-md-12">
-						<div class="copyright-area">
-							<p>Copyright @2020 StartP. All rights reserved</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<img src="{{ asset('assets/img/map.png') }}" class="map" alt="map">
-			<div class="shape1"><img src="{{ asset('assets/img/shape1.png') }}" alt="shape"></div>
-			<div class="shape8 rotateme"><img src="{{ asset('assets/img/shape2.svg') }}" alt="shape"></div>
-		</footer>
-		<!-- End Footer Area -->
-		<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" style="margin-top: 200px;" role="document">
->>>>>>> Stashed changes
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
@@ -603,18 +393,13 @@
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
 				<div class="modal-footer">
-<<<<<<< Updated upstream
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-=======
-					<button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
->>>>>>> Stashed changes
 					<a class="btn btn-primary" href="{{ route('user.logout') }}">Logout</a>
 				</div>
 			</div>
 		</div>
 	</div>
 
-<<<<<<< Updated upstream
 	<!-- Bootstrap core JavaScript-->
 	<script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
 	<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -644,46 +429,3 @@
 	</script>
 	@yield('script')
 </body>
-=======
-		<div class="go-top"><i data-feather="arrow-up"></i></div>
-		
-		<!-- Jquery Min JS -->
-		<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-		<!-- Popper Min JS -->
-		<script src="{{ asset('assets/js/popper.min.js') }}"></script>
-		<!-- Bootstrap Min JS -->
-		<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-		<!-- Meanmenu Min JS -->
-		<script src="{{ asset('assets/js/jquery.meanmenu.min.js') }}"></script>
-		<!-- WOW Min JS -->
-		<script src="{{ asset('assets/js/wow.min.js') }}"></script>
-		<!-- Magnific Popup Min JS -->
-		<script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
-		<!-- Appear Min JS -->
-		<script src="{{ asset('assets/js/jquery.appear.js') }}"></script>
-		<!-- Odometer Min JS -->
-		<script src="{{ asset('assets/js/odometer.min.js') }}"></script>
-		<!-- Slick Min JS -->
-		<script src="{{ asset('assets/js/slick.js') }}"></script>
-		<!-- Headroom JS -->
-		<script src="{{ asset('assets/js/headroom.js') }}"></script>
-		<!-- Owl Carousel Min JS -->
-		<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
-		<!-- Feather Icon Min JS -->
-		<script src="{{ asset('assets/js/feather.min.js') }}"></script>
-		<!-- Form Validator Min JS -->
-        <script src="{{ asset('assets/js/form-validator.min.js') }}"></script>
-        <!-- Contact Form Min JS -->
-        <script src="{{ asset('assets/js/contact-form-script.js') }}"></script>
-        <!-- StartP Map JS FILE -->
-        <script src="{{ asset('assets/js/startp-map.js') }}"></script>
-        <!-- Main JS -->
-		<script src="{{ asset('assets/js/main.js') }}"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-		<script src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
-		<link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css
-		" rel="stylesheet"/>
-		@yield('script')
-	</body>
-</html>
->>>>>>> Stashed changes
