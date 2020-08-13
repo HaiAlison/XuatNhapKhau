@@ -34,12 +34,12 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->role == "employee"){
+        if($request->isAdmin == "0"){
             User::create($request->except('_token'));
             return redirect()->route('admin.show-account',['role'=>'employee'])->with('success','Create account success!');
         }
         else{
-            Admin::create($request->except('_token'));
+            User::create($request->except('_token'));
         
         return redirect()->route('admin.show-account',['role'=>'admin'])->with('success','Create account success!');
         }
@@ -55,7 +55,7 @@ class AccountController extends Controller
     {
         if($role == 'employee')
         {
-            $nameToForeach = User::all();
+            $nameToForeach = User::where('isAdmin',0)->get();
             $title = 'First name';
             $name= 'firstname';
             $another = [
@@ -67,7 +67,7 @@ class AccountController extends Controller
             return view('admin.show',compact('title','nameToForeach','name','another','role'));
         }
        
-        $nameToForeach = Admin::all();
+        $nameToForeach = User::where('isAdmin',1)->get();
         $title = 'First name';
         $name= 'firstname';
         $another = [
@@ -87,7 +87,7 @@ class AccountController extends Controller
      */
     public function edit($role,$id)
     {
-        $role == 'admin' ? $data = Admin::findOrFail($id) : $data = User::findOrFail($id);
+        $role == 'admin' ? $data = User::findOrFail($id) : $data = User::findOrFail($id);
         
         return view('auth.register',compact('data','role'));
     }
@@ -109,7 +109,7 @@ class AccountController extends Controller
             $data->fill($input)->save();
         return redirect()->route('admin.show-account',['role'=>$role])->with('success','Edit success!');
         }
-        $data = Admin::findOrFail($id);
+        $data = User::findOrFail($id);
             $input = $request->except('_token');
             $data->fill($input)->save();
         return redirect()->route('admin.show-account',['role'=>$role])->with('success','Edit success!');

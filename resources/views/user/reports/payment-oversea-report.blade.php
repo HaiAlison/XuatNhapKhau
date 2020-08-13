@@ -12,7 +12,7 @@
 @endsection
 @section('content')
 
-<form action="{{ route('user.print-local') }}" style="text-align: left; background-color: #fafafa"  method="post">
+<form action="{{ route('user.print-oversea') }}" style="text-align: left; background-color: #fafafa"  method="post">
 	@csrf
 	<div class="container container-smaller">
 		<div class="row">
@@ -28,7 +28,7 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<h2>From:</h2>
-							<h4><strong class="col-sm-6">8.4_MVN_06_18_F02 : PAYMENT LOCAL</strong></h4><br>
+							<h4><strong class="col-sm-6">8.4_MVN_06_18_F02 : PAYMENT OVERSEA</strong></h4><br>
 							<div class="row">
 								<label class="col-sm-5">Author</label>
 								<div class="col-sm-6">
@@ -67,9 +67,9 @@
 								<label class="col-sm-5">Loại PO <i class="hint">(Type PO):</i></label>
 								<div class="col-sm-6">
 									<select class="form-control form-control-sm drop {!! ($errors->has('type_po') ? 'is-invalid' : '' ) !!}" id="po_no" name="type_po">
-										<option selected >Select PO.</option>
-										@foreach($local as $key => $shipment)
-										<option>{{$local[$key]}}</option>
+										<option selected disabled>Select PO.</option>
+										@foreach($oversea as $key => $shipment)
+										<option>{{$oversea[$key]}}</option>
 										@endforeach
 									</select>
 									@if(count($errors)>0)
@@ -80,16 +80,9 @@
 								</div>
 							</div>
 							<div class="row">
-								<label class="col-sm-5">Loại dịch vụ<i class="hint">(Type of service):</i></label>
+								<label class="col-sm-5">Nhà sản xuất<i class="hint">(Manufacturer):</i></label>
 								<div class="col-sm-6">
-									<select class="form-control form-control-sm drop {!! ($errors->has('type_service') ? 'is-invalid' : '' ) !!}" id="type_service" name="type_service">
-										<option selected disabled>Select Type of service</option>
-									</select>
-									@if(count($errors)>0)
-									<div class="text-danger text-left">
-										{{$errors->first('type_service')}}
-									</div>
-									@endif
+									<input type="text" name="item_source" id="item_source" class="form-control form-control-sm">
 								</div>
 							</div>
 							<div class="row">
@@ -167,7 +160,7 @@
 						</tr>
 						<tr>
 							<td class="text-left">Loại chứa lô hàng <i class="hint">(Type of shipment):</i></td>
-							<td><input type="text" name="type_of_shipment" id="type_of_shipment" class="form-control form-control-sm"/></td>
+							<td><input type="text" name="type_of_shipment" id="ship" class="form-control form-control-sm"/></td>
 						</tr>
 						<tr>
 							<td class="text-left">Cảng đi <i class="hint">(POL):</i></td>
@@ -176,6 +169,10 @@
 						<tr>
 							<td class="text-left">Xuất xứ <i class="hint">(Origin):</i></td>
 							<td><input type="text" name="origin" id="origin" class="form-control form-control-sm"/></td>
+						</tr>
+						<tr>
+							<td class="text-left">Đóng gói<i class="hint">(Packing):</i></td>
+							<td><input type="text" name="item_packing" id="item_packing" class="form-control form-control-sm"/></td>
 						</tr>
 						<tr>
 							<td class="text-left">Số yêu cầu đặt hàng <i class="hint">(PR No.):</i></td>
@@ -248,7 +245,7 @@
 <script type="text/javascript">
 	$("#po_no").on('change',function(e){
 		$.ajax({
-			url: "{{ route('user.show-po',['type' => 'local'])}}",
+			url: "{{ route('user.show-po',['type' => 'oversea'])}}",
 			method: 'POST',
 			data: {po_no_id: $("#po_no").val(),
 			_token: $('input[name="_token"]').val()},
@@ -264,40 +261,25 @@
 
 	$("#sub_po").on('change',function(e){
 		$.ajax({
-			url: "{{ route('user.show-detail-po')}}",
+			url: "{{ route('user.show-detail-oversea')}}",
 			method: 'POST',
 			data: {po_no_id: $("#po_no").val(),
 			sub_po: $("#sub_po").val(),
 			_token: $('input[name="_token"]').val()},
 			success: function(result){
-				$("#type_service").html(result.output);
-			},
-			error: function(){
-				$("#type_service").html("<option>Loading...</option>");
-			}
-
-		});
-		e.preventDefault();
-	})
-	$("#type_service").on('change',function(e){
-		$.ajax({
-			url: "{{ route('user.show-detail-local')}}",
-			method: 'POST',
-			data: {type_of_service: $("#type_service").val(),
-			sub_po: $("#sub_po").val(),
-			_token: $('input[name="_token"]').val()},
-			success: function(result){
 				$("#details").html(result.html);
-				$("#po_date").prop('value', result.local.po_date);
-				$("#incoterm").prop('value', result.local.incoterm);
-				$("#pol").prop('value', result.local.pol);
-				$("#pr_no").prop('value', result.local.pr_no);
-				$("#eta").prop('value', result.local.eta);
-				$("#bl_date").prop('value', result.local.bl_date);
-				$("#due_date").prop('value', result.local.due_date);
-				$("#pr_date").prop('value', result.local.pr_date);
-				$("#origin").prop('value', result.local.origin);
-				$("#type_of_shipment").prop('value', result.local.type_of_shipment);
+				$("#po_date").prop('value', result.oversea.po_date);
+				$("#incoterm").prop('value', result.oversea.incoterm);
+				$("#pol").prop('value', result.oversea.pol);
+				$("#pr_no").prop('value', result.oversea.pr_no);
+				$("#eta").prop('value', result.oversea.eta);
+				$("#bl_date").prop('value', result.oversea.bl_date);
+				$("#due_date").prop('value', result.oversea.due_date);
+				$("#pr_date").prop('value', result.oversea.pr_date);
+				$("#origin").prop('value', result.oversea.origin);
+				$("#ship").prop('value', result.oversea.ship);
+				$("#item_source").prop('value', result.oversea.item_source);
+				$("#item_packing").prop('value', result.oversea.item_packing);
 			},
 			error: function(){
 				$("#details").html("Loading...");

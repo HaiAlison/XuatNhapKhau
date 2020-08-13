@@ -19,23 +19,23 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
 
-        switch ($guard) {
-            case 'admin':
-                if(Auth::guard($guard)->check())
-                {
-                    return redirect()->route('admin.index'); //nếu guard không phải admin thì sẽ return next request.
-                }
-                break;
+        // switch ($guard) {
+        //     case 'admin':
+        //         if(Auth::guard($guard)->check())
+        //         {
+        //             return redirect()->route('admin.index'); //nếu guard không phải admin thì sẽ return next request.
+        //         }
+        //         break;
             
-            default:
-                if (Auth::guard($guard)->check()) {
-                return redirect()->route('user.index'); //chỉnh dòng này về route index nếu auth_ed.
-            }
-                break;
-        }        
-        // if (Auth::guard($guard)->check()) {
-        //     return redirect()->route('user.index'); //chỉnh dòng này về route index nếu auth_ed.
-        // }
+        //     default:
+        //         if (Auth::guard($guard)->check()) {
+        //         return redirect()->route('user.index'); //chỉnh dòng này về route index nếu auth_ed.
+        //     }
+        //         break;
+        // }        
+        if (Auth::guard($guard)->check()) {
+            return redirect()->route('user.index'); //chỉnh dòng này về route index nếu auth_ed.
+        }
 
         return $next($request);
     }

@@ -75,7 +75,7 @@
 								{!! (Request::is('user/order') ? 'active' : '') !!}">Order </a>
 							</li>
 
-							<li class="nav-item"><a href="#" class="nav-link">Shipment </a>
+							<li class="nav-item"><a href="{{ route('user.shipment') }}" class="nav-link">Shipment </a>
 							</li>
 
 							<li class="nav-item"><a href="{{ route('user.view-detail') }}" class="nav-link ">View Detail </a>
@@ -92,11 +92,11 @@
 							</li>
 							<li class="nav-item"><a href="#" class="nav-link">Report<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
 								<ul class="dropdown_menu">
-									<li class="nav-item"><a href="{{ route('user.order-report') }}" class="nav-link">Order Invoice</a>
+									<li class="nav-item"><a href="{{ route('user.order-report',['i'=> 'order']) }}" class="nav-link">Order Invoice</a>
 									</li>
-									<li class="nav-item"><a href=" {{ route('user.payment-local') }}" class="nav-link">Payment Overseas Report</a>
+									<li class="nav-item"><a href=" {{ route('user.order-report',['i' => 'payment-oversea']) }}" class="nav-link">Payment Overseas Report</a>
 									</li>
-									<li class="nav-item"><a href=" {{ route('user.local-report') }}" class="nav-link">Payment Local Report</a>
+									<li class="nav-item"><a href=" {{ route('user.order-report',['i' => 'payment-local']) }}" class="nav-link">Payment Local Report</a>
 									</li>
 								</ul>
 							</li>
@@ -148,7 +148,7 @@
 			<div class="d-table-cell">
 				<div class="container" >
 					@yield('content')
-					<div id="success" style="width: 300px; position: fixed; left: 0; bottom: 0;"></div>
+
 				</div>
 			</div>
 		</div>
@@ -163,14 +163,10 @@
 		<div class="shape8 rotateme"><img src="{{ asset('assets/img/shape2.svg') }}" alt="shape"></div>
 	</div>
 	<div>
-	@yield('report')
+		@yield('report')
 	</div>
 	<!-- End Page Title -->
-	@if(session('success'))
-	<div class="alert alert-success text-center" id="div">
-		{{session('success')}}
-	</div>
-	@endif
+
 
 
 	<!-- Start Footer Area -->
@@ -242,6 +238,13 @@
 		<div class="shape1"><img src="{{ asset('assets/img/shape1.png') }}" alt="shape"></div>
 		<div class="shape8 rotateme"><img src="{{ asset('assets/img/shape2.svg') }}" alt="shape"></div>
 	</footer>
+	<div id="success" style="width: -webkit-fill-available; position: fixed; left: 0; bottom: 0; z-index: 1">
+		@if(session('success'))
+		<div class="alert alert-success text-center"  id="div">
+			{{session('success')}}
+		</div>
+		@endif
+	</div>
 	<!-- End Footer Area -->
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

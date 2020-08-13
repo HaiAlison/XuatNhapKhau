@@ -28,7 +28,7 @@
 		<div class="row">
 			<div class="col-xs-7">
 				<h4>From:</h4>
-				<strong>8.4_MVN_06_18_F02 : PAYMENT LOCAL</strong><br>
+				<strong>8.4_MVN_06_18_F02 : PAYMENT OVERSEA</strong><br>
 				<table width="100%" style="width:100%" border="0">
 					<tbody>
 						<tr>
@@ -71,8 +71,8 @@
 							<td style="text-align:left;"> {{$data['type_po']}}</td>
 						</tr>
 						<tr>
-							<td style="width: 35%;">Loại dịch vụ <i class="hint">(Type of service):</i></td>
-							<td style="text-align:left;"> {{$data['type_service']}}</td>
+							<td style="width: 35%;">Nhà sản xuất <i class="hint">(Manufacturer):</i></td>
+							<td style="text-align:left;"> {{$data['item_source']}}</td>
 						</tr>
 						<tr>
 							<td style="width: 35%;">Đối tác liên hệ <i class="hint">(Contact):</i></td>
@@ -149,66 +149,66 @@
 		</tbody>
 	</table>
 
-	<table class="table invoice-total ">
-		<tbody>
-			@if($data['type_service'] == 'tax')
+	<table class="table invoice-total " style="page-break-inside: avoid">
+		<tbody >
 			<tr>
-				<td rowspan="5">Ghi chú:<br><div class="note break">{{$data['note']}}</div> </td>
-				<td class="text-right" colspan="2" style="border-bottom: 0"><strong>Thuế suất</strong><i class="hint">(Tax levels):</i></td>
-				<td class="text-right small-width">{{$data['tax_level']}}</td>
+				<td rowspan="11">Ghi chú:<br><div class="note break">{{$data['note']}}</div> </td>
+				<td class="text-right" colspan="2" style="border-bottom: 0"><strong>Ngày thanh toán thứ nhất </strong><i class="hint">(1st Payment Date):</i></td>
+				<td class="text-right small-width">{{$data['f_date']}}</td>
 			</tr>
 			<tr>
-				<td class="text-right" colspan="2"  style="border: 0"><strong>Tổng tiền hàng trước thuế </strong><i class="hint">(Total amount before VAT):</i></td>
-				<td class="text-right small-width">{{$data['amout_before_vat']}}</td>
+				<td class="text-right" colspan="2"  style="border: 0"><strong>Tổng tiền ngày thứ nhất </strong><i class="hint">(1st Payment Amount):</i></td>
+				<td class="text-right small-width">{{$data['f_amount']}}</td>
 			</tr>
 			<tr>
-				<td class="text-right" colspan="2" style="border: 0"><strong>Tổng tiền thuế VAT </strong><i class="hint">(Total amount VAT):</i></td>
-				<td class="text-right small-width">{{$data['sum_vat']}}</td>
+				<td class="text-right" colspan="2" style="border: 0"><strong>Ngày thanh toán thứ hai </strong><i class="hint">(2nd Payment Date):</i></td>
+				<td class="text-right small-width">{{$data['s_date']}}</td>
 			</tr>
 			<tr>
-				<td class="text-right" colspan="2" style="border: 0"><strong>Tổng tiền thanh toán </strong><i class="hint">(Total amount):</i></td>
-				<td class="text-right small-width">{{$data['total_amount']}}</td>
+				<td class="text-right" colspan="2" style="border: 0"><strong>Tổng tiền ngày thứ hai </strong><i class="hint">(2nd Payment Amount):</i></td>
+				<td class="text-right small-width">{{$data['s_amount']}}</td>
 			</tr>
-			@elseif($data['type_service'] == 'localCharge')
+			
 			<tr>
-				<td rowspan="7">Ghi chú:<br><div class="note break">{{$data['note']}}</div> </td>
-				<td class="text-right" colspan="2" style="border-bottom: 0"><strong>Số lượng container </strong><i class="hint">(# CONT):</i></td>
-				<td class="text-right small-width">{{$data['cont']}}</td>
-			</tr>
-			<tr>
-				<td class="text-right" colspan="2"  style="border: 0"><strong>Phí chứng từ </strong><i class="hint">(DOCS):</i></td>
-				<td class="text-right small-width">{{$data['docs']}}</td>
+				<td class="text-right" colspan="2"  style="border: 0"><strong>Ngày thanh toán thứ ba </strong><i class="hint">(3rd Payment Date):</i></td>
+				<td class="text-right small-width">{{$data['third_date']}}</td>
 			</tr>
 			<tr>
-				<td class="text-right" colspan="2" style="border: 0"><strong>Phụ phí THC </strong><i class="hint">(DTHC):</i></td>
-				<td class="text-right small-width">{{$data['dthc']}}</td>
+				<td class="text-right" colspan="2" style="border: 0"><strong>Tổng tiền ngày thứ ba </strong><i class="hint">(3rd Payment Amount):</i></td>
+				<td class="text-right small-width">{{$data['third_amount']}}</td>
 			</tr>
 			<tr>
-				<td class="text-right" colspan="2" style="border: 0"><strong>Phí cân bằng container </strong><i class="hint">(CIC):</i></td>
-				<td class="text-right small-width">{{$data['cic']}}</td>
+				<td class="text-right" colspan="2" style="border: 0"><strong>Ngày thanh toán thứ tư </strong><i class="hint">(4th Payment Date):</i></td>
+				<td class="text-right small-width">{{$data['fourth_date']}}</td>
 			</tr>
 			<tr>
-				<td class="text-right" colspan="2" style="border: 0"><strong>Phí vệ sinh container</strong><i class="hint">(Cleaning):</i></td>
-				<td class="text-right small-width">{{$data['cleaning']}}</td>
+				<td class="text-right" colspan="2" style="border: 0"><strong>Tổng tiền ngày thứ tư </strong><i class="hint">(4th Payment Amount):</i></td>
+				<td class="text-right small-width">{{$data['fourth_amount']}}</td>
 			</tr>
 			<tr>
-				<td class="text-right" colspan="2" style="border: 0"><strong>Các phí khác </strong><i class="hint">(Others):</i></td>
-				<td class="text-right small-width">{{$data['others']}}</td>
+				<td class="text-right" colspan="2" style="border: 0"><strong>Ngày thanh toán thứ năm </strong><i class="hint">(5th Payment Date):</i></td>
+				<td class="text-right small-width">{{$data['fifth_date']}}</td>
+			</tr>
+			<tr>
+				<td class="text-right" colspan="2" style="border: 0"><strong>Tổng tiền ngày thứ năm </strong><i class="hint">(5th Payment Amount):</i></td>
+				<td class="text-right small-width">{{$data['fifth_amount']}}</td>
 			</tr>
 			<tr>
 				<td class="text-right" colspan="2" style="border: 0"><strong>Tổng tiền phí địa phương </strong><i class="hint">(Total amount):</i></td>
 				<td class="text-right small-width">{{$data['total_amount']}}</td>
 			</tr>
-			@endif
 		</tbody>
 	</table>
-	<div class="page-break"></div>
 	<hr><br>
-	<table class="table invoice-term">
+	<table class="table invoice-term" style="page-break-inside: avoid">
 		<tbody>
 			<tr>
 				<td class="text-left">Quy tắc thương mại quốc tế <br><i class="hint">(Incoterms):</i></td>
 				<td>{{$data['incoterm']}}</td>
+			</tr>
+			<tr>
+				<td class="text-left">Loại chứa lô hàng <br><i class="hint">(Type of shipment):</i></td>
+				<td>{{$data['type_of_shipment']}}</td>
 			</tr>
 			<tr>
 				<td class="text-left">Cảng đi <br><i class="hint">(POL):</i></td>

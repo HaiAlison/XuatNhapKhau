@@ -13,6 +13,7 @@ class createAccountUser extends Seeder
     {
         //
         App\User::create([
+            'isAdmin' => '0',
         	'firstname' => 	'Hai',
         	'lastname' => 'Mai',
         	'middlename' => 'Thanh',

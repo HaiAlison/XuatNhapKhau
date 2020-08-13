@@ -95,6 +95,38 @@ class OrderController extends Controller
         $this->validate($request,[
             'id' => 'required|unique:orders',
             'end_customer' => 'required',
+            'po_date' => 'required',
+            'hs_code' => 'required',
+            'number_container' => 'sometimes|required',
+            'payload' => 'sometimes|required',
+            'freight_target' => 'sometimes|required',
+            'cic_target' => 'sometimes|required',
+            'dthc_target' => 'sometimes|required',
+            'within_x_day' => 'required',
+            'currency' => 'required',
+            'marking' => 'required',
+            'net_weight' => 'required',
+            'price' => 'required',
+            'eta_request' => 'required',
+        ],
+        [ 'id.required' => 'The PO No. field cannot be null',
+          'id.unique' => 'The PO No. has already been taken.',
+            'end_customer.required' => 'The End Customer field cannot be null',
+            'po_date.required' => 'The PO Date field cannot be null',
+            'hs_code.required' => 'The HS Code field cannot be null',
+            'number_container.required' => 'The Number Container field cannot be null',
+            'payload.required' => 'The Payload field cannot be null',
+            'freight_target.required' => 'The Freight field cannot be null',
+            'cic_target.required' => 'The CIC Target field cannot be null',
+            'dthc_target.required' => 'The DTHC field cannot be null',
+            'within_x_day.required' => 'The Within # day field cannot be null',
+            'currency.required' => 'The Currency field cannot be null',
+            'net_weight.required' => 'The Net Weight field cannot be null',
+            'marking.required' => 'The Marking field cannot be null',
+            'net_weight.required' => 'The Price field cannot be null',
+            'price.required' => 'The ETA field cannot be null',
+
+
         ]);
         if($request->type_of_shipment == 'vessle'){
 
@@ -147,7 +179,7 @@ class OrderController extends Controller
             $request->session()->put('data-order',$request->except('link_to_specs'));
             //return $request->session()->pull('data-order');
 
-         return redirect()->route('user.order-detail')->with('success','Save successful');
+         return redirect()->route('user.index')->with('success','Order save successfully');
     }
 
     /**

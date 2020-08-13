@@ -15,8 +15,9 @@ class TypeOfShipmentDetail extends Migration
     {
         Schema::create('type_of_shipment_details', function (Blueprint $table) {
                 $table->string('id');
-                $table->text('number_container');
-                $table->text('container_size_id');
+                $table->decimal('number_container',10,0);
+                $table->string('container_size_id');
+                $table->foreign('container_size_id')->references('id')->on('container_sizes')->onDelete('cascade');
                 $table->decimal('payload',10,2);
                 $table->decimal('freight_target',10,2);
                 $table->decimal('dthc_target',10,2);

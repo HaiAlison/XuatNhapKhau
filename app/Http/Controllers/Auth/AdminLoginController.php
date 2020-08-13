@@ -14,7 +14,7 @@ class AdminLoginController extends Controller
 
     public function doLogin(Request $request)
     {
-        if(auth('admin')->attempt(['email'=>$request->email, 'password'=> $request->password],$request->remember))
+        if(auth('web')->attempt(['email'=>$request->email, 'password'=> $request->password],$request->remember))
         {
             return redirect()->route('admin.index')->with('success','Login success');
             //you can use intented() when they trying to login before authentication filter
@@ -25,12 +25,12 @@ class AdminLoginController extends Controller
 
     public function logout()
     {
-        auth('admin')->logout();
+        auth('web')->logout();
         return redirect()->route('admin.login');
     }
     public function index()
     {
-        $credentials = auth('admin')->user();
+        $credentials = auth('web')->user();
         return view('admin.dashboard',compact('credentials'));
     }
 }

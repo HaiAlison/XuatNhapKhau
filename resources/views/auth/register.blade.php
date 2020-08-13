@@ -64,9 +64,9 @@
                     <option value="admin" >Admin</option>'!!}
                   </select>
                 @else
-                  <select name="role" class="form-control" >
-                    <option value="employee">Employee</option>
-                    <option value="admin" >Admin</option>
+                  <select name="isAdmin" class="form-control" >
+                    <option value="0">Employee</option>
+                    <option value="1" >Admin</option>
                   </select>
                 @endif
               </div>

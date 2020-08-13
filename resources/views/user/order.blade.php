@@ -19,26 +19,35 @@
         <div class="col-lg-12 col-md-12">
           <div class="billing-details">
             <h3 class="title">Order</h3>
-
             <div class="row">
               <div class="col-lg-6 col-md-12">
                 <div class="form-group row">
                   <label for="poNo" class="col-sm-4 col-form-label">PO No.</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" name="id" id="poNo" placeholder="">
-                    <input type="hidden" class="form-control form-control-sm" value="{{auth()->user()->id}}" name="user_id" >
+                    <input type="text" class="form-control form-control-sm {!! ($errors->has('id') ? 'is-invalid' : '') !!}"  value="{{ old('id') }}" name="id" id="poNo" placeholder="">
+                    <input type="hidden" class="form-control form-control-sm " value="{{auth()->user()->id}}" name="user_id" >
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('id')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="po_date" class="col-sm-4 col-form-label">PO Date</label>
                   <div class="col-sm-8">
-                    <input type="date" class="form-control form-control-sm" id="po_date" placeholder="" name="po_date" >
+                    <input type="date" class="form-control form-control-sm {!! ($errors->has('po_date')? 'is-invalid' : '') !!}" id="po_date" placeholder="" name="po_date" value="{{ old('po_date') }}" >
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('po_date')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="postatus" class="col-sm-4 col-form-label">PO status</label>
                   <div class="col-sm-8 select-box">
-                    <select class="form-control form-control-sm" id="postatus" name="po_status_id">
+                    <select class="form-control form-control-sm" id="postatus" name="po_status_id" >
                       @foreach($poStatuses as  $poStatus)
-                      <option value="{{$poStatus->id}}">{{$poStatus->po_status}}</option>
+                      <option value="{{$poStatus->id}}" {{ old('po_status_id') == $poStatus->id ? 'selected' : '' }}>{{$poStatus->po_status}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -47,7 +56,7 @@
                   <div class="col-sm-8">
                     <select class="form-control form-control-sm" name="origin_id" id="origin">
                       @foreach($origins as $origin)
-                      <option value="{{$origin->id}}">{{$origin->origin_name}}</option>
+                      <option value="{{$origin->id}}" {{ old('origin_id') == $origin->id ? 'selected' : '' }} >{{$origin->origin_name}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -56,7 +65,7 @@
                   <div class="col-sm-8">
                     <select class="form-control form-control-sm" id="manufacturer" name="manufacturer_id">
                       @foreach($manufacturers as  $manufacturer)
-                      <option value="{{$manufacturer->id}}">{{$manufacturer->manufacturer_name}}</option>
+                      <option value="{{$manufacturer->id}}" {{ old('manufacturer_id') == $manufacturer->id ? 'selected' : '' }}>{{$manufacturer->manufacturer_name}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -65,7 +74,7 @@
                   <div class="col-sm-8">
                     <select class="form-control form-control-sm" name="supplier_id" id="supplier" >
                       @foreach($suppliers as  $supplier)
-                      <option value="{{$supplier->id}}">{{$supplier->supplier}}</option>
+                      <option value="{{$supplier->id}}" {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>{{$supplier->supplier}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -74,7 +83,7 @@
                   <div class="col-sm-8">
                     <select class="form-control form-control-sm" id="pol" name="pol">
                       @foreach($pods as  $pol)
-                      <option value="{{$pol->id}}">{{$pol->pod_name}}</option>
+                      <option value="{{$pol->id}}" {{ old('pol') == $pol->id ? 'selected' : '' }}>{{$pol->pod_name}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -84,7 +93,7 @@
                     <select class="form-control form-control-sm" name="pod" id="pod">
                       @foreach($pods as  $pod)
 
-                      <option value="{{$pod->id}}">{{$pod->pod_name}}</option>
+                      <option value="{{$pod->id}}" {{ old('pod') == $pod->id ? 'selected' : '' }}>{{$pod->pod_name}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -93,19 +102,29 @@
                   <div class="col-sm-8">
                     <select class="form-control form-control-sm" id="incoterm" name="incoterm_id">
                       @foreach($incoterms as  $incoterm)
-                      <option value="{{$incoterm->id}}">{{$incoterm->incoterms}}</option>
+                      <option value="{{$incoterm->id}}" {{ old('incoterm_id') == $incoterm->id ? 'selected' : '' }}>{{$incoterm->incoterms}}</option>
                       @endforeach
                     </select>
                   </div>
 
                   <label for="inputEmail3" class="col-sm-4 col-form-label">ETA requested</label>
                   <div class="col-sm-8">
-                    <input type="date" class="form-control form-control-sm" id="eta_request" name="eta_request" placeholder="">
+                    <input type="date" class="form-control form-control-sm {!! ($errors->has('eta_request') ? 'is-invalid' : '') !!}" id="eta_request" name="eta_request" value="{{old('eta_request')}}" placeholder="">
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('eta_request')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="inputEmail3" class="col-sm-4 col-form-label">End Customer</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm"  id="end_customer" name="end_customer" placeholder="">
+                    <input type="text" class="form-control form-control-sm {!! ($errors->has('end_customer') ? 'is-invalid' : '') !!}"  id="end_customer" name="end_customer" value="{{old('end_customer')}}" placeholder="">
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('end_customer')}}
+                    </div>
+                    @endif
                   </div>
 
                   <div class="form-check col-sm-12">
@@ -131,36 +150,61 @@
 
                   <label for="number_container" class="col-sm-4 col-form-label">Number of container</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" id="number_container" name="number_container" placeholder="" disabled="true">
+                    <input type="text" class="form-control form-control-sm {!! ($errors->has('number_container') ? 'is-invalid' : '') !!}" id="number_container" name="number_container" placeholder="" disabled="true">
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('number_container')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="container_size" class="col-sm-4 col-form-label">Container size</label>
                   <div class="col-sm-8">
                     <select class="form-control form-control-sm" id="container_size" name="container_size_id" disabled="true">
                       @foreach($containerSizes as  $containerSize)
-                      <option value="{{$containerSize->id}}">{{$containerSize->container_size}}</option>
+                      <option value="{{$containerSize->id}}" {{ old('container_size_id') == $containerSize->id ? 'selected' : '' }}>{{$containerSize->container_size}}</option>
                       @endforeach
                     </select>
                   </div>
 
                   <label for="payload" class="col-sm-4 col-form-label">Payload (MT/Cont.)</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" step=".01" id="payload" name="payload" disabled="true" >
+                    <input type="text" class="form-control form-control-sm {!! ($errors->has('payload') ? 'is-invalid' : '') !!}" step=".01" id="payload" name="payload" disabled="true" >
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('payload')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="freight_target" class="col-sm-4 col-form-label">Freight target</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" step=".01" id="freight_target"  name="freight_target" placeholder="" disabled="true">
+                    <input type="text" class="form-control form-control-sm {!! ($errors->has('freight_target') ? 'is-invalid' : '') !!}" step=".01" id="freight_target"  name="freight_target" placeholder="" disabled="true">
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('freight_target')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="dthc_target" class="col-sm-4 col-form-label">DTHC target</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" step=".01" id="dthc_target" name="dthc_target" placeholder="" disabled="true">
+                    <input type="text" class="form-control form-control-sm {!! ($errors->has('dthc_target') ? 'is-invalid' : '') !!}" step=".01" id="dthc_target" name="dthc_target" placeholder="" disabled="true">
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('dthc_target')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="cic_target" class="col-sm-4 col-form-label">CIC target</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" step=".01" id="cic_target" name="cic_target" placeholder="" disabled="true">
+                    <input type="text" class="form-control form-control-sm {!! ($errors->has('cic_target') ? 'is-invalid' : '') !!}" step=".01" id="cic_target" name="cic_target" placeholder="" disabled="true">
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('cic_target')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="inputGroupFile01" class="col-sm-4 col-form-label">Link to specs file</label>
@@ -172,14 +216,19 @@
 
                   <label for="hs_code" class="col-sm-4 col-form-label">HS code</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" id="hs_code" name="hs_code" placeholder="">
+                    <input type="text" class="form-control form-control-sm {!! ($errors->has('hs_code') ? 'is-invalid' : '') !!}" id="hs_code" name="hs_code" value="{{ old('hs_code') }}" placeholder="">
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('hs_code')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="co" class="col-sm-4 col-form-label">CO</label>
                   <div class="col-sm-8">
                     <select class="form-control form-control-sm" id="co" name="co_id">
                       @foreach($cos as  $co)
-                      <option value="{{$co->id}}">{{$co->certificate_of_origin}}</option>
+                      <option value="{{$co->id}}" {{ old('co_id') == $co->id ? 'selected' : '' }}>{{$co->certificate_of_origin}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -188,19 +237,29 @@
                   <div class="col-sm-8">
                     <select class="form-control form-control-sm" id="paymentterm" name="payment_term_id" onchange="optionTT()">
                       @foreach($paymentTerms as  $paymentTerm)
-                      <option value="{{$paymentTerm->id}}">{{$paymentTerm->payment_terms}}</option>
+                      <option value="{{$paymentTerm->id}}" {{ old('payment_term_id') == $paymentTerm->id ? 'selected' : '' }}>{{$paymentTerm->payment_terms}}</option>
                       @endforeach
                     </select>
                   </div>
 
                   <label for="within_x_day" class="col-sm-4 col-form-label">Within # days</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" name="within_x_day" id="within_x_day" placeholder="">
+                    <input type="text" class="form-control form-control-sm  {!! ($errors->has('within_x_day') ? 'is-invalid' : '') !!}" name="within_x_day" value="{{ old('within_x_day') }}" id="within_x_day" placeholder="">
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('within_x_day')}}
+                    </div>
+                    @endif
                   </div>
 
                   <label for="inputEmail3" class="col-sm-4 col-form-label">Currency|Fx</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control form-control-sm" id="currency" name="currency" placeholder="">
+                    <input type="text" class="form-control form-control-sm  {!! ($errors->has('currency') ? 'is-invalid' : '') !!}" id="currency" value="{{ old('currency') }}" name="currency" placeholder="">
+                    @if(count($errors)>0)
+                    <div class="text-danger text-left">
+                      {{$errors->first('currency')}}
+                    </div>
+                    @endif
                   </div>
 
                 </div>
@@ -208,11 +267,14 @@
               <div class="col-lg-12 col-md-12">
                 <label for="inputEmail3" class="col-sm-4 col-form-label">Marking</label>
                 <div class="col-sm-12">
-                  <textarea name="marking" id="notes" cols="30" rows="4" placeholder="" class="form-control"></textarea>
+                  <textarea name="marking" id="notes" cols="30" rows="4" placeholder=""  class="form-control {!! ($errors->has('marking') ? 'is-invalid' : '') !!}">{{old('marking') }}</textarea>
+                  @if(count($errors)>0)
+                  <div class="text-danger text-left">
+                    {{$errors->first('marking')}}
+                  </div>
+                  @endif
                 </div>
-
               </div>
-
             </div>
             <!-- End row -->
           </div><br>
@@ -241,7 +303,7 @@
                           <td class="product-thumbnail">
                             <select class="custom-select width-select"  id="product_id0" name="product_code_id[]"> 
                               @foreach($products as  $product)
-                              <option value="{{$product->id}}">{{$product->product}}</option>
+                              <option value="{{$product->id}}" >{{$product->product}}</option>
                               @endforeach
                             </select> 
                           </td>
@@ -278,12 +340,12 @@
 
                        <td class="product-subtotal">
                         <div class="col-sm-12">
-                          <input type="text" id="net_weight0" name="net_weight[]" step=".01" class="form-control form-control-md " placeholder="" >
+                          <input type="number" id="net_weight0" name="net_weight[]" step=".01" class="form-control form-control-md {!! ($errors->has('net_weight[]') ? 'is-invalid' : '' ) !!} " placeholder="" >
                         </div>
                       </td>
                       <td class="product-subtotal">
                         <div class="col-sm-12">
-                          <input type="text" id="price0" step=".01" name="price[]" class="form-control custom-input ">
+                          <input type="number" id="price0" step=".01" name="price[]" class="form-control custom-input {!! ($errors->has('price[]') ? 'is-invalid' : '' ) !!}  ">
                         </div>
                       </td>
                       <td class="product-subtotal" onkeydown="addRow()">

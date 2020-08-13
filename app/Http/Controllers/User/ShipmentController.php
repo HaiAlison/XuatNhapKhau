@@ -4,6 +4,27 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+
+
+use App\Order;
+use App\Custome;
+use App\CertificateOfOrigin;
+use App\Binding;
+use App\Incoterm;
+use App\Manufacturer;
+use App\Origin;
+use App\Packing;
+use App\PaymentLocal;
+use App\PaymentOversea;
+use App\Product;
+use App\TypeOfShipmentDetail;
+use App\ContainerSize;
+use App\OrderDetail;
+use App\Shipment;
+use App\POD;
+use App\TypeOfShipmentDetailShipment;
+use App\ShipmentDetail;
 
 class ShipmentController extends Controller
 {
@@ -14,7 +35,11 @@ class ShipmentController extends Controller
      */
     public function index()
     {
-        //
+        $nameToForeach = Shipment::all();
+        $title = 'Shipment';
+        $name= 'shipment';
+        $another = '';
+        return view('admin.shipment',compact('title','nameToForeach','name'));
     }
 
     /**
@@ -22,9 +47,44 @@ class ShipmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function create_id($id)
+    {   
+        $containerSizesList = Cache::remember('container_sizes', 60, function () {
+            return ContainerSize::all();
+        });
+        $orderList = Cache::remember('orders', 60, function () {
+            return Order::all();
+        });
+         $incotermList = Cache::remember('incoterms', 60, function () {
+            return Incoterm::all();
+        });
+          $podList = Cache::remember('pods', 60, function () {
+            return POD::all();
+        });
+
+        $order = Order::find($id);
+        $productList= OrderDetail::where('po_no_id','=',$id)->get();
+        if($order->type_of_shipment === 'container')
+        {
+            $type= TypeOfShipmentDetail::find($id);
+           // $size = ContainerSize::find($type->container_size_id);
+            return view('user.shipment', compact('order','type','orderList','productList','podList','containerSizesList', 'incotermList'));
+        } 
+        else
+            return view('user.shipment', compact('order','orderList','productList','podList', 'incotermList')); 
+
+        
+    }
     public function create()
     {
-        return view('user.shipment');
+        $incotermList = Cache::remember('incoterms', 60, function () {
+            return Incoterm::all();
+        });
+         $orderList = Cache::remember('orders', 60, function () {
+            return Order::all();
+        }); 
+
+        return view('user.shipment', compact('orderList')); 
     }
 
     /**
@@ -35,9 +95,46 @@ class ShipmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        //shipment
+        if($request->type_of_shipment === 'vessle'){
 
+            Shipment::create($request->except('_token'));
+
+        }
+        else{ 
+            Shipment::create($request->except('_token'));
+           
+            TypeOfShipmentDetailShipment::create($request->except('_token'));
+        }
+        $shipment = Shipment::where('sub_po_id','=',$request->sub_po_id)->where('po_no_id','=',$request->po_no_id)->first();
+        $shipment->save();
+        //shipment-detail
+        $po_no_id= $request->po_no_id;
+        $sub_po_id=$request->sub_po_id;
+        $shipmentDetailCol = collect ($request->product_code_id);
+        $shipmentDetailFilter=$shipmentDetailCol->filter(function ($value, $key) {
+            return $value != null;
+                });
+        $request->merge(['product_code_id'=>$shipmentDetailFilter->all()]);
+        $nonOrder = $request->product_code_id;
+        $reOrder = array_merge($nonOrder);
+        $request->merge(['product_code_id'=>$reOrder]);
+        foreach ($request->product_code_id as $key => $value) {
+            $data = array(
+                      'po_no_id' =>$po_no_id,
+                      'sub_po_id'=> $sub_po_id,
+                      'product_code_id'=>$request->product_code_id[$key],
+                      'packing_id'=>$request->packing_id[$key],
+                      'weight_unit_id'=>$request->weight_unit_id[$key],
+                      'binding_id'=>$request->binding_id[$key],
+                      'net_weight_id'=>$request->net_weight_id[$key],
+                      'price'=>$request->price[$key],
+                      'total_amount'=>$request->total_amount[$key]
+                    );
+                      ShipmentDetail::insert($data);  
+        }
+
+    }
     /**
      * Display the specified resource.
      *
@@ -55,7 +152,7 @@ class ShipmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($po_no_id, $sub_po_id)
     {
         //
     }
