@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function(){
 
 
 			Route::get('shipment/','User\ShipmentController@create')->name('shipment');
+			Route::post('shipment/','User\ShipmentController@store')->name('store-shipment');
+			Route::get('/shipment/{id}','User\ShipmentController@create_id')->name('shipment_id');
 
 
 			Route::get('view-detail','User\ViewDetailController@index')->name('view-detail');
@@ -42,18 +44,24 @@ Route::middleware('auth')->group(function(){
 			Route::get('edit-payment-local/{po_no}/{sub_po}/{type_service}','User\PaymentLocalController@edit')->name('edit-payment-local');
 			Route::post('edit-payment-local/{po_no}/{sub_po}/{type_service}','User\PaymentLocalController@update')->name('update-payment-local');
 
+			Route::get('/payment-overseas','User\PaymentOverseaController@create')->name('payment-overseas');
+			Route::post('/show-payment-overseas','User\PaymentOverseaController@show')->name('show-payment-overseas');
+			Route::get('/export','User\PaymentOverseaContrller@export')->name('export');
+			Route::get('/create-payment-overseas/{po_no_id}/{sub_po_id}','User\PaymentOverseaController@create_id')->name('create-payment-overseas');
+
 			
 			Route::get('excel','User\PaymentLocalController@export')->name('excel');
 			Route::get('choose-date','User\PaymentLocalController@chooseDay')->name('choose-day');
 
-			Route::get('report','User\InvoiceController@index')->name('order-report');
-			Route::get('payment-local-report','User\InvoiceController@local')->name('local-report');
-			Route::post('show-po','User\InvoiceController@selectPO')->name('show-po');
+			Route::get('report/{i}','User\InvoiceController@index')->name('order-report');
+			Route::post('show-po/{type}','User\InvoiceController@selectPO')->name('show-po');
 			Route::post('show-detail-po','User\InvoiceController@selectSubPO')->name('show-detail-po');
 			Route::post('show-detail-local','User\InvoiceController@showPaymentLocal')->name('show-detail-local');
+			Route::post('show-detail-oversea','User\InvoiceController@showPaymentOversea')->name('show-detail-oversea');
 
 			Route::post('report','User\InvoiceController@printPDF')->name('print');
 			Route::post('local-report','User\InvoiceController@printLocalPDF')->name('print-local');
+			Route::post('oversea-report','User\InvoiceController@printOverseaPDF')->name('print-oversea');
 			
 		});
 	});
@@ -62,18 +70,16 @@ Route::middleware('auth')->group(function(){
 
 
 //authenticate admins
-Route::middleware('guest:admin')->group(function(){
-	Route::prefix('admin')->group(function(){
-		Route::name('admin.')->group(function(){
+Route::prefix('admin')->group(function(){
+	Route::name('admin.')->group(function(){
 
-			Route::get('/login','Auth\AdminLoginController@login')->name('login');
-			Route::post('/login','Auth\AdminLoginController@doLogin')->name('do-login');
+		Route::get('/login','Auth\AdminLoginController@login')->name('login');
+		Route::post('/login','Auth\AdminLoginController@doLogin')->name('do-login');
 
-		});
 	});
 });
 
-Route::middleware('auth:admin')->group(function(){
+Route::middleware(['auth','admin'])->group(function(){
 
 	
 	Route::prefix('admin')->group(function(){
@@ -232,5 +238,5 @@ Route::middleware('auth:admin')->group(function(){
 
 			Route::get('/account/{role}','Admin\AccountController@show')->name('show-account');
 		});
-	});
+});
 });

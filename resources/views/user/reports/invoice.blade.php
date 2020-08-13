@@ -66,14 +66,14 @@
 							<div class="row">
 								<label class="col-sm-5">Loại PO <i class="hint">(Type PO):</i></label>
 								<div class="col-sm-6">
-									<select class="form-control form-control-sm drop" id="po_no" name="type_po">
+									<select class="form-control form-control-sm drop {!! ($errors->has('type_po') ? 'is-invalid' : '' ) !!}" id="po_no" name="type_po">
 										<option selected disabled>Select PO.</option>
 										@foreach($shipments as $key => $shipment)
 										<option>{{$shipments[$key]}}</option>
 										@endforeach
 									</select>
 									@if(count($errors)>0)
-									<div class="text-danger">
+									<div class="text-danger text-left">
 										{{$errors->first('type_po')}}
 									</div>
 									@endif
@@ -322,7 +322,7 @@
 <script type="text/javascript">
 	$("#po_no").on('change',function(e){
 		$.ajax({
-			url: "{{ route('user.show-po')}}",
+			url: "{{ route('user.show-po',['type' => 'order'])}}",
 			method: 'POST',
 			data: {po_no_id: $("#po_no").val(),
 			_token: $('input[name="_token"]').val()},

@@ -102,7 +102,6 @@
               href = href.replace(':po_no',po_no);
               href = href.replace(':sub_po',sub_po);
               href = href.replace(':type_service',type_service);
-              alert(href);
               $('.modal-footer').html('<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>\
                 <a class="btn btn-primary"'+ href +'>Update</a>');
               $('#notify').modal('show');
