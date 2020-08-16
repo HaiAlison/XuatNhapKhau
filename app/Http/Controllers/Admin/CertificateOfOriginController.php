@@ -38,7 +38,10 @@ class CertificateOfOriginController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $this->validate($request,[
+            'id' => 'required|unique:certificate_of_origins',
+            'certificate_of_origin' => 'required',
+        ]);
         CertificateOfOrigin::create($request->except('_token'));
         return redirect()->route('admin.index')->with('success','Create success!');
     }
@@ -92,5 +95,28 @@ class CertificateOfOriginController extends Controller
     {
         $idTable = CertificateOfOrigin::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = CertificateOfOrigin::onlyTrashed()->get();
+        $title = 'Certificate of Origin';
+        $name= 'certificate_of_origin';
+        $del = 'ok';
+        $back = route('admin.certificate-of-origin');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = CertificateOfOrigin::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.certificate-of-origin')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+        $idTable = CertificateOfOrigin::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

@@ -45,12 +45,16 @@
 
                 <label   class="col-sm-4 col-form-label">Item name</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" name="item_name" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->item_name}}" @else value="name" @endif readonly>
+                  <input type="text" class="form-control form-control-sm" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->product->product}}" @else value="{{$shipmentDetail->product->product}}" @endif readonly>
+                  <input type="hidden" name="item_name" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->item_name}}" @else  value="{{$shipmentDetail->product->id}}" @endif>
+
                 </div>
 
                 <label   class="col-sm-4 col-form-label">Item Origin</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->item_origin}}" @else  value="{{$purchaseOrder->origin->origin_name}}" @endif name="item_origin" readonly>
+                  <input type="text" class="form-control form-control-sm" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->origin->origin_name}}" @else  value="{{$purchaseOrder->origin->origin_name}}" @endif readonly>
+                  <input type="hidden" name="item_origin" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->item_origin}}" @else  value="{{$purchaseOrder->origin->id}}" @endif>
+
                 </div>
 
                 <label   class="col-sm-4 col-form-label">QTY</label>
@@ -66,7 +70,8 @@
 
                 <label   class="col-sm-4 col-form-label">Incoterms</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" name="incoterms_id" id="incoterms_id" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->incoterms_id}}" @else  value="{{$purchaseOrder->incoterm->incoterms}}" @endif readonly>
+                  <input type="text" class="form-control form-control-sm"  id="incoterms_id" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->incoterm->incoterms}}" @else  value="{{$purchaseOrder->incoterm->incoterms}}" @endif readonly>
+                  <input type="hidden" name="incoterms_id" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->incoterms_id}}" @else  value="{{$purchaseOrder->incoterm->id}}" @endif>
                 </div>
 
                 <label class="col-sm-4 col-form-label">Freight</label>

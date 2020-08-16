@@ -40,7 +40,10 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:suppliers',
+            'supplier' => 'required',
+        ]);
         Supplier::create($request->except('_token'));
         return redirect()->route('admin.supplier')->with('success','Create success!');
     }
@@ -96,5 +99,28 @@ class SupplierController extends Controller
     {
         $idTable = Supplier::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = Supplier::onlyTrashed()->get();
+        $title = 'Supplier';
+        $name= 'supplier';
+        $del = 'ok';
+        $back = route('admin.supplier');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = Supplier::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.supplier')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = Supplier::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

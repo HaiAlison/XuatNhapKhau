@@ -106,7 +106,7 @@
 							<li class="nav-item dropdown no-arrow" style="padding-top: 0">
 								<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="mr-2 d-none d-lg-inline text-gray-800 small">{{auth('web')->user()->firstname}} {{ auth('web')->user()->lastname }}</span>
-									<img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+									<img class="img-profile rounded-circle" src="https://img.icons8.com/dusk/64/000000/cat-profile.png">
 								</a>
 								<!-- Dropdown - User Information -->
 								<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -167,8 +167,17 @@
 	</div>
 	<!-- End Page Title -->
 
+	<section class="about-area ptb-80">
+		<div class="container">
+			@yield('index')
+		</div>
+	</section>
 
-
+	<section class="boxes-area ptb-80">
+		<div class="container">
+			@yield('boxes')
+		</div>
+	</section>
 	<!-- Start Footer Area -->
 	<footer class="footer-area bg-f7fafd">
 		<div class="container">

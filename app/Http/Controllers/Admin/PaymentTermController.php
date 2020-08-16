@@ -29,7 +29,10 @@ class PaymentTermController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:payment_terms',
+            'payment_terms' => 'required',
+        ]);
         PaymentTerm::create($request->except('_token'));
         return redirect()->route('admin.payment-terms')->with('success','Create success!');
     }
@@ -67,5 +70,28 @@ class PaymentTermController extends Controller
     {
         $idTable = PaymentTerm::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = PaymentTerm::onlyTrashed()->get();
+        $title = 'Payment Terms';
+        $name= 'payment_terms';
+        $del = 'ok';
+        $back = route('admin.payment-terms');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = PaymentTerm::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.payment-terms')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = PaymentTerm::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

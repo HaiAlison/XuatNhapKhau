@@ -46,7 +46,7 @@ class ShipmentTable extends Migration
             $table->text('number_of_bags');
             $table->text('gross_weight');
             $table->boolean('co_provider');
-            $table->boolean('currency'); //default USD to VND
+            $table->integer('currency'); //default USD to VND
             $table->timestamps();
             $table->softDeletes(); 
             

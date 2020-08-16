@@ -25,6 +25,7 @@ use App\Shipment;
 use App\POD;
 use App\TypeOfShipmentDetailShipment;
 use App\ShipmentDetail;
+use App\ShipmentStatus;
 
 class ShipmentController extends Controller
 {
@@ -61,17 +62,19 @@ class ShipmentController extends Controller
           $podList = Cache::remember('pods', 60, function () {
             return POD::all();
         });
-
+        $shipmentStatus = Cache::remember('shipmentStatus',60,function(){
+            return ShipmentStatus::all();
+        });
         $order = Order::find($id);
         $productList= OrderDetail::where('po_no_id','=',$id)->get();
         if($order->type_of_shipment === 'container')
         {
             $type= TypeOfShipmentDetail::find($id);
            // $size = ContainerSize::find($type->container_size_id);
-            return view('user.shipment', compact('order','type','orderList','productList','podList','containerSizesList', 'incotermList'));
+            return view('user.shipment', compact('order','type','orderList','productList','podList','containerSizesList', 'incotermList','shipmentStatus'));
         } 
         else
-            return view('user.shipment', compact('order','orderList','productList','podList', 'incotermList')); 
+            return view('user.shipment', compact('order','orderList','productList','podList', 'incotermList','shipmentStatus')); 
 
         
     }
@@ -106,11 +109,11 @@ class ShipmentController extends Controller
            
             TypeOfShipmentDetailShipment::create($request->except('_token'));
         }
-        $shipment = Shipment::where('sub_po_id','=',$request->sub_po_id)->where('po_no_id','=',$request->po_no_id)->first();
+        $shipment = Shipment::where([['id','=',$request->id],['po_no_id','=',$request->po_no_id]])->first();
         $shipment->save();
         //shipment-detail
         $po_no_id= $request->po_no_id;
-        $sub_po_id=$request->sub_po_id;
+        $sub_po_id=$request->id;
         $shipmentDetailCol = collect ($request->product_code_id);
         $shipmentDetailFilter=$shipmentDetailCol->filter(function ($value, $key) {
             return $value != null;
@@ -122,16 +125,17 @@ class ShipmentController extends Controller
         foreach ($request->product_code_id as $key => $value) {
             $data = array(
                       'po_no_id' =>$po_no_id,
-                      'sub_po_id'=> $sub_po_id,
+                      'sub_po_no_id'=> $sub_po_id,
                       'product_code_id'=>$request->product_code_id[$key],
                       'packing_id'=>$request->packing_id[$key],
                       'weight_unit_id'=>$request->weight_unit_id[$key],
                       'binding_id'=>$request->binding_id[$key],
-                      'net_weight_id'=>$request->net_weight_id[$key],
+                      'net_weight'=>$request->net_weight_id[$key],
                       'price'=>$request->price[$key],
                       'total_amount'=>$request->total_amount[$key]
                     );
-                      ShipmentDetail::insert($data);  
+                      ShipmentDetail::insert($data); 
+                      return redirect()->route('user.index')->with('success','Shipment successfully created');
         }
 
     }

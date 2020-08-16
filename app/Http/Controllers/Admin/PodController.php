@@ -40,7 +40,10 @@ class PodController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:pod',
+            'pod_name' => 'required',
+        ]);
         POD::create($request->except('_token'));
         return redirect()->route('admin.pod')->with('success','Create success!');
     }
@@ -96,5 +99,28 @@ class PodController extends Controller
     {
         $idTable = POD::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = POD::onlyTrashed()->get();
+        $title = 'POD';
+        $name= 'pod_name';
+        $del = 'ok';
+        $back = route('admin.pod');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = POD::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.pod')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = POD::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

@@ -79,7 +79,7 @@ Route::prefix('admin')->group(function(){
 	});
 });
 
-Route::middleware(['auth','admin'])->group(function(){
+Route::middleware('admin')->group(function(){
 
 	
 	Route::prefix('admin')->group(function(){
@@ -96,6 +96,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/binding/edit/{id}','Admin\BindingController@edit')->name('edit-binding');
 			Route::post('/binding/edit/{id}','Admin\BindingController@update')->name('update-binding');
+			Route::get('binding/delete/{id}','Admin\BindingController@destroy')->name('delete-binding');
+
+			Route::get('binding/restore','Admin\BindingController@trash')->name('trash-binding');
+			Route::get('binding/restore/{id}','Admin\BindingController@restore')->name('restore-binding');
+			Route::get('binding/force/{id}','Admin\BindingController@force')->name('force-binding');
 
 
 			Route::get('/tables','Admin\TablesController@index')->name('tables');
@@ -108,7 +113,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/shipment-status/edit/{id}','Admin\ShipmentStatusController@edit')->name('edit-shipment_status');
 			Route::post('/shipment-status/edit/{id}','Admin\ShipmentStatusController@update')->name('update-shipment_status');
+			Route::get('shipment-status/delete/{id}','Admin\ShipmentStatusController@destroy')->name('delete-shipment_status');
 
+			Route::get('shipment-status/restore','Admin\ShipmentStatusController@trash')->name('trash-shipment_status');
+			Route::get('shipment-status/restore/{id}','Admin\ShipmentStatusController@restore')->name('restore-shipment_status');
+			Route::get('shipment-status/force/{id}','Admin\ShipmentStatusController@force')->name('force-shipment_status');
 
 			Route::get('/payment-terms','Admin\PaymentTermController@index')->name('payment-terms');
 
@@ -117,7 +126,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/payment-terms/edit/{id}','Admin\PaymentTermController@edit')->name('edit-payment_terms');
 			Route::post('/payment-terms/edit/{id}','Admin\PaymentTermController@update')->name('update-payment_terms');
+			Route::get('payment-terms/delete/{id}','Admin\PaymentTermController@destroy')->name('delete-payment_terms');
 
+			Route::get('payment-terms/restore','Admin\PaymentTermController@trash')->name('trash-payment_terms');
+			Route::get('payment-terms/restore/{id}','Admin\PaymentTermController@restore')->name('restore-payment_terms');
+			Route::get('payment-terms/force/{id}','Admin\PaymentTermController@force')->name('force-payment_terms');
 
 			Route::get('/incoterms','Admin\IncotermController@index')->name('incoterms');
 
@@ -126,7 +139,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/incoterms/edit/{id}','Admin\IncotermController@edit')->name('edit-incoterms');
 			Route::post('/incoterms/edit/{id}','Admin\IncotermController@update')->name('update-incoterms');
+			Route::get('incoterms/delete/{id}','Admin\IncotermController@destroy')->name('delete-incoterms');
 
+			Route::get('incoterms/restore','Admin\IncotermController@trash')->name('trash-incoterms');
+			Route::get('incoterms/restore/{id}','Admin\IncotermController@restore')->name('restore-incoterms');
+			Route::get('incoterms/force/{id}','Admin\IncotermController@force')->name('force-incoterms');
 
 			Route::get('/packing','Admin\PackingController@index')->name('packing');
 
@@ -135,7 +152,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/packing/edit/{id}','Admin\PackingController@edit')->name('edit-packing');
 			Route::post('/packing/edit/{id}','Admin\PackingController@update')->name('update-packing');
+			Route::get('packing/delete/{id}','Admin\PackingController@destroy')->name('delete-packing');
 
+			Route::get('packing/restore','Admin\PackingController@trash')->name('trash-packing');
+			Route::get('packing/restore/{id}','Admin\PackingController@restore')->name('restore-packing');
+			Route::get('packing/force/{id}','Admin\PackingController@force')->name('force-packing');
 
 			Route::get('/container-size','Admin\ContainerSizeController@index')->name('container-size');	
 
@@ -144,7 +165,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/container-size/edit/{id}','Admin\ContainerSizeController@edit')->name('edit-container_size');
 			Route::post('/container-size/edit/{id}','Admin\ContainerSizeController@update')->name('update-container_size');
+			Route::get('container-size/delete/{id}','Admin\ContainerSizeController@destroy')->name('delete-container_size');
 
+			Route::get('container-size/restore','Admin\ContainerSizeController@trash')->name('trash-container_size');
+			Route::get('container-size/restore/{id}','Admin\ContainerSizeController@restore')->name('restore-container_size');
+			Route::get('container-size/force/{id}','Admin\ContainerSizeController@force')->name('force-container_size');
 
 			Route::get('/certificate-of-origin','Admin\CertificateOfOriginController@index')->name('certificate-of-origin');
 
@@ -153,7 +178,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/certificate-of-origin/edit/{id}','Admin\CertificateOfOriginController@edit')->name('edit-certificate_of_origin');
 			Route::post('/certificate-of-origin/edit/{id}','Admin\CertificateOfOriginController@update')->name('update-certificate_of_origin');
+			Route::get('certificate-of-origin/delete/{id}','Admin\CertificateOfOriginController@destroy')->name('delete-certificate_of_origin');
 
+			Route::get('certificate-of-origin/restore','Admin\CertificateOfOriginController@trash')->name('trash-certificate_of_origin');
+			Route::get('certificate-of-origin/restore/{id}','Admin\CertificateOfOriginController@restore')->name('restore-certificate_of_origin');
+			Route::get('certificate-of-origin/force/{id}','Admin\CertificateOfOriginController@force')->name('force-certificate_of_origin');
 
 			Route::get('/po-status','Admin\PoStatusController@index')->name('po-status');	
 
@@ -162,7 +191,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/po-status/edit/{id}','Admin\PoStatusController@edit')->name('edit-po_status');
 			Route::post('/po-status/edit/{id}','Admin\PoStatusController@update')->name('update-po_status');
+			Route::get('po-status/delete/{id}','Admin\PoStatusController@destroy')->name('delete-po_status');
 
+			Route::get('po-status/restore','Admin\PoStatusController@trash')->name('trash-po_status');
+			Route::get('po-status/restore/{id}','Admin\PoStatusController@restore')->name('restore-po_status');
+			Route::get('po-status/force/{id}','Admin\PoStatusController@force')->name('force-po_status');
 
 			Route::get('/weight-unit','Admin\WeightUnitController@index')->name('weight-unit');	
 
@@ -171,7 +204,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('weight-unit/edit/{id}','Admin\WeightUnitController@edit')->name('edit-weight_unit');
 			Route::post('/weight-unit/edit/{id}','Admin\WeightUnitController@update')->name('update-weight_unit');
+			Route::get('weight-unit/delete/{id}','Admin\WeightUnitController@destroy')->name('delete-weight_unit');
 
+			Route::get('weight-unit/restore','Admin\WeightUnitController@trash')->name('trash-weight_unit');
+			Route::get('weight-unit/restore/{id}','Admin\WeightUnitController@restore')->name('restore-weight_unit');
+			Route::get('weight-unit/force/{id}','Admin\WeightUnitController@force')->name('force-weight_unit');
 
 			Route::get('/pod','Admin\PodController@index')->name('pod');	
 
@@ -180,7 +217,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/pod/edit/{id}','Admin\PodController@edit')->name('edit-pod_name');
 			Route::post('/pod/edit/{id}','Admin\PodController@update')->name('update-pod_name');
+			Route::get('pod/delete/{id}','Admin\PodController@destroy')->name('delete-pod_name');
 
+			Route::get('pod/restore','Admin\PodController@trash')->name('trash-pod_name');
+			Route::get('pod/restore/{id}','Admin\PodController@restore')->name('restore-pod_name');
+			Route::get('pod/force/{id}','Admin\PodController@force')->name('force-pod_name');
 
 			Route::get('/supplier','Admin\SupplierController@index')->name('supplier');
 
@@ -189,7 +230,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/supplier/edit/{id}','Admin\SupplierController@edit')->name('edit-supplier');
 			Route::post('/supplier/edit/{id}','Admin\SupplierController@update')->name('update-supplier');
+			Route::get('supplier/delete/{id}','Admin\SupplierController@destroy')->name('delete-supplier');
 
+			Route::get('supplier/restore','Admin\SupplierController@trash')->name('trash-supplier');
+			Route::get('supplier/restore/{id}','Admin\SupplierController@restore')->name('restore-supplier');
+			Route::get('supplier/force/{id}','Admin\SupplierController@force')->name('force-supplier');
 
 			Route::get('/origin','Admin\OriginController@index')->name('origin');
 
@@ -198,7 +243,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/origin/edit/{id}','Admin\OriginController@edit')->name('edit-origin_name');
 			Route::post('/origin/edit/{id}','Admin\OriginController@update')->name('update-origin_name');
+			Route::get('origin/delete/{id}','Admin\OriginController@destroy')->name('delete-origin_name');
 
+			Route::get('origin/restore','Admin\BindingController@trash')->name('trash-origin_name');
+			Route::get('origin/restore/{id}','Admin\BindingController@restore')->name('restore-origin_name');
+			Route::get('origin/force/{id}','Admin\BindingController@force')->name('force-origin_name');
 
 			Route::get('/manufacturer','Admin\ManufacturerController@index')->name('manufacturer');
 
@@ -207,7 +256,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/manufacturer/edit/{id}','Admin\ManufacturerController@edit')->name('edit-manufacturer_name');
 			Route::post('/manufacturer/edit/{id}','Admin\ManufacturerController@update')->name('update-manufacturer_name');
+			Route::get('manufacturer/delete/{id}','Admin\ManufacturerController@destroy')->name('delete-manufacturer_name');
 
+			Route::get('manufacturer/restore','Admin\ManufacturerController@trash')->name('trash-manufacturer_name');
+			Route::get('manufacturer/restore/{id}','Admin\ManufacturerController@restore')->name('restore-manufacturer_name');
+			Route::get('manufacturer/force/{id}','Admin\ManufacturerController@force')->name('force-manufacturer_name');
 
 			Route::get('/customer','Admin\CustomerController@index')->name('customer');
 
@@ -216,7 +269,11 @@ Route::middleware(['auth','admin'])->group(function(){
 
 			Route::get('/customer/edit/{id}','Admin\CustomerController@edit')->name('edit-customer_name');
 			Route::post('/customer/edit/{id}','Admin\CustomerController@update')->name('update-customer_name');
+			Route::get('customer/delete/{id}','Admin\CustomerController@destroy')->name('delete-customer_name');
 
+			Route::get('customer/restore','Admin\CustomerController@trash')->name('trash-customer_name');
+			Route::get('customer/restore/{id}','Admin\CustomerController@restore')->name('restore-customer_name');
+			Route::get('customer/force/{id}','Admin\CustomerController@force')->name('force-customer_name');
 
 			Route::get('/product','Admin\ProductController@index')->name('product');
 
@@ -225,18 +282,30 @@ Route::middleware(['auth','admin'])->group(function(){
 			
 			Route::get('/product/edit/{id}','Admin\ProductController@edit')->name('edit-product');
 			Route::post('/product/edit/{id}','Admin\ProductController@update')->name('update-product');
+			Route::get('product/delete/{id}','Admin\ProductController@destroy')->name('delete-product');
 
+			Route::get('product/restore','Admin\ProductController@trash')->name('trash-product');
+			Route::get('product/restore/{id}','Admin\ProductController@restore')->name('restore-product');
+			Route::get('product/force/{id}','Admin\ProductController@force')->name('force-product');
 
 			//Route account
 
 			Route::get('/create-account','Admin\AccountController@create')->name('create-firstname');
 			Route::post('/create-account','Admin\AccountController@store')->name('do-create-account');
+			Route::get('account/delete/{id}','Admin\AccountController@destroy')->name('delete-firstname');
+
+			Route::get('account/restore/{role}','Admin\AccountController@trash')->name('trash-firstname');
+			Route::get('account/restore/{role}/{id}','Admin\AccountController@restore')->name('restore-firstname');
+			Route::get('account/force/{id}','Admin\AccountController@force')->name('force-firstname');
 
 			Route::get('/edit-{role}/{id}','Admin\AccountController@edit')->name('edit-admin');
 			Route::post('/edit-{role}/{id}','Admin\AccountController@update')->name('update-account');
 
 
 			Route::get('/account/{role}','Admin\AccountController@show')->name('show-account');
+
+
+			Route::get('restore','Admin\RestoreController@index')->name('restore');
 		});
 });
 });

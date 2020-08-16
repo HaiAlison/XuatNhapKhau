@@ -40,7 +40,10 @@ class PoStatusController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:po_status',
+            'po_status' => 'required',
+        ]);
         POStatus::create($request->except('_token'));
         return redirect()->route('admin.po-status')->with('success','Create success!');
     }
@@ -96,5 +99,28 @@ class PoStatusController extends Controller
     {
         $idTable = POStatus::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = POStatus::onlyTrashed()->get();
+        $title = 'PO Status';
+        $name= 'po_status';
+        $del = 'ok';
+        $back = route('admin.po-status');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = POStatus::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.po-status')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = POStatus::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

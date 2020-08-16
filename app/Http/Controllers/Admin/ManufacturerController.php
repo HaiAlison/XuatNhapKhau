@@ -43,7 +43,11 @@ class ManufacturerController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $this->validate($request,[
+            'id' => 'required|unique:manufacturers',
+            'manufacturer_name' => 'required',
+            'manufacturer_address' => 'required',
+        ]);
         Manufacturer::create($request->except('_token'));
         return redirect()->route('admin.manufacturer')->with('success','Create success!');
     }
@@ -100,5 +104,31 @@ class ManufacturerController extends Controller
     {
         $idTable = Manufacturer::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = Manufacturer::onlyTrashed()->get();
+        $title = 'Manufacturer';
+        $name= 'manufacturer_name';
+        $del = 'ok';
+        $back = route('admin.manufacturer');
+        $another = [
+                'manufacturer_address' => 'Manufacturer Address',
+                   ];
+        return view('admin.show',compact('title','nameToForeach','name','del','back','another'));
+    }
+    public function restore($id)
+    {
+        $idTable = Manufacturer::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.manufacturer')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = Manufacturer::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

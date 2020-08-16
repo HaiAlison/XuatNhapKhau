@@ -22,13 +22,12 @@ class PaymentLocalController extends Controller
     if($purchaseOrder != null){
         $typeOfShipmentDetail = TypeOfShipmentDetail::where('id',$purchaseOrder->id)->first();
         $inputDetail = Shipment::where([['id',$request->id_shipment],['po_no_id',$purchaseOrder->id]])->first();
-        $inputDetails = Shipment::all();
         if($inputDetail!= null)
         {   
             $title = 'Payment Local';
             $local = 'local';
-            $shipmentDetails = ShipmentDetail::where('id',$purchaseOrder->id)->get();
-            return view('user.view-detail',compact('purchaseOrder','inputDetail','inputDetails','typeOfShipmentDetail','shipmentDetails','title','local'));
+            $shipmentDetail = ShipmentDetail::where([['sub_po_no_id',$request->id_shipment],['po_no_id',$purchaseOrder->id]])->first();
+            return view('user.view-detail',compact('purchaseOrder','inputDetail','typeOfShipmentDetail','shipmentDetail','title','local'));
         }
             $request->flash(); // giữ lại request
             return back()->with('error','Sub PO No. not found');
