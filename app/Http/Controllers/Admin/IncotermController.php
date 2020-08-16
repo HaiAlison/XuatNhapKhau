@@ -28,7 +28,10 @@ class IncotermController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:incoterms',
+            'incoterms' => 'required',
+        ]);
         Incoterm::create($request->except('_token'));
         return redirect()->route('admin.incoterms')->with('success','Create success!');
     }
@@ -66,5 +69,28 @@ class IncotermController extends Controller
     {
         $idTable = Incoterm::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = Incoterm::onlyTrashed()->get();
+        $title = 'Incoterm';
+        $name= 'incoterms';
+        $del = 'ok';
+        $back = route('admin.incoterms');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = Incoterm::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.incoterms')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = Incoterm::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

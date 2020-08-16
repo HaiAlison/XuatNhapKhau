@@ -40,7 +40,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:products',
+            'product' => 'required',
+        ]);
         Product::create($request->except('_token'));
         return redirect()->route('admin.product')->with('success','Create success!');
     }
@@ -96,5 +99,28 @@ class ProductController extends Controller
     {
         $idTable = Product::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = Product::onlyTrashed()->get();
+        $title = 'Product';
+        $name= 'product';
+        $del = 'ok';
+        $back = route('admin.product');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = Product::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.product')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = Product::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

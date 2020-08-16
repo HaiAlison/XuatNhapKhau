@@ -40,7 +40,10 @@ class OriginController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:origins',
+            'origin_name' => 'required',
+        ]);
         Origin::create($request->except('_token'));
         return redirect()->route('admin.origin')->with('success','Create success!');
     }
@@ -96,5 +99,28 @@ class OriginController extends Controller
     {
         $idTable = Origin::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = Origin::onlyTrashed()->get();
+        $title = 'Origin';
+        $name= 'origin_name';
+        $del = 'ok';
+        $back = route('admin.origin');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = Origin::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.origin')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = Origin::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

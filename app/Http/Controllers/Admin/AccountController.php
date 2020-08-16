@@ -40,8 +40,8 @@ class AccountController extends Controller
         }
         else{
             User::create($request->except('_token'));
-        
-        return redirect()->route('admin.show-account',['role'=>'admin'])->with('success','Create account success!');
+
+            return redirect()->route('admin.show-account',['role'=>'admin'])->with('success','Create account success!');
         }
     }
 
@@ -59,22 +59,22 @@ class AccountController extends Controller
             $title = 'First name';
             $name= 'firstname';
             $another = [
-                    'middlename' => 'Middle name',
-                    'lastname'=>'Last name',
-                    'email' => 'Email',
-                    ];
+                'middlename' => 'Middle name',
+                'lastname'=>'Last name',
+                'email' => 'Email',
+            ];
             $role = 'employee';
             return view('admin.show',compact('title','nameToForeach','name','another','role'));
         }
-       
+
         $nameToForeach = User::where('isAdmin',1)->get();
         $title = 'First name';
         $name= 'firstname';
         $another = [
-                'middlename' => 'Middle name',
-                'lastname'=>'Last name',
-                'email' => 'Email',
-                ];
+            'middlename' => 'Middle name',
+            'lastname'=>'Last name',
+            'email' => 'Email',
+        ];
         $role = 'admin';
         return view('admin.show',compact('title','nameToForeach','name','another','role'));
     }
@@ -107,11 +107,11 @@ class AccountController extends Controller
             $data = User::findOrFail($id);
             $input = $request->except('_token');
             $data->fill($input)->save();
-        return redirect()->route('admin.show-account',['role'=>$role])->with('success','Edit success!');
+            return redirect()->route('admin.show-account',['role'=>$role])->with('success','Edit success!');
         }
         $data = User::findOrFail($id);
-            $input = $request->except('_token');
-            $data->fill($input)->save();
+        $input = $request->except('_token');
+        $data->fill($input)->save();
         return redirect()->route('admin.show-account',['role'=>$role])->with('success','Edit success!');
     }
 
@@ -121,8 +121,40 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
-        //
+        $idTable = User::findOrFail($id);
+        $idTable->delete();
+        return back()->with('success','A row has been deleted!');
     }
+    public function trash($role)   
+    {
+        ($role == 'employee') ? $isAdmin = 0 : $isAdmin = 1;
+
+        $nameToForeach = User::onlyTrashed()->where('isAdmin',$isAdmin)->get();
+        $title = 'First name';
+        $name= 'firstname';
+        $another = [
+            'middlename' => 'Middle name',
+            'lastname'=>'Last name',
+            'email' => 'Email',
+        ];
+        $del = 'ok';
+        $rol = $role;
+        $back = route('admin.show-account',['role'=> $role]);
+        return view('admin.show',compact('title','nameToForeach','name','del','back','another','rol'));
+    }
+    public function restore($role,$id)
+    {
+        $idTable = User::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.show-account',['role' => $role])->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+       $idTable = User::withTrashed()->findOrFail($id);
+       $idTable->forceDelete();
+       return back()->with('success','A row has been force delete!');
+   }
 }

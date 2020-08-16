@@ -101,7 +101,7 @@ $(document).ready(function(){
         }
         else{
           $("#null").show();
-          $("#null").html('<div class="alert alert-danger">Null</div>');
+          $("#null").html('<div class="alert alert-danger">There is no Payment Local on this date</div>');
           $(".export-btn").css("display","none");
 
           $('.alert').delay(3000).fadeOut('slow');

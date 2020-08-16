@@ -40,7 +40,10 @@ class ShipmentStatusController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:shipment_status',
+            'shipment_status' => 'required',
+        ]);
         ShipmentStatus::create($request->except('_token'));
         return redirect()->route('admin.shipment-status')->with('success','Create success!');
     }
@@ -96,5 +99,28 @@ class ShipmentStatusController extends Controller
     {
         $idTable = ShipmentStatus::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = ShipmentStatus::onlyTrashed()->get();
+        $title = 'Shipment Status';
+        $name= 'shipment_status';
+        $del = 'ok';
+        $back = route('admin.shipment-status');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = ShipmentStatus::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.shipment-status')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = ShipmentStatus::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

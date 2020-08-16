@@ -39,7 +39,10 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:customers',
+            'customer_name' => 'required',
+        ]);
         Customer::create($request->except('_token'));
         return redirect()->route('admin.customer')->with('success','Create success!');
     }
@@ -95,5 +98,28 @@ class CustomerController extends Controller
     {
         $idTable = Customer::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = Customer::onlyTrashed()->get();
+        $title = 'Customer';
+        $name= 'customer_name';
+        $del = 'ok';
+        $back = route('admin.customer');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = Customer::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.customer')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = Customer::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

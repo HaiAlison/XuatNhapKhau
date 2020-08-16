@@ -142,7 +142,6 @@
 			@endif
 		</tbody>
 	</table>
-	<div class="page-break"></div>
 	<div class="row">
 		<div class="col-xs-6">
 			<table width="100%" style="width:100%" border="0">
@@ -187,27 +186,29 @@
 		</div>
 	</div>
 	<hr>
-	<table class="table invoice-term">
-		<tbody>
-			<tr>
-				<td class="text-left">Điều khoản thanh toán<br><i class="hint">(Payment term):</i></td>
-				<td>{{$data['payment_term']}}</td>
-			</tr>
-			<tr>
-				<td class="text-left">Địa chỉ giao hàng<br><i class="hint">(Deliver to):</i></td>
-				<td>{{$data['deliver_to']}}</td>
-			</tr>
-			<tr>
-				<td class="text-left">Thời gian giao hàng dự kiến<br><i class="hint">(Scheduled Delivery):  </i></td>
-				<td>{{$data['schedule']}}</td>
-			</tr>
-			<tr>
-				<td class="text-left">Xuất hóa đơn cho<br><i class="hint">(Invoice to):</i></td>
-				<td>{{$data['invoice_to']}}</td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="row">
+	<div class="row" style="margin-bottom: 30px">
+		<table class="table invoice-term">
+			<tbody>
+				<tr>
+					<td class="text-left">Điều khoản thanh toán<br><i class="hint">(Payment term):</i></td>
+					<td>{{$data['payment_term']}}</td>
+				</tr>
+				<tr>
+					<td class="text-left">Địa chỉ giao hàng<br><i class="hint">(Deliver to):</i></td>
+					<td>{{$data['deliver_to']}}</td>
+				</tr>
+				<tr>
+					<td class="text-left">Thời gian giao hàng dự kiến<br><i class="hint">(Scheduled Delivery):  </i></td>
+					<td>{{$data['schedule']}}</td>
+				</tr>
+				<tr>
+					<td class="text-left">Xuất hóa đơn cho<br><i class="hint">(Invoice to):</i></td>
+					<td>{{$data['invoice_to']}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="row" style="margin-bottom: 30px">
 		<div class="col-xs-3 text-center">
 			<strong>Người lập phiếu</strong><br><i class="hint">(Prepared by)</i><br><br>
 			{{$data['prepared_by']}}

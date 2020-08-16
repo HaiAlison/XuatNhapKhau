@@ -59,7 +59,7 @@ class InvoiceController extends Controller
 			$sub = PaymentOversea::where('po_no_id',$request->po_no_id)->get();
 			break;
 			
-			default:
+			default: $sub = [];
 			break;
 		}
 		$output = '<option selected>Select Sub PO.</option>';	
@@ -85,7 +85,7 @@ class InvoiceController extends Controller
 		$detail = PaymentLocal::where([['type_of_service',$type],['sub_po_no_id',$request->sub_po]])->first();
 		$data = array(
 			'po_date' => $detail->po_date,
-			'incoterm' => $detail->incoterms_id,
+			'incoterm' => $detail->incoterm->incoterms,
 			'pol' => $detail->pols->pod_name,
 			'pr_no' => $detail->pr_no,
 			'eta' => $detail->eta,

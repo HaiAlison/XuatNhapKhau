@@ -28,7 +28,10 @@ class PackingController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:packings',
+            'packing' => 'required',
+        ]);
         Packing::create($request->except('_token'));
         return redirect()->route('admin.packing')->with('success','Create success!');
     }
@@ -66,5 +69,28 @@ class PackingController extends Controller
     {
         $idTable = Packing::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = Packing::onlyTrashed()->get();
+        $title = 'Packing';
+        $name= 'packing';
+        $del = 'ok';
+        $back = route('admin.packing');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = Packing::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.packing')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = Packing::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

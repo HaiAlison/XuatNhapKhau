@@ -39,7 +39,10 @@ class WeightUnitController extends Controller
      */
     public function store(Request $request)
     {
-       
+       $this->validate($request,[
+            'id' => 'required|unique:weight_units',
+            'weight_unit' => 'required',
+        ]);
         WeightUnit::create($request->except('_token'));
         return redirect()->route('admin.weight-unit')->with('success','Create success!');
     }
@@ -95,5 +98,28 @@ class WeightUnitController extends Controller
     {
         $idTable = WeightUnit::findOrFail($id);
         $idTable->delete();
+        return back()->with('success','A row has been deleted!');
+    }
+    public function trash()   
+    {
+
+        $nameToForeach = WeightUnit::onlyTrashed()->get();
+        $title = 'Weight Unit';
+        $name= 'weight_unit';
+        $del = 'ok';
+        $back = route('admin.weight-unit');
+        return view('admin.show',compact('title','nameToForeach','name','del','back'));
+    }
+    public function restore($id)
+    {
+        $idTable = WeightUnit::withTrashed()->findOrFail($id);
+        $idTable->restore();
+        return redirect()->route('admin.weight-unit')->with('success','A row has been restored!');
+    }
+    public function force($id)
+    {
+         $idTable = WeightUnit::withTrashed()->findOrFail($id);
+        $idTable->forceDelete();
+        return back()->with('success','A row has been force delete!');
     }
 }

@@ -44,7 +44,8 @@
 
                     <label class="col-sm-4 col-form-label" for="Sub_PO_No.">Sub PO No.</label>
                     <div class="col-sm-8">
-                      <input type="text" name="sub_po_id" id="sub_po_id" class="form-control form-control-sm" placeholder="">
+                    <input type="hidden" class="form-control form-control-sm " value="{{auth()->user()->id}}" name="user_id" >
+                      <input type="text" name="id" id="sub_po_id" class="form-control form-control-sm" placeholder="">
                     </div>
                     <label class="col-sm-4 col-form-label" for="SeleContractNo">Sale Contract No</label>
                     <div class="col-sm-8">
@@ -76,16 +77,30 @@
                     </div>
                     <label class="col-sm-4 col-form-label" for="ShipmentStatus">Shipment status</label>
                     <div class="col-sm-8">
-                      <input type="text" name="shipment_status_id" class="form-control form-control-sm" id="shipment_status_id" placeholder="">
+                      <select name="shipment_status_id" class="form-control form-control-sm" id="shipment_status_id" >
+                        @if(isset($shipmentStatus))
+                        @foreach($shipmentStatus as $pod)
+                        <option value="{{$pod->id}}">{{$pod->shipment_status}}</option>
+                        @endforeach
+                        @endif
+                      </select>
                     </div>
 
                     <label class="text-primary col-sm-4 col-form-label" for="Incoterms">Incoterms</label>
                     <div class="col-sm-8">
-                      <input type="text" name="incoterms_id" class="form-control form-control-sm" id="incoterms_id" placeholder="" 
+                      <input type="text" class="form-control form-control-sm" id="incoterms_id" placeholder="" 
                       @if(isset($incotermList))
                       @foreach($incotermList as $incoterm)
                       @if(isset($order)&& $order->incoterm_id==$incoterm->id)
                       value="{{$incoterm->incoterms}}" 
+                      @endif 
+                      @endforeach
+                      @endif readonly />
+                      <input type="hidden" name="incoterms_id" id="incoterms_id" placeholder="" 
+                      @if(isset($incotermList))
+                      @foreach($incotermList as $incoterm)
+                      @if(isset($order)&& $order->incoterm_id==$incoterm->id)
+                      value="{{$incoterm->id}}" 
                       @endif 
                       @endforeach
                       @endif readonly />
