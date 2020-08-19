@@ -10,12 +10,14 @@
 	<meta name="author" content="">
 
 	<title>@isset($title)
-            {{ $title }} | 
-        @endisset
-        {{ config('app.name') }}</title>
+		{{ $title }} | 
+		@endisset
+	{{ config('app.name') }}</title>
 	<base href="{{asset('./')}}">
 	<!-- Custom fonts for this template-->
 	<link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+	<!-- datatables -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<!-- Custom styles -->
@@ -107,8 +109,8 @@
 				<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Login Screens:</h6>
-						<a class="collapse-item" href="login.html"><b>Purchase orders</b></a>
-						<a class="collapse-item" href="register.html"><b>Order details</b></a>
+						<a class="collapse-item" href="{{ route('admin.order') }}"><b>Purchase orders</b></a>
+						<a class="collapse-item" href="{{ route('admin.order-detail') }}"><b>Order details</b></a>
 						<a class="collapse-item" href="forgot-password.html"><b>Shipments</b></a>
 						<a class="collapse-item" href="forgot-password.html"><b>Shipment details</b></a>
 						<div class="collapse-divider"></div>
@@ -160,17 +162,7 @@
 						<i class="fa fa-bars"></i>
 					</button>
 
-					<!-- Topbar Search -->
-					<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group">
-							<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="button">
-									<i class="fas fa-search fa-sm"></i>
-								</button>
-							</div>
-						</div>
-					</form>
+					
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
@@ -195,113 +187,9 @@
 							</div>
 						</li>
 
-						<!-- Nav Item - Alerts -->
-						<li class="nav-item dropdown no-arrow mx-1">
-							<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-bell fa-fw"></i>
-								<!-- Counter - Alerts -->
-								<span class="badge badge-danger badge-counter">3+</span>
-							</a>
-							<!-- Dropdown - Alerts -->
-							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-								<h6 class="dropdown-header">
-									Alerts Center
-								</h6>
-								<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-									<div class="mr-3">
-										<div class="icon-circle bg-primary">
-											<i class="fas fa-file-alt text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">December 12, 2019</div>
-										<span class="font-weight-bold">A new monthly report is ready to download!</span>
-									</div>
-								</a>
-								<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-									<div class="mr-3">
-										<div class="icon-circle bg-success">
-											<i class="fas fa-donate text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">December 7, 2019</div>
-										$290.29 has been deposited into your account!
-									</div>
-								</a>
-								<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-									<div class="mr-3">
-										<div class="icon-circle bg-warning">
-											<i class="fas fa-exclamation-triangle text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">December 2, 2019</div>
-										Spending Alert: We've noticed unusually high spending for your account.
-									</div>
-								</a>
-								<a class="dropdown-item text-center small text-gray-500" href="javascript:void(0);">Show All Alerts</a>
-							</div>
-						</li>
+						
 
-						<!-- Nav Item - Messages -->
-						<li class="nav-item dropdown no-arrow mx-1">
-							<a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-envelope fa-fw"></i>
-								<!-- Counter - Messages -->
-								<span class="badge badge-danger badge-counter">7</span>
-							</a>
-							<!-- Dropdown - Messages -->
-							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-								<h6 class="dropdown-header">
-									Message Center
-								</h6>
-								<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-										<div class="status-indicator bg-success"></div>
-									</div>
-									<div class="font-weight-bold">
-										<div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-										<div class="small text-gray-500">Emily Fowler · 58m</div>
-									</div>
-								</a>
-								<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-										<div class="status-indicator"></div>
-									</div>
-									<div>
-										<div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-										<div class="small text-gray-500">Jae Chun · 1d</div>
-									</div>
-								</a>
-								<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-										<div class="status-indicator bg-warning"></div>
-									</div>
-									<div>
-										<div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-										<div class="small text-gray-500">Morgan Alvarez · 2d</div>
-									</div>
-								</a>
-								<a class="dropdown-item d-flex align-items-center" href="javascript:void(0);">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-										<div class="status-indicator bg-success"></div>
-									</div>
-									<div>
-										<div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-										<div class="small text-gray-500">Chicken the Dog · 2w</div>
-									</div>
-								</a>
-								<a class="dropdown-item text-center small text-gray-500" href="javascript:void(0);">Read More Messages</a>
-							</div>
-						</li>
-
-						<div class="topbar-divider d-none d-sm-block"></div>
-
+					
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -402,9 +290,34 @@
 <!-- Custom scripts for all pages-->
 <script src="{{asset('assets/js/sb-admin-2.min.js')}}"></script>
 
+<!-- datatables	 -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
 <!-- hide alert -->
 <script>
 	$('#div').delay(3000).fadeOut('slow');
+	$(".date").each(function(){
+		var date = new Date($(this).text());
+		var d = String(date.getDate()).padStart(2, '0');;
+		
+		var y = date.getFullYear();
+		var month=new Array();
+		month[0]="Jan";
+		month[1]="Feb";
+		month[2]="Mar";
+		month[3]="Apr";
+		month[4]="May";
+		month[5]="Jun";
+		month[6]="Jul";
+		month[7]="Aug";
+		month[8]="Sep";
+		month[9]="Oct";
+		month[10]="Nov";
+		month[11]="Dec";
+		var m = month[date.getMonth()];
+		$(this).html(m+'/'+d+'/'+y);
+	})
+	
 </script>
 @yield('script')
 </body>

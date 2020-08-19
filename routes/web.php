@@ -44,10 +44,10 @@ Route::middleware('auth')->group(function(){
 			Route::get('edit-payment-local/{po_no}/{sub_po}/{type_service}','User\PaymentLocalController@edit')->name('edit-payment-local');
 			Route::post('edit-payment-local/{po_no}/{sub_po}/{type_service}','User\PaymentLocalController@update')->name('update-payment-local');
 
-			Route::get('/payment-overseas','User\PaymentOverseaController@create')->name('payment-overseas');
-			Route::post('/show-payment-overseas','User\PaymentOverseaController@show')->name('show-payment-overseas');
-			Route::get('/export','User\PaymentOverseaContrller@export')->name('export');
-			Route::get('/create-payment-overseas/{po_no_id}/{sub_po_id}','User\PaymentOverseaController@create_id')->name('create-payment-overseas');
+			// Route::get('/payment-overseas','User\PaymentOverseaController@create')->name('payment-overseas');
+			// Route::post('/show-payment-overseas','User\PaymentOverseaController@show')->name('show-payment-overseas');
+			// Route::get('/export','User\PaymentOverseaContrller@export')->name('export');
+			// Route::get('/create-payment-overseas/{po_no_id}/{sub_po_id}','User\PaymentOverseaController@create_id')->name('create-payment-overseas');
 
 			
 			Route::get('excel','User\PaymentLocalController@export')->name('excel');
@@ -305,7 +305,13 @@ Route::middleware('admin')->group(function(){
 			Route::get('/account/{role}','Admin\AccountController@show')->name('show-account');
 
 
-			Route::get('restore','Admin\RestoreController@index')->name('restore');
+
+			Route::get('order','Admin\PurchaseOrderController@index')->name('order');
+			Route::get('show-order/{id}','Admin\PurchaseOrderController@show')->name('show-order');
+			Route::get('editt-order/{id}','Admin\PurchaseOrderController@edit')->name('edit-order');
+			Route::post('editt-order/{id}','Admin\PurchaseOrderController@update')->name('update-order');
+
+			Route::get('order-detail','Admin\OrderDetailController@index')->name('order-detail');
 		});
 });
 });
