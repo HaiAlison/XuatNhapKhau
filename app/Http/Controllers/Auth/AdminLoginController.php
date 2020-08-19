@@ -48,6 +48,8 @@ class AdminLoginController extends Controller
         $local = PaymentLocal::selectRaw('count(id) as number')->first();
         $oversea = PaymentOversea::selectRaw('count(id) as number')->first();
         $payment = $local->number + $oversea->number;
-        return view('admin.dashboard',compact('account','orders','shipments','payment'));
+        $month = array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+        $order = Order::selectRaw("count(id) as count, ANY_VALUE(month(po_date)) as month")->whereYear('po_date','2020')->groupBy("month")->get()->toArray();
+        return view('admin.dashboard',compact('account','orders','shipments','payment'))->with('month',json_encode($month,JSON_NUMERIC_CHECK))->with('order',json_encode($order,JSON_NUMERIC_CHECK));
     }
 }

@@ -9,8 +9,12 @@ class TypeOfShipmentDetail extends Model
 {
 	use SoftDeletes;
     protected $fillable = [
-    			'id','number_container','container_size_id','payload','freight_target','dthc_target','cic_target',
+    			'number_container','container_size_id','payload','freight_target','dthc_target','cic_target','id',
     ];
     protected $primaryKey = 'id';
 	protected $keyType = 'string';
+	public function containerSize()
+	{
+  		return $this->belongsTo('App\ContainerSize');
+	}
 }

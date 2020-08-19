@@ -75,5 +75,57 @@
 			</div>
 		</div>
 	</div>
+	
 </div>
-@endsection
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+	var month = <?php echo $month ?>;
+	order =  <?php echo $order;?>;
+	var m = {'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0};
+	for (var i = 0; i < order.length; i++) {
+		m[order[i].month] = order[i].count;
+	}
+	
+	var values = Object.values(m);
+	var barChartData = {
+		labels: month,
+		datasets: [{
+			label: 'Order',
+			backgroundColor: "rgba(220,220,220,0.5)",
+			data: values
+		}]
+	};
+	window.onload = function() {
+		var ctx = document.getElementById("canvas").getContext("2d");
+		window.myBar = new Chart(ctx, {
+			type: 'bar',
+			data: barChartData,
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				},
+				elements: {
+					rectangle: {
+						borderWidth: 2,
+						borderColor: 'rgb(0, 255, 0)',
+						borderSkipped: 'bottom'
+					}
+				},
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Yearly Purchase Orders'
+				}
+			}
+		});
+
+
+	};
+</script>
+<canvas id="canvas" height="280" width="600"></canvas>
+@stop

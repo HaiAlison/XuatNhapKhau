@@ -132,18 +132,14 @@
                     <input type="hidden" value="0" class="form-check-input" name="inspection_required" >
                     <label class="form-check-label" for="inspection_required">Inspection required</label>
                   </div>
-
-
-
                 </div>
               </div>
-
               <div class="col-lg-6 col-md-6">
                 <div class="form-group row">
                   <label for="inputEmail3" class="col-sm-4 col-form-label">Type of shipment</label>
                   <div class="col-sm-8">
                     <select class="form-control form-control-sm" id="type_of_shipment" name="type_of_shipment" onchange="select()">
-                      <option value="vessle">Vessle</option>
+                      <option value="vessel">Vessel</option>
                       <option  value="container" >Container</option>
                     </select>
                   </div>
@@ -538,6 +534,7 @@
       }
 
     }
+    //calculate amount
     $( document ).ready(function() {
       $(".cal-amount").on('keyup',function(){
         var net = 0, price = 0;

@@ -72,6 +72,10 @@ class Order extends Model
     {
       return $this->belongsTo('App\POD','pol');
     }
+    public function user()
+    {
+      return $this->belongsTo('App\User','user_id');
+    }
 
 
 }

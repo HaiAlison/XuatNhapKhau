@@ -128,7 +128,7 @@ class OrderController extends Controller
 
 
         ]);
-        if($request->type_of_shipment == 'vessle'){
+        if($request->type_of_shipment == 'vessel'){
 
             Order::create($request->except('_token'));
 
