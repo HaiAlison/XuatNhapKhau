@@ -32,7 +32,10 @@
 	<!-- Fontawesome -->
 	<link href="{{asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
-	<title>StartP - IT Startups and Digital Services HTML Template</title>
+	<title>@isset($title)
+		{{ $title }} | 
+		@endisset
+	StartP</title>
 
 	<link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
 	@yield('css')
@@ -83,7 +86,7 @@
 
 							<li class="nav-item"><a href="#" class="nav-link">Payment<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
 								<ul class="dropdown_menu">
-									<li class="nav-item"><a href="#" class="nav-link">Payment Overseas </a>
+									<li class="nav-item"><a href="{{ route('user.payment-overseas') }}" class="nav-link">Payment Overseas </a>
 									</li>
 
 									<li class="nav-item"><a href=" {{ route('user.payment-local') }}" class="nav-link">Payment Local </a>
@@ -312,6 +315,34 @@
 	<script>
 		$('.alert').delay(3000).fadeOut('slow');
 		$('.text-danger').delay(3000).fadeOut('slow');
+		
+		function number_format(num){
+			return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+		}
+		//calculate amount
+		$( document ).ready(function() {
+			$(".cal-amount").on('keyup',function(){
+				var net = 0, price = 0;
+				var amount = $(this).find($("input[id*='total_amount']"));
+				$(this).find($("input[id*='net_weight']")).each(function(k,v){
+					id = $(this).attr('id');
+
+					net = parseFloat(v.value);
+					console.log(net);
+					return false;
+				})
+				$(this).find($("input[id*='price']")).each(function(k,v){
+					id = $(this).attr('id');
+
+					price = parseFloat(v.value);
+					console.log(price);
+
+					amount.attr('value',net*price);
+					return false;
+				})
+				
+			});
+		})
 	</script>
 </body>
 </html>

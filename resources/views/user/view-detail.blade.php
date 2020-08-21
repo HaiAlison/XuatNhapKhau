@@ -2,88 +2,90 @@
 @section('content')
 <section class="checkout-area ptb-80">
   <div class="container">
-    @if(isset($local))
-    <form action="{{ route('user.show-payment-local') }} " method="post">
-      @else
-      <form action="{{ route('user.show-view-detail') }} " method="post"> 
-        @endif
-        @csrf
-        <div class="form-group">
-          <div class="col-lg-12 col-md-12">
-            <div class="billing-details">
-              <h3 class="title" style="text-align: left;">
-                @isset($title)
-                {{ $title }}
-              @endisset</h3>
-              <div class="row">
-                <div class="col-lg-6 col-md-12">
-                  <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">PO No.</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{ old('id') }}" placeholder="">
-                    </div>
-                    <label for="SubpoNo" class="col-sm-4 col-form-label">Sub PO No.</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control form-control-sm" name="id_shipment" id="SubpoNo" placeholder="">
-                    </div>
-                    <button class="btn btn-light">Show</button><br>
-                    
+   <!-- Export excel file-->
+   @if(isset($local))
+   @include('user.form-view.export-excel')
+   @endif
+   @if(isset($local))
+   <form action="{{ route('user.show-payment-local') }} " method="post">
+    @else
+    <form action="{{ route('user.show-view-detail') }} " method="post"> 
+      @endif
+      @csrf
+      <div class="form-group">
+        <div class="col-lg-12 col-md-12">
+          <div class="billing-details">
+            <h3 class="title" style="text-align: left;">
+              @isset($title)
+              {{ $title }}
+            @endisset</h3>
+            <div class="row">
+              <div class="col-lg-6 col-md-12">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">PO No.</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{ old('id') }}" placeholder="">
                   </div>
+                  <label for="SubpoNo" class="col-sm-4 col-form-label">Sub PO No.</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control form-control-sm" name="id_shipment" id="SubpoNo" placeholder="">
+                  </div>
+                  <button class="btn btn-light">Show</button><br>
 
                 </div>
+
               </div>
-              @if(session('error'))
-              <div class="alert alert-danger">{{session('error')}}</div>
-              @endif
             </div>
+            @if(session('error'))
+            <div class="alert alert-danger">{{session('error')}}</div>
+            @endif
           </div>
         </div>
-      </form>
-      <!-- Payment local content -->
-      @if(isset($purchaseOrder, $inputDetail))
-      @include('user.form-view.payment-local')
-      @endif
-      <!-- Edit Payment Local -->
-      @if(isset($editPaymentLocal))
-      @include('user.form-view.payment-local')
-      @endif
-      <!-- End of Payment local -->
+      </div>
+    </form>
 
-      <!-- Export file excel -->
-      @if(isset($local))
-      @include('user.form-view.export-excel')
-      @endif
-      <!-- View detail -->
-      @if(isset($order,$shipment))
-      @include('user.form-view.view-detail')
-      @endif
-      <!-- End of view detail -->
-    </div>
-  </section>
+    <!-- Payment local content -->
+    @if(isset($purchaseOrder, $inputDetail))
+    @include('user.form-view.payment-local')
+    @endif
+    <!-- Edit Payment Local -->
+    @if(isset($editPaymentLocal))
+    @include('user.form-view.payment-local')
+    @endif
+    <!-- End of Payment local -->
 
-  @endsection
-  @section('script')
-  <!-- Modal update or not  -->
-  <div class="modal fade" id="notify" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          This PO No./Sub PO No. was created type of service, do you want to update this changes?
-        </div>
-        <div class="modal-footer">
 
-        </div>
+    <!-- View detail -->
+    @if(isset($order,$shipment))
+    @include('user.form-view.view-detail')
+    @endif
+    <!-- End of view detail -->
+  </div>
+</section>
+
+@endsection
+@section('script')
+<!-- Modal update or not  -->
+<div class="modal fade" id="notify" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This PO No./Sub PO No. was created type of service, do you want to update this changes?
+      </div>
+      <div class="modal-footer">
+
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="{{ asset('assets/js/my-script.js') }}"></script>
-  <script type="text/javascript">
+</div>
+<script type="text/javascript" src="{{ asset('assets/js/my-script.js') }}"></script>
+<script type="text/javascript">
     // ajax lưu Payment local
     $(document).ready(function(){
       var frm = $(".frm");
@@ -117,7 +119,7 @@
         })
         e.preventDefault();
       })
-    })
+    });
 // -----------------------
 </script>
 @endsection

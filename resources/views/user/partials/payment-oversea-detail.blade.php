@@ -23,7 +23,7 @@ $fifth_date = date("m/d/Y",strtotime($detail->fifth_payment_date));
 	<input type="hidden" name="qty[]" value="{{$detail->qty}}">
 	<td>{{$unit_price}}</td>
 	<input type="hidden" name="unit_price[]" value="{{$detail->unit_price}}">
-	<td class="text-right" >{{$amount}}</td>
+	<td class="text-right" >{{number_format($amount,2,',','.')}}</td>
 	<input type="hidden" name="amount[]" value="{{$amount}}">
 </tr>
 <tr>
@@ -83,7 +83,7 @@ $fifth_date = date("m/d/Y",strtotime($detail->fifth_payment_date));
 </tr>
 <tr>
 	<td class="text-right" colspan="3" style="border: 0"><strong>Tổng tiền thanh toán </strong><i class="hint">(Total payment):</i></td>
-	<td class="text-right small-width">({{$detail->total_payment}})</td>
+	<td class="text-right small-width">{{number_format($detail->total_payment,2,',','.')}}</td>
 	<input type="hidden" name="total_amount" value="{{$detail->total_payment}}">
 </tr>
 @endif

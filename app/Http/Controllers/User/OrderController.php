@@ -105,8 +105,8 @@ class OrderController extends Controller
             'within_x_day' => 'required',
             'currency' => 'required',
             'marking' => 'required',
-            'net_weight' => 'required',
-            'price' => 'required',
+            'net_weight[]' => 'sometimes|required',
+            'price[]' => 'sometimes|required',
             'eta_request' => 'required',
         ],
         [ 'id.required' => 'The PO No. field cannot be null',
@@ -123,8 +123,8 @@ class OrderController extends Controller
             'currency.required' => 'The Currency field cannot be null',
             'net_weight.required' => 'The Net Weight field cannot be null',
             'marking.required' => 'The Marking field cannot be null',
-            'net_weight.required' => 'The Price field cannot be null',
-            'price.required' => 'The ETA field cannot be null',
+            'net_weight[].required' => 'The Price field cannot be null',
+            'price[].required' => 'The ETA field cannot be null',
 
 
         ]);
@@ -156,7 +156,7 @@ class OrderController extends Controller
         //save order-detail
         $id = $request->id;
         $req = collect ($request->product_code_id);
-        $filtered = $req->filter(function ($value, $key) {
+        $filtered = $req->filter(function ($value, $key) { //cái này là code cũ. vì hồi đó cứ ấn tab là thêm dòng, cho nên phải filter
             return $value != null;
                 });
         $request->merge(['product_code_id' => $filtered->all()]);

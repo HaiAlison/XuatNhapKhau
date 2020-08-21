@@ -82,7 +82,7 @@
 						</tr>
 						<tr>
 							<td>Ngày <i class="hint">(Date):</i></td>
-							<td >{{$data['date']}}</td>
+							<td >{{date('m/d/Y',strtotime($data['date']))}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -141,22 +141,22 @@
 			</tr>
 			@endif
 		</tbody>
-	</table>
+	</table><br>
 	<div class="row">
 		<div class="col-xs-6">
 			<table width="100%" style="width:100%" border="0">
 				<tbody>
 					<tr>
-						<td style="width: 35%;">Loại PO <i class="hint">(Type PO):</i></td>
-						<td style="text-align:left;"> {{$data['type_po']}}</td>
+						<td style="width: 35%;">Cảng đến<i class="hint">(POD):</i></td>
+						<td style="text-align:left;"> {{$data['pod']}}</td>
 					</tr>
 					<tr>
-						<td style="width: 35%;">Nhà cung cấp <i class="hint">(Supplier):</i></td>
-						<td style="text-align:left;"> {{$data['supplier']}}</td>
+						<td style="width: 35%;">Cảng đi<i class="hint">(POL):</i></td>
+						<td style="text-align:left;"> {{$data['pol']}}</td>
 					</tr>
 					<tr>
-						<td style="width: 35%;">Đối tác liên hệ <i class="hint">(Contact):</i></td>
-						<td style="text-align:left;"> {{$data['contact']}}</td>
+						<td style="width: 35%;">Chứng nhận xuất xứ <i class="hint">(Certificate of origin):</i></td>
+						<td style="text-align:left;"> {{$data['co']}}</td>
 					</tr>
 
 				</tbody>
@@ -167,26 +167,27 @@
 			<table style="width: 100%">
 				<tbody>
 					<tr>
-						<td>Ngày <i class="hint">(Date):</i></td>
+						<td>Quy tắc thương mại quốc tế <i class="hint">(Incoterms):</i></td>
+						<td >{{$data['incoterm']}}</td>
+					</tr>
+					<tr>
+						<td>Xuất xứ <i class="hint">(Origin):</i></td>
 						<td >{{$data['date']}}</td>
+					</tr>
+					<tr>
+						<td>Loại vận chuyển <i class="hint">(Type of shipment):</i></td>
+						<td >{{$data['type_of_shipment']}}</td>
 					</tr>
 				</tbody>
 			</table>
 
 			<div style="margin-bottom: 0px">&nbsp;</div>
 
-			<table style="width: 100%;">
-				<tbody>
-					<tr style="padding: 5px">
-						<td style="padding: 5px"><div> Điện thoại <i class="hint">(Tel)</i> </div></td>
-						<td style="padding: 5px" class="text-right">{{$data['tel']}}</td>
-					</tr>
-				</tbody>
-			</table>
+			
 		</div>
 	</div>
 	<hr>
-	<div class="row" style="margin-bottom: 30px">
+	<div class="row" style=" page-break-inside: avoid; margin-bottom: 30px ">
 		<table class="table invoice-term">
 			<tbody>
 				<tr>
@@ -199,7 +200,7 @@
 				</tr>
 				<tr>
 					<td class="text-left">Thời gian giao hàng dự kiến<br><i class="hint">(Scheduled Delivery):  </i></td>
-					<td>{{$data['schedule']}}</td>
+					<td>{{date('m/d/Y',strtotime($data['schedule']))}}</td>
 				</tr>
 				<tr>
 					<td class="text-left">Xuất hóa đơn cho<br><i class="hint">(Invoice to):</i></td>

@@ -86,12 +86,42 @@ class PurchaseOrderController extends Controller
     }
     public function update(Request $request,$id)
     {
+        $this->validate($request,[
+            'end_customer' => 'required',
+            'po_date' => 'required',
+            'hs_code' => 'required',
+            'number_container' => 'sometimes|required',
+            'payload' => 'sometimes|required',
+            'freight_target' => 'sometimes|required',
+            'cic_target' => 'sometimes|required',
+            'dthc_target' => 'sometimes|required',
+            'within_x_day' => 'required',
+            'currency' => 'required',
+            'marking' => 'required',
+            'eta_request' => 'required',
+        ],
+        [ 
+            'end_customer.required' => 'The End Customer field cannot be null',
+            'po_date.required' => 'The PO Date field cannot be null',
+            'hs_code.required' => 'The HS Code field cannot be null',
+            'number_container.required' => 'The Number Container field cannot be null',
+            'payload.required' => 'The Payload field cannot be null',
+            'freight_target.required' => 'The Freight field cannot be null',
+            'cic_target.required' => 'The CIC Target field cannot be null',
+            'dthc_target.required' => 'The DTHC field cannot be null',
+            'within_x_day.required' => 'The Within # day field cannot be null',
+            'currency.required' => 'The Currency field cannot be null',
+            'marking.required' => 'The Marking field cannot be null',
+
+
+        ]);
         $order = Order::find($id);
         $e = ['number_container','container_size_id','payload','freight_target','dthc_target','cic_target'];
         $input = $request->except($e);
-        $order->fill($input)->save();
-        $data = array_unshift($e, 'id');
+        $order->fill($input)->save();  // cập nhật order
+        $data = array_unshift($e, 'id'); //gán id vào mảng
         $container = $request->only($e);
+        // nếu container thì cập nhật hoặc tạo, còn là vessel thì xóa.
         if($request->type_of_shipment == 'container'){
             TypeOfShipmentDetail::updateOrCreate($container);
         }

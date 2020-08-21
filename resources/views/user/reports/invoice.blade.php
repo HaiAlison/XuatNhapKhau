@@ -203,7 +203,7 @@
 					<div class="row">
 						<label class="col-sm-5 ">Quy tắc thương mại quốc tế <i class="hint">(Incoterms):</i></label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control form-control-sm" id="incoterm" id="incoterm"  placeholder="">
+							<input type="text" class="form-control form-control-sm" name="incoterm" id="incoterm"  placeholder="">
 						</div>
 					</div>
 					<div class="row">

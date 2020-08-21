@@ -105,17 +105,17 @@
 
               <label class="col-sm-4 col-form-label">Number Container</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->number_container}}" disabled="disabled">
+                <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$typeOfShipmentDetail->number_container}}" disabled="disabled">
               </div>
 
               <label   class="col-sm-4 col-form-label">Container size</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->containerSize->container_size ?? ''}}" disabled="disabled">
+                <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$typeOfShipmentDetail->containerSize->container_size ?? ''}}" disabled="disabled">
               </div>
 
               <label   class="col-sm-4 col-form-label">Payload (MT/Cont)</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$shipment->payload}}" disabled="disabled">
+                <input type="text" class="form-control form-control-sm" name="id" id="poNo" value="{{$typeOfShipmentDetail->payload}}" disabled="disabled">
               </div>
 
               <label   class="col-sm-4 col-form-label">DEM/DET</label>
@@ -230,7 +230,7 @@
                   <td>{{$shipmentDetail->packing->packing}}</td>
                   <td>{{$shipmentDetail->weightUnit->weight_unit}}</td>
                   <td>{{$shipmentDetail->binding->binding}}</td>
-                  <td>{{$shipmentDetail->net_weight_id}}</td>
+                  <td>{{$shipmentDetail->net_weight}}</td>
                   <td>{{$shipmentDetail->price}}</td>
                   <td>{{$shipmentDetail->total_amount}}</td>
                 </tr>

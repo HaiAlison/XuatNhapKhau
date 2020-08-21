@@ -71,7 +71,7 @@
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="{{ route('admin.create-firstname') }}" >
-					<i class="fas fa-fw fa-cog"></i>
+					<i class="fas fa-user"></i>
 					<span>Create account</span>
 				</a>
 				
@@ -80,7 +80,7 @@
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-					<i class="fas fa-fw fa-wrench"></i>
+					<i class="fas fa-users"></i>
 					<span>Accounts</span>
 				</a>
 				<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -108,15 +108,12 @@
 				</a>
 				<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Login Screens:</h6>
+						<h6 class="collapse-header"></h6>
 						<a class="collapse-item" href="{{ route('admin.order') }}"><b>Purchase orders</b></a>
 						<a class="collapse-item" href="{{ route('admin.order-detail') }}"><b>Order details</b></a>
-						<a class="collapse-item" href="forgot-password.html"><b>Shipments</b></a>
-						<a class="collapse-item" href="forgot-password.html"><b>Shipment details</b></a>
+						<a class="collapse-item" href="{{ route('admin.shipment') }}"><b>Shipments</b></a>
+						<a class="collapse-item" href="{{ route('admin.shipment-detail') }}"><b>Shipment details</b></a>
 						<div class="collapse-divider"></div>
-						<h6 class="collapse-header">Other Pages:</h6>
-						<a class="collapse-item" href="404.html"><b>Payment overseas</b></a>
-						<a class="collapse-item" href="blank.html"><b>Payment local</b></a>
 					</div>
 				</div>
 			</li>
@@ -127,7 +124,7 @@
 			<li class="nav-item">
 				<a class="nav-link" href="{{ route('admin.tables') }}">
 					<i class="fas fa-fw fa-table"></i>
-					<span>Tables</span>
+					<span>Catalogs</span>
 				</a>
 			</li>
 
@@ -194,7 +191,7 @@
 						<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth('web')->user()->firstname}}</span>
-								<img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+								<img class="img-profile rounded-circle" src="https://img.icons8.com/dusk/64/000000/cat-profile.png">
 							</a>
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -317,7 +314,33 @@
 		var m = month[date.getMonth()];
 		$(this).html(m+'/'+d+'/'+y);
 	})
-	
+	//calculate amount
+    $( document ).ready(function() {
+      $(".cal-amount").on('keyup',function(){
+        var net = 0, price = 0;
+        var amount = $(this).find($("input[id*='total_amount']"));
+        $(this).find($("input[id*='net_weight']")).each(function(k,v){
+         id = $(this).attr('id');
+
+         net = parseFloat(v.value);
+         console.log(net);
+         return false;
+       })
+        $(this).find($("input[id*='price']")).each(function(k,v){
+         id = $(this).attr('id');
+
+         price = parseFloat(v.value);
+
+         amount.attr('value',number_format(net*price));
+         $("#total_amount_hidden").val(net*price);
+         return false;
+       })
+        
+      });
+    })
+    function number_format(num){
+			return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+		}
 </script>
 @yield('script')
 </body>

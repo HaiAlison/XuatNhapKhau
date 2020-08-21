@@ -5,8 +5,8 @@
 <div id="room" class="col-lg-12 mb-3 pt-3 pb-2">
   <div id="room" class="btn-toolbar mb-2 mb-md-0 float-right">
     <div class="btn-group mr-2">
-      <a href="javascript:;" id="edit" class="btn btn-sm btn-outline-secondary">
-        Edit
+      <a href="{!!url()->previous() !!}" id="edit" class="btn btn-sm btn-outline-secondary">
+        Back
       </a>
     </div>
     <div class="btn-group mr-2">
@@ -23,7 +23,7 @@
       <div class="form-group row">
         <label for="poNo" class="col-sm-4 col-form-label">PO No.</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control form-control-sm {!! ($errors->has('id') ? 'is-invalid' : '') !!}"  value="{{ $order->id }}" name="id" id="poNo" placeholder="">
+          <input type="text" class="form-control form-control-sm {!! ($errors->has('id') ? 'is-invalid' : '') !!}"  value="{{ $order->id }}" name="id" id="poNo" readonly >
           <input type="hidden" class="form-control form-control-sm " value="{{auth()->user()->id}}" name="user_id" >
           @if(count($errors)>0)
           <div class="text-danger text-left">

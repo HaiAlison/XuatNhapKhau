@@ -338,6 +338,7 @@
                         <div class="col-sm-12">
                           <input type="number" id="net_weight0" name="net_weight[]" step=".01" class="form-control form-control-md {!! ($errors->has('net_weight[]') ? 'is-invalid' : '' ) !!} " placeholder="" >
                         </div>
+                        
                       </td>
                       <td class="product-subtotal">
                         <div class="col-sm-12">
@@ -503,7 +504,7 @@
 
            price = parseFloat(v.value);
            console.log(price);
-           amount.attr('value',net+price);
+           amount.attr('value',net*price);
            return false;
          })
           
@@ -534,28 +535,7 @@
       }
 
     }
-    //calculate amount
-    $( document ).ready(function() {
-      $(".cal-amount").on('keyup',function(){
-        var net = 0, price = 0;
-        var amount = $(this).find($("input[id*='total_amount']"));
-        $(this).find($("input[id*='net_weight']")).each(function(k,v){
-         id = $(this).attr('id');
+    
 
-         net = parseFloat(v.value);
-         console.log(net);
-         return false;
-       })
-        $(this).find($("input[id*='price']")).each(function(k,v){
-         id = $(this).attr('id');
-
-         price = parseFloat(v.value);
-         console.log(price);
-         amount.attr('value',net+price);
-         return false;
-       })
-        
-      });
-    })
   </script>
   @endsection

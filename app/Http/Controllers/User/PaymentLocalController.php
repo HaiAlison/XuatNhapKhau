@@ -76,7 +76,7 @@ class PaymentLocalController extends Controller
         $x = PaymentLocal::whereBetween('po_date',[$s,$e])->get();
         $po_no = $x->unique('po_no_id'); 
         $sub_po = $x->unique('sub_po_no_id');
-        $po = '<label class="text-left"><input type="checkbox" id="checkAll"/> Choose all PO No.</label>';
+        $po = '<label class="text-left" for="checkAll"><input type="checkbox" id="checkAll"/> Choose all PO No.</label>';
         $sub = '<label class="text-left"><input type="checkbox" id="checkSubAll"/> Choose all Sub PO No.</label>';
         foreach ($po_no as $key => $row) {
             $po .= '<label data-for="'.$row->po_no_id.'" class="text-left"><input type="checkbox" class="po-checkbox"  value="'.$row->po_no_id.'" name="po_no'.$key.'" /> '.$row->po_no_id.'</label>';

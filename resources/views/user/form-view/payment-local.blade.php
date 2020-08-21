@@ -148,7 +148,8 @@
 
                 <label class="col-sm-4 col-form-label">Amount</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control form-control-sm" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->amount}}" @endif name="amount" id="amount" readonly>
+                  <input type="text" class="form-control form-control-sm" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->amount}}" @endif  id="amount" readonly>
+                  <input type="hidden" class="form-control form-control-sm" @if(isset($editPaymentLocal)) value="{{$editPaymentLocal->amount}}" @endif name="amount" id="amount_hidden" readonly>
                 </div>
 
                 <label class="col-sm-4 col-form-label">Due date</label>

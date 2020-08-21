@@ -44,10 +44,10 @@ Route::middleware('auth')->group(function(){
 			Route::get('edit-payment-local/{po_no}/{sub_po}/{type_service}','User\PaymentLocalController@edit')->name('edit-payment-local');
 			Route::post('edit-payment-local/{po_no}/{sub_po}/{type_service}','User\PaymentLocalController@update')->name('update-payment-local');
 
-			// Route::get('/payment-overseas','User\PaymentOverseaController@create')->name('payment-overseas');
-			// Route::post('/show-payment-overseas','User\PaymentOverseaController@show')->name('show-payment-overseas');
-			// Route::get('/export','User\PaymentOverseaContrller@export')->name('export');
-			// Route::get('/create-payment-overseas/{po_no_id}/{sub_po_id}','User\PaymentOverseaController@create_id')->name('create-payment-overseas');
+			Route::get('/payment-overseas','User\PaymentOverseaController@create')->name('payment-overseas');
+			Route::post('/show-payment-overseas','User\PaymentOverseaController@show')->name('show-payment-overseas');
+			Route::get('/export','User\PaymentOverseaController@export')->name('export');
+			Route::get('/create-payment-overseas/{po_no_id}/{sub_po_id}','User\PaymentOverseaController@create_id')->name('create-payment-overseas');
 
 			
 			Route::get('excel','User\PaymentLocalController@export')->name('excel');
@@ -312,6 +312,16 @@ Route::middleware('admin')->group(function(){
 			Route::post('editt-order/{id}','Admin\PurchaseOrderController@update')->name('update-order');
 
 			Route::get('order-detail','Admin\OrderDetailController@index')->name('order-detail');
+			Route::get('show-order-detail/{id}','Admin\OrderDetailController@show')->name('show-order-detail');
+			Route::post('editt-order-detail/{id}','Admin\OrderDetailController@update')->name('update-order-detail');
+
+
+			// shipment
+			Route::get('shipment','Admin\ShipmentController@index')->name('shipment');
+			Route::get('show-shipment/{po_no_id}/{id}','Admin\ShipmentController@show')->name('show-shipment');
+			Route::get('edit-shipment/{po_no_id}/{id}','Admin\ShipmentController@edit')->name('edit-shipment');
+			Route::post('edit-shipment/{po_no_id}/{id}','Admin\ShipmentController@update')->name('update-shipment');
+			Route::get('shipment-detail','Admin\ShipmentDetailController@index')->name('shipment-detail');
 		});
 });
 });

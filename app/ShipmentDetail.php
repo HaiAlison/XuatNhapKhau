@@ -3,14 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ShipmentDetail extends Model
 {
-	use SoftDeletes;
-    protected $primaryKey = 'id';
-	protected $keyType = 'string';
-
+	protected $fillable = [
+		'po_no_id','sub_po_no_id','product_code_id','packing_id','weight_unit_id','binding_id','net_weight','price','total_amount'
+	];
 	public function product()
 	{
 		return $this->belongsTo('App\Product','product_code_id');

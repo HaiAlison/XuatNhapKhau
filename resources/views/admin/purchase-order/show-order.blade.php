@@ -7,7 +7,7 @@
         Edit
       </a>
     </div>
-    <div class="btn-group mr-2">
+    <div class="btn-group mr-2 " style="display: none;">
       <a href="#" class="btn btn-sm btn-outline-secondary">
         Delete
       </a>
@@ -134,8 +134,5 @@
       </div>
     </div>
   </div>
-
-
-
 </form>
 @stop

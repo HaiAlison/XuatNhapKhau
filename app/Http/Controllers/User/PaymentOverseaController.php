@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Exports\excelExport;
 use Excel;
 use App\Shipment;
+use App\POD;
 use App\ShipmentDetail;
 use App\Order;
 use App\TypeOfShipmentDetailShipment;
@@ -31,11 +32,12 @@ class PaymentOverseaController extends Controller
      */
     public function create()
     {
-        $shipmentList = Cache::remember('shipment', 60, function () {
-            return Shipment::all();
+        $paymentOverseas = Cache::remember('paymentOverseas', 60, function () {
+            return PaymentOversea::all();
         });
-   
-    return view('user.payment-oversea',compact('shipmentList'));
+        $subs = Shipment::selectRaw('count(id) as id,ANY_VALUE(id) as sub')->orderBy('sub')->groupBy('sub')->get();
+        $pos = Shipment::selectRaw('count(id) ,ANY_VALUE(po_no_id) as po')->orderBy('po')->groupBy('po')->get();
+    return view('user.payment-oversea',compact('paymentOverseas','subs','pos'));
     }
 
     public function create_id($po_no_id, $sub_po_id)
@@ -45,12 +47,13 @@ class PaymentOverseaController extends Controller
         });
         
         $order= Order::where('id','=',$po_no_id)->first();
-        $paymentdetail= ShipmentDetail::where('sub_po_id','=',$sub_po_id)->where('po_no_id','=',$po_no_id)->first();
-        $typeofshipment= TypeOfShipmentDetailShipment::where('sub_po_id','=',$sub_po_id)->where('po_no_id','=',$po_no_id)->first();
+        $paymentdetail= ShipmentDetail::where('sub_po_no_id','=',$sub_po_id)->where('po_no_id','=',$po_no_id)->first();
+        $typeofshipment= TypeOfShipmentDetailShipment::where('id','=',$sub_po_id)->where('po_no_id','=',$po_no_id)->first();
+        $pol = POD::all(); 
         //dd($typeofshipment);
-        //$shipmentList = Shipment::select('po_no_id', 'sub_po_id')->get();
-        $payments= Shipment::where('sub_po_id','=',$sub_po_id)->where('po_no_id','=',$po_no_id)->first();
-        return view('user.payment-oversea',compact('shipmentList','payments','paymentdetail','order','typeofshipment'));
+        //$shipmentList = Shipment::select('po_no_id', 'sub_po_no_id')->get();
+        $payments= Shipment::where('id','=',$sub_po_id)->where('po_no_id','=',$po_no_id)->first();
+        return view('user.payment-oversea',compact('shipmentList','payments','paymentdetail','order','typeofshipment','pol'));
     }
     /**
      * Store a newly created resource in storage.
@@ -94,7 +97,7 @@ class PaymentOverseaController extends Controller
             else 
             {
                 Session::flash('error', 'Error');
-                return redirect()->route('user.create-payment-overseas',['po_no_id'=>$po_no_id,'sub_po_id'=>$sub_po_id]);
+                return redirect()->route('user.create-payment-overseas',['po_no_id'=>$po_no_id,'sub_po_no_id'=>$sub_po_id]);
             }
         }
        
@@ -135,10 +138,8 @@ class PaymentOverseaController extends Controller
         //
     }
     public function export(Request $request)
-    {
-        
-        
-            return Excel::download(new excelExport($request), 'excel.xlsx');
+    {      
+            return Excel::download(new excelExport($request), 'PaymentLocal'.time().'.xlsx');
         
     }
 }

@@ -117,7 +117,7 @@ class InvoiceController extends Controller
 			'origin' => $detail->origin->origin_name,
 			'pr_date' => $detail->pr_date,
 			'item_packing' => $detail->packing->packing,
-			'item_source' => $detail->item_source,
+			'item_source' => $detail->manufacturer->manufacturer_name,
 			'payment_term' => $detail->payment_term,
 			
 		);

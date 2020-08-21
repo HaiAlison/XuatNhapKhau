@@ -13,7 +13,7 @@ class Order extends Model
 
 
     protected $fillable = [
-              'id','po_date','user_id','po_status_id','origin_id','marking','manufacturer_id','supplier_id','pol','pod','incoterm_id','eta_request','end_customer','inspection_required','type_of_shipment','link_to_specs','hs_code','co_id','payment_term_id','within_x_day','currency','number_container',
+              'id','po_date','user_id','po_status_id','origin_id','marking','manufacturer_id','supplier_id','pol','pod','incoterm_id','eta_request','end_customer','inspection_required','type_of_shipment','link_to_specs','hs_code','co_id','payment_term_id','within_x_day','currency',
     ];
     	public function manufacturer()
   	{

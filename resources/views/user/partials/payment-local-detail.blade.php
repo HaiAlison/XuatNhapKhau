@@ -17,14 +17,14 @@ $others = $detail->other;
 <tr >
 	<td class="w-25" style="word-break: break-all;">{{$detail->item_name}}</td>
 	<input type="hidden" name="product[]" value="{{$detail->item_name}}">
-	<td>{{date("d/m/Y",strtotime($detail->bl_date))}}</td>
-	<input type="hidden" name="bl_date[]" value="{{date('d/m/Y',strtotime($detail->bl_date))}}">
-	<td>{{$detail->qty}}</td>
+	<td>{{$detail->item_name}}</td>
+	<input type="hidden" name="bl_date[]" value="{{date('m/d/Y',strtotime($detail->bl_date))}}">
+	<td>{{date('m/d/Y',strtotime($detail->bl_date))}}</td>
 	<input type="hidden" name="qty[]" value="{{$detail->qty}}">
-	<td>{{$detail->unit_price}}</td>
-	<input type="hidden" name="unit_price[]" value="{{$detail->unit_price}}">
-	<td class="text-right" >{{$amount}}</td>
-	<input type="hidden" name="amount[]" value="{{$amount}}">
+	<td>{{number_format($qty,2,',','.')}}</td>
+	<input type="hidden" name="unit_price[]" value="{{number_format($detail->unit_price,2,',','.')}}">
+	<td class="text-right" >{{number_format($amount,2,',','.')}}</td>
+	<input type="hidden" name="amount[]" value="{{number_format($amount,2,',','.')}}">
 </tr>
 @endif
 
@@ -40,18 +40,18 @@ $others = $detail->other;
 	<tr>
 		<td class="text-right" colspan="3" style="border: 0"><strong>Tổng tiền hàng trước thuế </strong><i class="hint">(Total amount before VAT):</i></td>
 
-		<td class="text-right small-width">{{$before_vat}}</td>
-		<input type="hidden" value="{{$before_vat}}" name="amout_before_vat">
+		<td class="text-right small-width">{{number_format($before_vat,2,',','.')}}</td>
+		<input type="hidden" value="{{number_format($before_vat,2,',','.')}}" name="amout_before_vat">
 	</tr>
 	<tr>
 		<td class="text-right" colspan="3" style="border: 0"><strong>Tổng tiền thuế VAT </strong><i class="hint">(Total amount VAT):</i></td>
-		<td class="text-right small-width">{{$amount_vat}}</td>
-		<input type="hidden" name="sum_vat" value="{{$amount_vat}}">
+		<td class="text-right small-width">{{number_format($amount_vat,2,',','.')}}</td>
+		<input type="hidden" name="sum_vat" value="{{number_format($amount_vat,2,',','.')}}">
 	</tr>
 	<tr>
 		<td class="text-right" colspan="3" style="border: 0"><strong>Tổng tiền thanh toán </strong><i class="hint">(Total amount):</i></td>
-		<td class="text-right small-width">{{$detail->amount}}</td>
-		<input type="hidden" name="total_amount" value="{{$detail->amount}}">
+		<td class="text-right small-width">{{number_format($detail->amount,2,',','.')}}</td>
+		<input type="hidden" name="total_amount" value="{{number_format($detail->amount,2,',','.')}}">
 	</tr>
 @endif
 
@@ -71,27 +71,27 @@ $others = $detail->other;
 <tr>
 	<td class="text-right" colspan="3" style="border: 0"><strong>Phụ phí THC </strong><i class="hint">(DTHC):</i></td>
 
-	<td class="text-right small-width">{{$dthc}}</td>
-	<input type="hidden" value="{{$dthc}}" name="dthc">
+	<td class="text-right small-width">{{number_format($dthc,2,',','.')}}</td>
+	<input type="hidden" value="{{number_format($dthc,2,',','.')}}" name="dthc">
 </tr>
 <tr>
 	<td class="text-right" colspan="3" style="border: 0"><strong>Phí cân bằng container </strong><i class="hint">(CIC):</i></td>
-	<td class="text-right small-width">{{$cic}}</td>
-	<input type="hidden" name="cic" value="{{$cic}}">
+	<td class="text-right small-width">{{number_format($cic,2,',','.')}}</td>
+	<input type="hidden" name="cic" value="{{number_format($cic,2,',','.')}}">
 </tr>
 <tr>
 	<td class="text-right" colspan="3" style="border: 0"><strong>Phí vệ sinh container </strong><i class="hint">(Cleaning):</i></td>
-	<td class="text-right small-width">{{$cleaning}}</td>
-	<input type="hidden" name="cleaning" value="{{$cleaning}}">
+	<td class="text-right small-width">{{number_format($cleaning,2,',','.')}}</td>
+	<input type="hidden" name="cleaning" value="{{number_format($cleaning,2,',','.')}}">
 </tr>
 <tr>
 	<td class="text-right" colspan="3" style="border: 0"><strong>Các phí khác</strong><i class="hint">(Others):</i></td>
-	<td class="text-right small-width">{{$others}}</td>
-	<input type="hidden" name="others" value="{{$others}}">
+	<td class="text-right small-width">{{number_format($others,2,',','.')}}</td>
+	<input type="hidden" name="others" value="{{number_format($others,2,',','.')}}">
 </tr>
 <tr>
 	<td class="text-right" colspan="3" style="border: 0"><strong>Tổng tiền phí địa phương </strong><i class="hint">(Total amount local charge):</i></td>
-	<td class="text-right small-width">{{$detail->amount}}</td>
-	<input type="hidden" name="total_amount" value="{{$detail->amount}}">
+	<td class="text-right small-width">{{number_format($detail->amount,2,',','.')}}</td>
+	<input type="hidden" name="total_amount" value="{{number_format($detail->amount,2,',','.')}}">
 </tr>
 @endif

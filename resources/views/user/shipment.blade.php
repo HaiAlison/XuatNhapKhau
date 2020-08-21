@@ -214,7 +214,7 @@
                           </tr>
                         </thead>
                         <tbody id="form_shipment_detail">
-                          <tr>
+                          <tr class="cal-amount">
                             <td class="product-thumbnail">
                               <select type="text" class="selectpicker" onchange="Shipmentdetail()" id="product_code_id"
                               name="product_code_id[]">
@@ -248,7 +248,7 @@
                             </td>
                             <td class="product-name">
                               <div class="col-sm-12">
-                                <input type="text" id="net_weight_id" name="net_weight_id[]" class="form-control form-control-md" disabled="disabled" placeholder="">
+                                <input type="text" id="net_weight_id" name="net_weight[]" class="form-control form-control-md" disabled="disabled" placeholder="">
                               </div>
                             </td>
                             <td class="product-name">
@@ -258,7 +258,7 @@
                             </td>
                             <td class="product-name">
                               <div class="col-sm-12">
-                                <input type="text" id="total_amount" name="total_amount[]" class="form-control form-control-md" disabled="disabled" placeholder="" onkeydown=" CheckKeyTab()">
+                                <input type="text" id="total_amount" name="total_amount[]" class="form-control form-control-md" disabled="disabled" placeholder="" >
                               </div>
                             </td>
                           </tr>
@@ -315,7 +315,7 @@ function CheckKeyTab() {
       <input type="text" class="changeId" name="binding_id[]"  id="binding_id0" disabled="disabled" readonly placeholder="">\
       </div>\
       <div class="col-2 title">\
-      <input type="text" class="changeId"  id="net_weight_id0" name="net_weight_id[]" disabled="disabled" placeholder="">\
+      <input type="text" class="changeId"  id="net_weight_id0" name="net_weight[]" disabled="disabled" placeholder="">\
       </div>\
       <div class="col-1 title">\
       <input type="text"  id="price0" name="price[]" class="changeId"  disabled="disabled" placeholder=""\

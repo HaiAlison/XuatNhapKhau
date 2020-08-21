@@ -36,7 +36,7 @@
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6" y2="6"></line><line x1="6" y1="18" x2="6" y2="18"></line></svg>
 			</div>
 			<h3>Purchase Order</h3>
-			<p>A purchase order (PO) is a commercial document and first official offer issued by a buyer to a seller indicating types, quantities, and agreed prices for products or services. It is used to control the purchasing of products and services from external suppliers</p>
+			<p>A purchase order (PO) is a commercial document and first official offer issued by a buyer to a seller indicating types, quantities, and agreed prices for products or services. It is used to control the purchasing of products and services from external suppliers <br><br></p>
 		</div>
 	</div>
 
@@ -46,7 +46,7 @@
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6" y2="6"></line><line x1="6" y1="18" x2="6" y2="18"></line></svg>
 			</div>
 			<h3>Purchase Order Shipments</h3>
-			<p>Use the Shipments window to enter multiple shipments for standard and planned purchase order lines and to edit shipments that Purchasing automatically created for you. A purchase order shipment specifies the quantity, ship-to organization and location, and date you want your supplier to deliver the items on a purchase order line.</p>
+			<p>Use the Shipments window to enter multiple shipments for standard and planned purchase order lines and to edit shipments that Purchasing automatically created for you. <br><br><br><br></p>
 		</div>
 	</div>
 
@@ -55,8 +55,8 @@
 			<div class="icon">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6" y2="6"></line><line x1="6" y1="18" x2="6" y2="18"></line></svg>
 			</div>
-			<h3></h3>
-			<p>Lorem ipsum dolor sit amet elit, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna.</p>
+			<h3>Payment Overseas</h3>
+			<p>Making an overseas payment requires you to pay money to an intermediary to handle your transfer — typically your local bank or a money transfer company. The provider you choose then converts your US dollars into the currency you’re sending overseas and transfers the money to your recipient.</p>
 		</div>
 	</div>
 
@@ -65,8 +65,8 @@
 			<div class="icon">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6" y2="6"></line><line x1="6" y1="18" x2="6" y2="18"></line></svg>
 			</div>
-			<h3>Access Controlled</h3>
-			<p>Lorem ipsum dolor sit amet elit, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna.</p>
+			<h3>Payment Local</h3>
+			<p>Local payment methods are payment methods popular in specific regions. For example, Boleto is a local payment method in South America, while AliPay is a local payment method of China.<br><br><br><br><br></p>
 		</div>
 	</div>
 </div>

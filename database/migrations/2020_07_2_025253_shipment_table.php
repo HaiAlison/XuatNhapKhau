@@ -34,10 +34,7 @@ class ShipmentTable extends Migration
             $table->foreign('incoterms_id')->references('id')->on('incoterms')->onDelete('cascade');
             $table->text('pod');
             $table->text('type_of_shipment');
-            $table->decimal('number_container',10,0);
-            $table->string('container_size');
-            $table->foreign('container_size')->references('id')->on('container_sizes')->onDelete('cascade');
-            $table->decimal('payload',10,2);
+           
             $table->text('dem_det');
             $table->decimal('freight_per_container',10,2);
             $table->text('dthc'); //save with json type

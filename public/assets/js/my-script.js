@@ -15,9 +15,10 @@ function calAmount (val){
 
       tax = parseFloat($(this).val());
       var result = unitPrice*qty*tax+unitPrice*qty*tax*0.1;
-      amount = $("#amount").val(result);
-    if($(this).val() === '')
-      amount = $("#amount").prop('value',0);
+      amount = $("#amount").val(number_format(result));
+      $("#amount_hidden").val(result);
+      if($(this).val() === '')
+        amount = $("#amount").prop('value',0);
     })
 
   }
@@ -39,7 +40,8 @@ function calAmount (val){
       if(idHead === 'other')
         other = parseFloat($(this).val());
       total = docs+(dthc+cic+cleaning+other)*cont;
-      amount = $("#amount").val(total);
+      amount = $("#amount").val(number_format(total));
+      $("#amount_hidden").val(total);
     })
 
    })
@@ -47,28 +49,29 @@ function calAmount (val){
   }
   else amount = $("#amount").prop("value",'0');
 }
-$("#checkAll").click(function () {
-  if ($("#checkAll").is(':checked')) {
-    $(".po-checkbox").prop("checked", true);
-  } else {
-    $(".po-checkbox").prop("checked", false);
-  }
-});
 
-$(".po-checkbox").click(function() {
+//check all po/sub
+$(document).on('click', '#checkAll',function () {
+    if ($(this).is(':checked')) {
+      $(".po-checkbox").prop("checked", true);
+    } else {
+      $(".po-checkbox").prop("checked", false);
+    }
+  });
+$(document).on('click', '.po-checkbox',function () {
       if (!$(this).prop("checked")) { //xài this để lấy  prop từng cái trong non arrow function
         $("#checkAll").prop("checked", false);
       }
     });
 
-$("#checkSubAll").click(function () {
-  if ($("#checkSubAll").is(':checked')) {
-    $(".sub-po-checkbox").prop("checked", true);
-  } else {
-    $(".sub-po-checkbox").prop("checked", false);
-  }
-});
-$(".sub-po-checkbox").click(function() {
+$(document).on('click', '#checkSubAll',function () {
+    if ($("#checkSubAll").is(':checked')) {
+      $(".sub-po-checkbox").prop("checked", true);
+    } else {
+      $(".sub-po-checkbox").prop("checked", false);
+    }
+  });
+$(document).on('click', '.sub-po-checkbox',function () {
       if (!$(this).prop("checked")) { //xài this để lấy  prop từng cái trong non arrow function
         $("#checkSubAll").prop("checked", false);
       }

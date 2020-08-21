@@ -9,12 +9,12 @@
 	<input type="hidden" name="weight_unit[]" value="{{$detail->weightUnit->weight_unit}}">
 	<td>{{$detail->binding->binding}}</td>
 	<input type="hidden" name="binding[]" value="{{$detail->binding->binding}}">
-	<td>{{$detail->net_weight}}</td>
-	<input type="hidden" name="net_weight[]" value="{{$detail->net_weight}}">
-	<td >{{$detail->price}}</td>
-	<input type="hidden"name="price[]" value="{{$detail->price}}">
-	<td class="text-right" >{{$detail->total_amount}}</td>
-	<input type="hidden" name="amount[]" value="{{$detail->total_amount}}">
+	<td>{{number_format($detail->net_weight,2,',','.')}}</td>
+	<input type="hidden" name="net_weight[]" value="{{number_format($detail->net_weight,2,',','.')}}">
+	<td >{{number_format($detail->price,2,',','.')}}</td>
+	<input type="hidden"name="price[]" value="{{number_format($detail->price,2,',','.')}}">
+	<td class="text-right" >{{number_format($detail->total_amount,2,',','.')}}</td>
+	<input type="hidden" name="amount[]" value="{{number_format($detail->total_amount,2,',','.')}}">
 </tr>
 @endforeach
 @endif

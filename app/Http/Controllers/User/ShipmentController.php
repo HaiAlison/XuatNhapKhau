@@ -66,7 +66,7 @@ class ShipmentController extends Controller
             return ShipmentStatus::all();
         });
         $order = Order::find($id);
-        $productList= OrderDetail::where('po_no_id','=',$id)->get();
+        $productList= OrderDetail::where('po_no_id',$id)->get();
         if($order->type_of_shipment === 'container')
         {
             $type= TypeOfShipmentDetail::find($id);
@@ -99,7 +99,7 @@ class ShipmentController extends Controller
     public function store(Request $request)
     {
         //shipment
-        if($request->type_of_shipment === 'vessle'){
+        if($request->type_of_shipment === 'vessel'){
 
             Shipment::create($request->except('_token'));
 
@@ -125,12 +125,12 @@ class ShipmentController extends Controller
         foreach ($request->product_code_id as $key => $value) {
             $data = array(
                       'po_no_id' =>$po_no_id,
-                      'sub_po_no_id'=> $sub_po_id,
+                      'sub_po_no_id' =>$sub_po_id,
                       'product_code_id'=>$request->product_code_id[$key],
                       'packing_id'=>$request->packing_id[$key],
                       'weight_unit_id'=>$request->weight_unit_id[$key],
                       'binding_id'=>$request->binding_id[$key],
-                      'net_weight'=>$request->net_weight_id[$key],
+                      'net_weight'=>$request->net_weight[$key],
                       'price'=>$request->price[$key],
                       'total_amount'=>$request->total_amount[$key]
                     );

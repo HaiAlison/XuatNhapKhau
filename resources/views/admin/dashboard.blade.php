@@ -75,9 +75,20 @@
 			</div>
 		</div>
 	</div>
-	
 </div>
-
+<div class="row">
+	<form class="form-inline col-md-6" role="form">
+		@csrf
+		<div class="form-group">
+			<label for="perPage">Select Year: &nbsp;</label>
+			<select id="year" class="form-control ">
+				@foreach($yearOrder as $y)
+				<option value="{{$y->po}}" @if($year == $y->po) selected @endif >{{$y->po}}</option>
+				@endforeach
+			</select>
+		</div>
+	</form>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 	var month = <?php echo $month ?>;
@@ -86,7 +97,7 @@
 	for (var i = 0; i < order.length; i++) {
 		m[order[i].month] = order[i].count;
 	}
-	
+
 	var values = Object.values(m);
 	var barChartData = {
 		labels: month,
@@ -128,4 +139,11 @@
 	};
 </script>
 <canvas id="canvas" height="280" width="600"></canvas>
+@stop
+@section('script')
+<script>
+	$("#year").on('change',function(){
+		window.location = "{!! url()->current() !!}?year="+this.value;
+	})
+</script>
 @stop

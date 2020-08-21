@@ -17,7 +17,7 @@ class PaymentOverseaExportController extends Controller implements FromCollectio
     $orders = PaymentOversea::all();
         foreach ($paymentOversea as $row) {
             $payment[] = array(
-                '0' => $row->sub_po_id,
+                '0' => $row->sub_po_no_id,
                 '1' => $row->po_date,
                 '2' => $row->item_name,
                 '3' => $row->item_packing,

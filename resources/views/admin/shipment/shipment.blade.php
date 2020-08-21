@@ -7,60 +7,65 @@ td { cursor: pointer;}</style>
 @stop
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-	<h2 class="h4">Purchase Order</h2> <div><User></User></div>
+	<h2 class="h4">Shipment</h2> <div><User></User></div>
 </div><br>
 
 <br>
-@if(isset($orders))
+@if(isset($shipments))
 <table  id="example" class="table table-striped table-bordered" style="width:100%">
 	<thead>
 		<tr>
 			<th>PO No.</th>
-			<th>PO Date</th>
-			<th>POD</th>
-			<th>POL</th>
-			<th>PO Status</th>
+            <th>Sub PO No.</th>
+			<th>BL Date</th>
+			<th>Type Of Shipment</th>
+			<th>Shipment Status</th>
 			<th>Staff</th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach($orders as $key => $order)
+		@foreach($shipments as $key => $shipment)
 		<tr>
-			<td>{{$order->id}}</td>
-			<td class="date">{{$order->po_date}}</td>
-			<td>{{$order->pods->pod_name}}</td>
-			<td>{{$order->pols->pod_name}}</td>
-			<td>{{$order->poStatus->po_status}}</td>
-			<td>{{$order->user->firstname}}</td>
+			<td>{{$shipment->po_no_id}}</td>
+            <td>{{$shipment->id}}</td>
+			<td class="date">{{$shipment->bl_date}}</td>
+			<td>{{$shipment->type_of_shipment}}</td>
+			<td>{{$shipment->ShipmentStatus->shipment_status}}</td>
+			<td>{{$shipment->user_id}}</td>
 		</tr>
 		@endforeach
 	</tbody>
 </table>
 
 
-@elseif(isset($orderDetails))
+@elseif(isset($shipmentDetails))
 <div class="row events">
-	<table  id="example" class="table table-striped table-bordered order-detail" style="width:100%">
+	<table  id="example" class="table table-striped table-bordered" style="width:100%">
 		<thead>
 			<tr>
-				<th>ID</th>
-				<th>PO No.</th>
 				<th>Product name</th>
-				<th>Net weight</th>
-				<th>Price</th>
+				<th>Packing</th>
+                <th>Weight unit</th>
+                <th>Binding</th>
+				<th>Net weight(MT)</th>
+				<th>Price/MT</th>
 				<th>Total amount</th>
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($orderDetails as $key => $order)
+			@foreach($shipmentDetails as $key => $order)
+           
 			<tr>
-				<td>{{$order->id}}</td>
-				<td>{{$order->po_no_id}}</td>
 				<td>{{$order->product->product}}</td>
-				<td>{{$order->net_weight}}</td>
+				<td>{{$order->product->product}}</td>
+				<td>{{$order->packing->packing}}</td>
+				<td>{{$order->binding->binding}}</td>
+                <td>{{$order->weightUnit->weight_unit}}</td>
+				<td>{{$order->net_weight_id}}</td>
 				<td>{{$order->price}}</td>
-				<td>{{number_format($order->total_amount,2,',','.')}}</td>
+				<td>{{$order->total_amount}}</td>
 			</tr>
+           
 			@endforeach
 		</tbody>
 	</table>
@@ -93,24 +98,20 @@ td { cursor: pointer;}</style>
     // onclick row
     $('#example tbody').on('click', 'tr', function () {
     	var data = table.row( this ).data();
-    	var hrf = "{{route('admin.show-order',':id')}}";
-    	hrf = hrf.replace(':id',data[0]);
+    	var hrf = "{{route('admin.show-shipment',[':po_no_id',':id'])}}";
+    	hrf = hrf.replace(':po_no_id',data[0]);
+        hrf = hrf.replace(':id',data[1]);
+        console.log(hrf);
     	window.location = hrf;
-    });
-    // onclick order detail
-    $('.order-detail tbody').on('click', 'tr', function () {
-    	var data = table.row( this ).data();
-    	var hrf = "{{route('admin.show-order-detail',':id')}}";
-    	hrf = hrf.replace(':id',data[0]);
-    	window.location = hrf;
-    });
+        
+    } );
 
     var table = $('#example').DataTable( {
     	lengthMenu: [ 10, 25, 50, 75, 100 ],
     	orderCellsTop: true,  
     	fixedHeader: true, 
-    });
-});
+    } );
+} );
 
 	// end datatable
 	

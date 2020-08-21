@@ -92,7 +92,7 @@
 						</tr>
 						<tr>
 							<td>Ngày <i class="hint">(Date):</i></td>
-							<td class="text-right">{{$data['date']}}</td>
+							<td class="text-right">{{date('m/d/Y',strtotime($data['date']))}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -224,19 +224,19 @@
 			</tr>
 			<tr>
 				<td class="text-left">Thời gian giao hàng dự kiến <br><i class="hint">(Scheduled Delivery):</i></td>
-				<td>{{$data['eta']}}</td>
+				<td>{{date('m/d/Y',strtotime($data['eta']))}}</td>
 			</tr>
 			<tr>
 				<td class="text-left">Ngày vận đơn <br><i class="hint">(B/L date):</i></td>
-				<td>{{$data['bl_date']}}</td>
+				<td>{{date('m/d/Y',strtotime($data['bl_date']))}}</td>
 			</tr>
 			<tr>
 				<td class="text-left">Ngày đáo hạn <br><i class="hint">(Due date):</i></td>
-				<td>{{$data['due_date']}}</td>
+				<td>{{date('m/d/Y',strtotime($data['due_date']))}}</td>
 			</tr>
 			<tr>
 				<td class="text-left">Ngày yêu cầu đặt hàng <br><i class="hint">(PR date):</i></td>
-				<td>{{$data['pr_date']}}</td>
+				<td>{{date('m/d/Y',strtotime($data['pr_date']))}}</td>
 			</tr>
 		</tbody>
 	</table>
